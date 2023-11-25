@@ -1,0 +1,16 @@
+.indexCell {
+    width: 35%;
+    height: 100%;
+    padding: 10px;
+}
+
+.indexContainer {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: space-between; /* Distribute space between items */
+}
+
+.indexValues {
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+}

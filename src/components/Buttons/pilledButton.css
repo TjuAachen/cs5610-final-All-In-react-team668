@@ -1,0 +1,13 @@
+.btn {
+
+    padding:6px 48px 6px 48px;
+  }
+
+  .btn-light {
+    background-color: #d3d3d3;
+
+  }
+
+  .btn-light:hover {
+    background-color: #bebebe;
+  }
