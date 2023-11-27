@@ -1,0 +1,182 @@
+/* .register_container {*/
+/*    width: 100%;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    position: absolute;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    !*padding: 4rem 0;*!*/
+
+/*}*/
+
+/*.container .logo {*/
+/*    width: 14rem;*/
+/*    margin-bottom: 1rem;*/
+/*}*/
+
+/*.container .heading {*/
+/*    font-size: 3rem;*/
+/*    font-weight: 700;*/
+/*    margin-bottom: 3rem;*/
+/*}*/
+
+/*.container .or_container {*/
+/*    display: table;*/
+/*    font-size: 1.6rem;*/
+/*    line-height: 2.4rem;*/
+/*    letter-spacing: 0.2rem;*/
+/*    !*color: white;*!*/
+/*    position: relative;*/
+/*    text-align: center;*/
+/*    width: 40rem;*/
+/*    margin: 2rem 0;*/
+/*}*/
+
+/*.container ::before {*/
+/*    border-top: 1px solid white;*/
+/*    content: "";*/
+/*    display: table-cell;*/
+/*    position: relative;*/
+/*    top: 0.8em;*/
+/*    width: 42%;*/
+/*}*/
+
+/*.container ::after {*/
+/*    border-top: 1px solid white;*/
+/*    content: "";*/
+/*    display: table-cell;*/
+/*    position: relative;*/
+/*    top: 0.8em;*/
+/*    width: 42%;*/
+/*}*/
+
+/*.form_container {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*}*/
+
+
+/*.form_container .form_heading {*/
+/*    font-size: 1.8rem;*/
+/*    line-height: 2.6rem;*/
+/*    text-align: center;*/
+/*    margin-top: 0;*/
+/*}*/
+
+/*.form_container .input_container {*/
+/*    width: 45rem;*/
+/*    margin: 0.5rem 0;*/
+
+/*}*/
+
+/*.form_container .date_of_birth_container {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    width: 45rem;*/
+/*    margin: 0.5rem 0;*/
+
+/*}*/
+
+
+/*.form_container .date_of_birth {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: space-between;*/
+/*    width: 100%;*/
+
+/*}*/
+
+/*.form_container.month {*/
+/*    width: 40%;*/
+/*}*/
+
+/*.form_container.date {*/
+/*    width: 20%;*/
+/*}*/
+
+/*.form_container.year {*/
+/*    width: 30%;*/
+/*}*/
+
+
+/*.checkbox_container {*/
+/*    !*width: 45rem;*!*/
+/*    margin: 1rem 0;*/
+/*}*/
+
+/*.terms_condition {*/
+/*    width: 45rem;*/
+/*    font-size: 1.2rem;*/
+/*    line-height: 1.8rem;*/
+/*    font-weight: 500;*/
+/*    text-align: center;*/
+/*    margin: 0.8rem 0;*/
+/*}*/
+
+
+/*.submit_btn_wrapper {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    width: 45rem;*/
+/*    margin: 1rem 0 1.5rem 0;*/
+/*} */
+
+.register-div {
+    height: 100vh;
+    width: 100%;
+}
+.register-window-div {
+    height: 100%;
+    z-index: 2;
+}
+.text-heading {
+    color: #5ac53b;
+    font-weight: bold;
+    padding: 0;
+}
+
+.register-control-input {
+    font: inherit;
+    background-color: lightgray;
+    border-radius: 4px;
+    border: 0px;
+    width: 20px;
+    text-align: left;
+    padding: 0.25rem;
+}
+.form-control {
+    background-color: #323644 !important;
+    /* background-color: gray !important; */
+    border: 0px !important;
+    color: white !important;
+}
+input[type=text]:focus {
+  border: 3px solid #555;
+}
+.already-have-account {
+    font-size: 1em;
+}
+.register-img-circle {
+    width: 100px;
+    left: 500px;
+    top: 120px;
+   
+}
+.register-img-band {
+    width: 100px;
+    right: 1200px;
+    bottom: -200px;
+    transform: rotate(-20deg);
+    z-index: 0;
+    opacity: 0.5;
+}
+
+.admin-control-input {
+    border-radius: 4px;
+    border: 0px;
+    width: 150px !important;
+    text-align: left;
+    padding: 0.2rem;
+}

@@ -26,7 +26,7 @@ function NavBar() {
                     <PilledButton buttonText="Log In" textColor="text-white" backgroundColor="btn-dark" />
                 </Link>
 
-                <Link to="/">
+                <Link to="/register">
                     <PilledButton buttonText="Sign Up" textColor="text-black" backgroundColor="btn-light" />
                 </Link>
 

@@ -3,6 +3,7 @@ import NavBar from "./components/NavBar"
 import Footer from "./components/Footer"
 import { Routes, Route, useNavigate } from "react-router";
 import Home from './pages/homePage/Home';
+import Register from './pages/userPages/Register';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         </div>
         <Routes>
             <Route path="/*" element={<Home />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
       </div>
       <div className="app_footer">
