@@ -14,18 +14,33 @@
   }
 
 
-
+  @media (max-width: 850px){
   .header_menuItems {
     margin-right: 48px;
+  }
+}
+
+@media (max-width: 850px){
+  .header_menuItems {
+    margin-right: 0px;
   }
 
   .header_menuItems a {
     font-weight: bold;
     color: black;
     text-decoration: none;
+    padding-left: 5px;
+  }
+}
+
+@media (min-width: 851px){
+  .header_menuItems a {
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
     padding: 0 20px;
   }
-  
+}
   .header_menuItems a:hover,
   .header_menuItems a:active {
     color: #5AC53B;

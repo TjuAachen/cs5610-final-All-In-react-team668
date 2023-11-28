@@ -1,8 +1,20 @@
 .indexCell {
-    width: 35%;
     height: 100%;
     padding: 10px;
 }
+
+
+@media (max-width: 1249px) {
+    .indexCell {
+      width: 350px;
+    }
+  }
+  
+  @media (min-width: 1250px)  {
+    .indexCell {
+      width: 35%;
+    }
+  }
 
 .indexContainer {
     display: flex;
