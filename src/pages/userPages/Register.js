@@ -102,6 +102,7 @@ const Register = () => {
   return (
     <div>
       <div className={`register-window-div`}>
+      <h1 className="text-heading fw-bold">Create a new account</h1>
         <div className={`row w-100 p-0 m-0 d-flex align-items-center`}>
           <label htmlFor="userName" className="text-heading">
             UserName

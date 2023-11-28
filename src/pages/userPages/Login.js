@@ -1,5 +1,5 @@
-import {useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { loginThunk } from "../../services/users/users-thunks";
 // import {cleanSearchReducer} from "../reducers/search-reducer";
@@ -16,9 +16,9 @@ const Login = () => {
 
   useEffect(() => {
     if (!localStorage.getItem("currentUser")) {
-    //   dispatch(cleanSearchReducer());
+      //   dispatch(cleanSearchReducer());
     }
-    }, []);
+  }, []);
 
   const handleLogin = async () => {
     setShowLoginError(false);
@@ -43,94 +43,94 @@ const Login = () => {
 
   return (
     <div className="position-relative">
-      <div className="p-5 row w-100 p-0 ms-5">
+      <div className="row w-100 p-0 ms-5">
         {/* <div
           className="register-window-div col-9 col-md-7 col-lg-6 col-xl-5 xxl-5 mt-5"
         > */}
-          {/* <div className="mt-5"> */}
-            <div className="mt-5">
-              <h1 className="text-heading fw-bold">Welcome Back!</h1>
-              {showLoginError && (
-                <div
-                  className="position-absolute d-flex justify-content-center"
-                >
-                  <h5 className="text-danger">Authentication failed!</h5>
-                </div>
-              )}
-              <div className="mt-5">
-                <label
-                  htmlFor="login-userName"
-                  className="mt-2 text-heading fw-bold mb-2"
-                >
-                  UserName
-                </label>
-                <input
-                  id="login-userName"
-                  name="userName"
-                  placeholder="Enter your userName"
-                  value={userName}
-                  onChange={(e) => {
-                    setUserName(e.target.value);
-                  }}
-                  type="text"
-                  required={true}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      handleLogin();
-                    }
-                  }}
-                  className="form-control"
-                />
-              </div>
-
-              <div className="mt-3">
-                <label
-                  htmlFor="login-password"
-                  className="mt-2 text-heading fw-bold mb-2"
-                >
-                  Password
-                </label>
-                <input
-                  id="login-password"
-                  name="password"
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
-                  type="password"
-                  required={true}
-                  className="form-control"
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      handleLogin();
-                    }
-                  }}
-                />
-              </div>
-
-              <div className="mt-5 d-flex justify-content-center ">
-                <button
-                  type="button"
-                  onClick={handleLogin}
-                  className="btn btn-bg-color text-white fw-bold"
-                >
-                  Login
-                </button>
-              </div>
-              <div
-                className="mt-5 d-flex justify-content-center already-have-account text-muted"
-              >
-                <p>
-                  Don't have an account?{" "}
-                  <Link to="/register" style={{ textDecoration: "none" }}>
-                    {" "}
-                    Register
-                  </Link>
-                </p>
-              </div>
+        {/* <div className="mt-5"> */}
+        <div >
+          <h1 className="text-heading fw-bold">Welcome Back!</h1>
+          {showLoginError && (
+            <div
+              className="position-absolute d-flex justify-content-center"
+            >
+              <h5 className="text-danger">Authentication failed!</h5>
             </div>
-          {/* </div> */}
+          )}
+          <div className="mt-0">
+            <label
+              htmlFor="login-userName"
+              className="mt-2 text-heading fw-bold mb-2"
+            >
+              UserName
+            </label>
+            <input
+              id="login-userName"
+              name="userName"
+              placeholder="Enter your userName"
+              value={userName}
+              onChange={(e) => {
+                setUserName(e.target.value);
+              }}
+              type="text"
+              required={true}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleLogin();
+                }
+              }}
+              className="form-control"
+            />
+          </div>
+
+          <div className="mt-3">
+            <label
+              htmlFor="login-password"
+              className="mt-2 text-heading fw-bold mb-2"
+            >
+              Password
+            </label>
+            <input
+              id="login-password"
+              name="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              type="password"
+              required={true}
+              className="form-control"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleLogin();
+                }
+              }}
+            />
+          </div>
+
+          <div className="mt-5 d-flex justify-content-center ">
+            <button
+              type="button"
+              onClick={handleLogin}
+              className="btn btn-bg-color text-white fw-bold"
+            >
+              Login
+            </button>
+          </div>
+          <div
+            className="mt-5 d-flex justify-content-center already-have-account text-muted"
+          >
+            <p>
+              Don't have an account?{" "}
+              <Link to="/register" style={{ textDecoration: "none" }}>
+                {" "}
+                Register
+              </Link>
+            </p>
+          </div>
+        </div>
+        {/* </div> */}
         {/* </div> */}
       </div>
       {/* <div className="position-absolute login-img-band">
