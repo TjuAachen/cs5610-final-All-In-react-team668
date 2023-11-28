@@ -146,12 +146,12 @@
     text-align: left;
     padding: 0.25rem;
 }
-.form-control {
-    background-color: #323644 !important;
+/* .form-control { */
+    /* background-color: #323644 !important; */
     /* background-color: gray !important; */
-    border: 0px !important;
+    /* border: 0px !important;
     color: white !important;
-}
+} */
 input[type=text]:focus {
   border: 3px solid #555;
 }
