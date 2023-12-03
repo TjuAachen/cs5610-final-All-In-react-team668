@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import Register from "./pages/userPages/Register";
 import Login from "./pages/userPages/Login";
 import Profile from "./pages/userPages/Profile";
-import Premium from "./components/Profile/Premium.js";
+import Premium from "./pages/userPages/Premium";
 import { Routes, Route, useNavigate } from "react-router";
 import Home from "./pages/homePage/Home";
 

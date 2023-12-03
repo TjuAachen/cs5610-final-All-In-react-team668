@@ -1,0 +1,211 @@
+
+.premum-bg {
+    width: 95%;
+}
+
+/* PlanSelection */
+.premuim-plan-div {
+    /* height: 500px; */
+    width: 100%;
+    background-color: #8ADAB2;
+    border-radius: 30px;
+    padding: 20px;
+    padding-bottom: 0px;
+}
+
+.premium-plan-card {
+    width: 100%;
+}
+
+.plan-title, .plan-details h4, .plan-note {
+    padding-top: 10px;
+    text-align: center;
+    color:  #0D5C63;
+    font-weight: bold;
+}
+
+.plan-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.plan-details {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    padding: 10px;
+}
+
+.plan-note {
+    grid-column: 1 / -1; /* Make note span all columns */
+    color: #DF826C; /* Highlight color for notes */
+}
+
+.select-btn {
+    background-color: #005F73; /* Complementary color for the button */
+    border: none;
+    border-radius: 6px;
+    padding: 5px 10px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer; /* To indicate it's clickable */
+}
+
+/* PremiumFunction Styles */
+.premium-function-div {
+    padding: 20px;
+    border-radius: 30px;
+    height: 500px;
+}
+
+.premium-title {
+    padding-top: 10px;
+    /* text-align: center; */
+    color:  #0D5C63;
+    font-weight: bold;
+}
+
+.premium-function-card {
+    color: #0D5C63; /* Harmonized text color */
+}
+
+.title-section {
+    /* padding-top: 10px; */
+    text-align: center;
+    color:  #0D5C63;
+    /* font-weight: bold; */
+}
+
+.icon-vip {
+    color: #FFC900; /* Highlight color */
+    size: 20px;
+}
+
+.premium-function-text {
+    margin-top: 20px;
+    font-size: 1.1em;
+}
+
+.feature-list {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 20px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.icon-check {
+    color: #005F73; /* Complementary color for icons */
+}
+
+/* payment Styles */
+.payment-div {
+    background-color: #F3F4F6; /* Light background for clarity */
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .payment-card {
+    width: 100%;
+    max-width: 500px; /* Restricting maximum width for better layout */
+    text-align: center;
+  }
+  
+  .billing-title {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .payment-icons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .icon-secure {
+    color: #28A745; /* Success color */
+  }
+  
+  .icon-money {
+    color: #007BFF; /* Primary color */
+  }
+  
+  .total-amount {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .payment-buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+  }
+  
+  .btn-checkout, .btn-not-now {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .btn-checkout {
+    background-color: #DC3545; /* Danger color for checkout */
+    color: white;
+  }
+  
+  .btn-not-now {
+    background-color: #6C757D; /* Secondary color */
+    color: white;
+  }
+
+  /* Unsubscribe Styles */
+  .unsubscribe-div {
+    background-color: #F3F4F6; /* Light background for clarity */
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px; /* Additional spacing from previous components */
+  }
+  
+  .unsubscribe-card {
+    width: 100%;
+    max-width: 600px; /* Restricting maximum width for better layout */
+    text-align: center;
+  }
+  
+  .unsubscribe-card h1 {
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .unsubscribe-card p {
+    color: #666;
+    line-height: 1.5;
+  }
+  
+  .btn-unsubscribe {
+    background-color: #DC3545; /* Danger color for unsubscribe */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 20px;
+  }
