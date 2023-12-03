@@ -1,6 +1,5 @@
 import React from "react";
 import "./index.css";
-import { AiFillCheckCircle } from "react-icons/ai";
 import { RiVipDiamondFill } from "react-icons/ri";
 
 const PremiumFunction = () => {
