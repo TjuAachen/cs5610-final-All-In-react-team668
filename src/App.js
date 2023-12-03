@@ -5,6 +5,8 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Register from "./pages/userPages/Register";
 import Login from "./pages/userPages/Login";
+import Profile from "./pages/userPages/Profile";
+import Premium from "./components/Profile/Premium.js";
 import { Routes, Route, useNavigate } from "react-router";
 import Home from "./pages/homePage/Home";
 
@@ -26,6 +28,9 @@ function App() {
             <Route path="/*" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:uid" element={<Profile />} />
+            <Route path="/premium" element={<Premium />} />
           </Routes>
         </div>
         <div className="app_footer">

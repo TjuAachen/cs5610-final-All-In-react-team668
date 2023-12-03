@@ -1,0 +1,61 @@
+.premium-bg {
+    height: 40%;
+    width: 95%;
+}
+
+.no-decoration {
+    text-decoration: none;
+    color: inherit;
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+
+.go-premium {
+  color:gray;
+}
+.go-premium:hover {
+  color:orange;
+}
+
+.profile-image {
+  width: 100px;  
+  height: 100px; 
+  border-radius: 50%; 
+  object-fit: cover; 
+  margin: 10px 0; /* Adds margin above and below the image */
+
+}
+
+.label-text-color {
+  color: #5ac53b; 
+}
+
+.btn-bg-color {
+  background-color: #5ac53b; 
+}
+
+.bannerContainer {
+  margin: 20px;
+  padding: 20px;
+}
+.input-field {
+  margin-bottom: 15px; 
+}
+
+.form-group {
+  margin-bottom: 20px; 
+}
+
+.button-group {
+  display: flex;
+  gap: 10px; 
+  margin-top: 20px; 
+}
+
+.row-container {
+  display: flex; /* Enables Flexbox */
+  align-items: center; /* Vertically aligns items in the middle */
+  gap: 10px; /* Adds space between the icon and the text */
+}

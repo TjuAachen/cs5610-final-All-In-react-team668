@@ -56,7 +56,14 @@ function NavBar() {
         <div className="d-flex">
           {currentUser && (
             <h5 className="text-success fw-bold text-nowrap m-0 pt-2">
-              Hi {currentUser.userName}
+              Hi
+              <span
+              onClick={() => {
+                navigate(`/profile/${currentUser._id}`);
+              }}
+            >
+              {currentUser.userName}
+            </span>
             </h5>
           )}
 

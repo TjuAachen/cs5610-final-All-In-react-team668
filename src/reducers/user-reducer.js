@@ -34,9 +34,10 @@ const usersSlice = createSlice({
     [findUserByIdThunk.fulfilled]: (state, action) => {
       state.currentUser = action.payload;
     },
-    [findCurrentUserThunk.fulfilled]: (state, action) => {
-      state.currentUser = action.payload;
-    },
+    // [findCurrentUserThunk.fulfilled]: (state, action) => {
+    //   console.log("findCurrentUserThunk.fulfilled", action.payload);
+    //   state.currentUser = action.payload;
+    // },
     [loginThunk.fulfilled]: (state, action) => {
       state.currentUser = action.payload;
     },
