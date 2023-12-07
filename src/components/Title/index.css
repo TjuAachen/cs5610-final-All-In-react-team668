@@ -1,0 +1,25 @@
+.app_container {
+    background-color: white;
+    padding-top: 36px;
+    display: grid;
+    place-items: center;
+    color: black;
+    z-index: 50;
+  }
+
+  .title {
+    font-weight: bold;
+    font-size: 45px;
+    color: black; /* Adjust the color for the title */
+  }
+  
+  .subtitle {
+    font-size: 18px;
+    color: #777; /* Grey color for the subtitle */
+    margin-top: 10px; /* Adjust margin-top for spacing */
+  }
+  
+  .underline-text {
+    color: #5AC53B; /* Apply underline to the text within this span */
+  }
+  

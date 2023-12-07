@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loginThunk } from "../../services/users/users-thunks";
 // import {cleanSearchReducer} from "../reducers/search-reducer";
 import "./Login_styles.css";
+import Title from "../../components/Title";
 
 
 const Login = () => {
@@ -41,7 +42,8 @@ const Login = () => {
     }
   };
 
-  return (
+  return <>
+    <Title />
     <div className="position-relative">
       <div className="row w-100 p-0 ms-5">
         {/* <div
@@ -137,7 +139,7 @@ const Login = () => {
         <img src="/images/welcome-2.avif" height={"800px"} width={"800px"} />
       </div> */}
     </div>
-  );
+  </>
 };
 
 export default Login;

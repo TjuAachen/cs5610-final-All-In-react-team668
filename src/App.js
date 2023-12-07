@@ -9,8 +9,10 @@ import Profile from "./pages/userPages/Profile";
 import Premium from "./pages/userPages/Premium";
 import { Routes, Route, useNavigate } from "react-router";
 import Home from "./pages/homePage/Home";
+import Search from "./pages/searchPages/index.js";
 
 function App() {
+  
   return (
     <Provider store={store}>
       <div className="app">
@@ -18,12 +20,12 @@ function App() {
           <NavBar />
         </div>
         <div className="app_body">
-          <div className="app_container">
+          {/*<div className="app_container">
             <p className="title">All-In</p>
             <p className="subtitle">
               Search stocks <span className="underline-text">All-In</span> here
             </p>
-          </div>
+  </div>*/}
           <Routes>
             <Route path="/*" element={<Home />} />
             <Route path="/register" element={<Register />} />
@@ -31,6 +33,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/:uid" element={<Profile />} />
             <Route path="/premium" element={<Premium />} />
+            <Route path="/search" element={<Search />} />
           </Routes>
         </div>
         <div className="app_footer">

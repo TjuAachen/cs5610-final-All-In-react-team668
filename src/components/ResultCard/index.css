@@ -1,0 +1,34 @@
+.wd-card {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.wd-card-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.wd-card-img-custom {
+    height: 150px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.wd-card-container {
+    position: relative;
+}
+
+
+
+.wd-link {
+    color: inherit;
+    text-decoration: none;
+}
+.wd-link:hover {
+    color: inherit;
+    text-decoration: underline;
+}
