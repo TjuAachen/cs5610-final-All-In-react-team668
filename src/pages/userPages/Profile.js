@@ -43,16 +43,15 @@ const Profile = () => {
 
   return (
     <div className="profile-page">
-        <h1 className="profile-title">profile</h1>
       <div className="profile-content">
-          <ProfileMiddle
+          {profile && (<ProfileMiddle
           className="profile-middle"
             isSelf={uid ? false : true}
             isLogin={loginUser ? true : false}
-          />
+          />)}
           <ProfileRight 
           className="profile-right"
-          isSelf={uid ? true : false} />
+          isSelf={uid ? false : true} />
       </div>
     </div>
   );

@@ -36,10 +36,6 @@
   background-color: #5ac53b; 
 }
 
-.bannerContainer {
-  margin: 20px;
-  padding: 20px;
-}
 .input-field {
   margin-bottom: 15px; 
 }
@@ -58,4 +54,108 @@
   display: flex; /* Enables Flexbox */
   align-items: center; /* Vertically aligns items in the middle */
   gap: 10px; /* Adds space between the icon and the text */
+}
+
+/* Base Styles */
+.banner-container {
+  padding: 20px;
+  background-color: #f5f5f5; /* Light grey background */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px; /* Spacing between elements */
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover; /* Ensures images are not stretched */
+  border: 3px solid #007bff; /* Blue border for avatar */
+}
+
+.username {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #333; /* Dark text for better readability */
+}
+
+/* Edit and View Profile Styles */
+.edit-profile, .view-profile {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Spacing between form elements */
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input-group label {
+  width: 80px; /* Fixed width for labels */
+  color: #ff9800; /* Orange text for labels */
+  font-weight: 500;
+}
+
+.input-group .form-control {
+  width: calc(100% - 90px); /* Full width minus label width */
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc; /* Light grey border */
+}
+
+.file-upload {
+  display: none;
+}
+
+.btn-save, .btn-cancel, .btn-edit {
+  padding: 8px 15px;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer; /* Cursor change to indicate clickable */
+}
+
+.btn-save {
+  background-color: #5ac53b; /* Green background */
+  color: white;
+}
+
+.btn-cancel {
+  background-color: #dc3545; /* Red background */
+  color: white;
+}
+
+.btn-edit {
+  background-color: #5ac53b; /* Yellow background */
+  color: white;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .profile-section {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .input-group {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .input-group label {
+    margin-bottom: 5px;
+  }
+
+  .input-group .form-control {
+    width: 100%;
+  }
 }

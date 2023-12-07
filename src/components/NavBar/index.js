@@ -59,7 +59,7 @@ function NavBar() {
               Hi
               <span
               onClick={() => {
-                navigate(`/profile/${currentUser._id}`);
+                navigate(`/profile`);
               }}
             >
               {currentUser.userName}

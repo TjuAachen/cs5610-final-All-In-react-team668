@@ -7,9 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import { updateFolloweeThunk } from "../../services/thunks/follow-thunk";
 import { updateProfile } from "../../reducers/profile-reducer";
 import { MdAddAPhoto } from "react-icons/md";
-import img from "../../images/profile-avatar.jpeg"
-import logo from '../../images/profile-avatar.jpeg';
-
+import profileAvatar from "../../images/profile-avatar.jpeg";
 // import FollowUserGuest from "./FollowUserGuest";
 // import {
 //   ref,
@@ -29,6 +27,7 @@ const ProfileBanner = () => {
   const [show, setShow] = useState(false);
   const target = useRef(null);
   let { currentProfile } = useSelector((state) => state.profile);
+  console.log("currentProfile", currentProfile);
   const { currentUser } = useSelector((state) => state.user);
   if (!currentProfile) {
     currentProfile = { email: null, img: null };
@@ -38,72 +37,74 @@ const ProfileBanner = () => {
     currentUser ? currentUser.cellphone : null
   );
   const [url, setUrl] = useState(
-    currentUser ? currentUser.img : "../../images/profile-avatar.jpeg",
+    currentUser ? currentUser.img : profileAvatar
   );
+  console.log("get current user", currentUser)
+
   const [avatarFile, setAvatarFile] = useState(null);
 
-//   const checkIsFollow = async (loginUser, targetUser) => {
-//     const res = await findFolloweeIds(loginUser);
-//     if (res.length === 0) return;
-//     const followeeList = res[0].followeeList;
-//     const index = followeeList.indexOf(targetUser);
-//     setHasFollow(index === -1 ? false : true);
-//   };
+  // const checkIsFollow = async (loginUser, targetUser) => {
+  //   const res = await findFolloweeIds(loginUser);
+  //   if (res.length === 0) return;
+  //   const followeeList = res[0].followeeList;
+  //   const index = followeeList.indexOf(targetUser);
+  //   setHasFollow(index === -1 ? false : true);
+  // };
 
-//   const handleFollow = () => {
-//     if (!currentUser) {
-//       setShow(!show);
-//       return;
-//     }
-//     setHasFollow(!hasFollow);
-//     dispatch(
-//       updateFolloweeThunk({
-//         user: currentUser._id,
-//         followId: uid,
-//       })
-//     );
-//   };
+  // const handleFollow = () => {
+  //   if (!currentUser) {
+  //     setShow(!show);
+  //     return;
+  //   }
+  //   setHasFollow(!hasFollow);
+  //   dispatch(
+  //     updateFolloweeThunk({
+  //       user: currentUser._id,
+  //       followId: uid,
+  //     })
+  //   );
+  // };
 
-//   const handleUploadFirebase = (file) => {
-//     if (!file) {
-//       return;
-//     }
-//     removeImageFromFirebase(currentProfile.img, defaultFile);
-//     const storageRef = ref(
-//       storage,
-//       `/files/${file.name + currentUser._id + "profile"}`
-//     );
-//     // progress can be paused and resumed. It also exposes progress updates.
-//     // Receives the storage reference and the file to upload.
-//     const uploadTask = uploadBytesResumable(storageRef, file);
+  // const handleUploadFirebase = (file) => {
+  //   if (!file) {
+  //     return;
+  //   }
+  //   removeImageFromFirebase(currentProfile.img, defaultFile);
+  //   const storageRef = ref(
+  //     storage,
+  //     `/files/${file.name + currentUser._id + "profile"}`
+  //   );
+  //   // progress can be paused and resumed. It also exposes progress updates.
+  //   // Receives the storage reference and the file to upload.
+  //   const uploadTask = uploadBytesResumable(storageRef, file);
 
-//     uploadTask.on(
-//       "state_changed",
-//       (snapshot) => {
-//         const percent = Math.round(
-//           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-//         );
-//       },
-//       (err) => console.log(err),
-//       () => {
-//         // download url
-//         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-//           setUrl(url);
-//           dispatch(
-//             updateUserNonAdminThunk({
-//               ...currentUser,
-//               _id: currentUser._id,
-//               email: email === "" ? currentUser.email : email,
-//               cellphone: phone === "" ? currentUser.cellphone : phone,
-//               img: url,
-//             })
-//           );
-//         });
-//       }
-//     );
-//   };
+  //   uploadTask.on(
+  //     "state_changed",
+  //     (snapshot) => {
+  //       const percent = Math.round(
+  //         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+  //       );
+  //     },
+  //     (err) => console.log(err),
+  //     () => {
+  //       // download url
+  //       getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+  //         setUrl(url);
+  //         dispatch(
+  //           updateUserNonAdminThunk({
+  //             ...currentUser,
+  //             _id: currentUser._id,
+  //             email: email === "" ? currentUser.email : email,
+  //             cellphone: phone === "" ? currentUser.cellphone : phone,
+  //             img: url,
+  //           })
+  //         );
+  //       });
+  //     }
+  //   );
+  // };
 
-const handleSubmit = () => {
+  const handleSubmit = () => {
     let newEmail = email;
     let newPhone = phone;
     if (email === "") {
@@ -154,8 +155,6 @@ const handleSubmit = () => {
     setUrl(currentProfile.img);
     setPhone(currentProfile.cellphone);
   };
-  console.log("get uid:", uid);
-  console.log("get url", url);
 
   useEffect(() => {
     if (!currentUser && !uid) return;
@@ -165,73 +164,148 @@ const handleSubmit = () => {
     // );
   }, [uid]);
 
-    return (
-        <div>  
-            <div className="bannerContainer">
-            {(uid || currentUser) && (
-            <>
-              <img
-                // src={uid ? currentProfile.img : url}
-                src={logo}
-                width="100px"
-                height="100px"
-                className="profile-image"
-              />
-              <h5 className="form-group">
-                {currentProfile.userName}
-              </h5>
-            </>
+  return (
+    <div className="banner-container">
+    {currentProfile && (
+      <div className="profile-section">
+        {(uid || currentUser) && (
+          <>
+            <img
+              src={profileAvatar}
+              alt="Profile Avatar"
+              className="avatar"
+            />
+            <h5 className="username">
+              {currentProfile.userName}
+            </h5>
+          </>
+        )}
+  
+        {currentUser && !uid && (
+          <>
+            {isEdit ? (
+              <div className="edit-profile">
+                <div className="input-group email-input">
+                  <label htmlFor="profile-email" className="label-email">Email</label>
+                  <input
+                    className="form-control"
+                    id="profile-email"
+                    name="email"
+                    type="text"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="input-group phone-input">
+                  <label htmlFor="profile-phone" className="label-phone">Phone</label>
+                  <input
+                    className="form-control"
+                    id="profile-phone"
+                    name="phone"
+                    type="text"
+                    placeholder="Phone"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </div>
+                <div className="avatar-cover"></div>
+                <MdAddAPhoto
+                  className="avatar-icon"
+                  size={30}
+                  onClick={handleImgClick}
+                />
+                <input
+                  id="upload-banner"
+                  type="file"
+                  ref={hiddenFileInput}
+                  onChange={handleImgChange}
+                  className="file-upload"
+                />
+                <button
+                  className="btn btn-save fw-bold"
+                  onClick={() => handleSubmit()}
+                >
+                  Save
+                </button>
+                <button
+                  className="btn btn-cancel fw-bold"
+                  onClick={() => handleCancel()}
+                >
+                  Cancel
+                </button>
+              </div>
+            ) : (
+              <div className="view-profile">
+                <p className="email-text">
+                  {currentProfile.email}
+                </p>
+                <p className="phone-text">
+                  {currentProfile.cellphone}
+                </p>
+                <button
+                  className="btn btn-edit fw-bold"
+                  onClick={() => setIsEdit(true)}
+                >
+                  Edit Profile
+                </button>
+              </div>
+            )}
+          </>
+        )}
+
+  
+          {/* {!uid && !currentUser && (
+            <div className={``}>
+              <FollowUserGuest />
+            </div>
           )}
 
-            <div className="form-group">
-                <label htmlFor={`profile-email`} className="label-text-color">
-                    Email
-                </label>
-                <input
-                    className="form-control input-field"
-                    id={"profile-email"}
-                    name={"email"}
-                    type="text"
-                    placeholder={"Email"}
-                    value={email}
-                    onChange={(e) => {
-                    setEmail(e.target.value);
-                    }}
-                />
-            </div>
-            <div className="form-group">
-            <label htmlFor={`profile-phone`} className="label-text-color">
-                Phone
-            </label>
-            <input
-                className="form-control input-field"
-                id={"profile-phone"}
-                name={"phone"}
-                type="text"
-                placeholder={"Phone"}
-                value={phone}
-                onChange={(e) => {
-                setPhone(e.target.value);
-                }}
-            />
-            </div>      
-            <div className="button-group">
-                <button
-                    className="btn btn-bg-color border"
-                    onClick={() => handleSubmit()}
+          {uid && !hasFollow && (
+            <div className={``}>
+              <button
+                className={`btn btn-muted border border-warning position-absolute edit-position text-black`}
+                onClick={() => handleFollow()}
+              >
+                + Follow
+              </button>
+              {show && (
+                <div
+                  className={`profile-banner-toolkit-div position-absolute rounded-3`}
+                >
+                  <h5 className={`text-black fw-bold m-2`}>Explore friends!</h5>
+                  <div
+                    className={`mt-3 mb-1 d-flex justify-content-center align-items-center`}
                   >
-                    Save
-                  </button>
-                  <button
-                    className={`btn btn-warning border`}
-                    onClick={() => handleCancel()}
-                  >
-                    Cancel
-                  </button>
+                    <button
+                      className={`btn btn-light p-1`}
+                      onClick={() => navigate("/login")}
+                    >
+                      Log in
+                    </button>
+                    <p
+                      className={`text-muted mb-0 ms-3 not-now`}
+                      onClick={() => setShow(false)}
+                    >
+                      Not Now
+                    </p>
                   </div>
+                </div>
+              )}
             </div>
+          )}
+          {uid && hasFollow && (
+            <button
+              className={`btn btn-muted border border-warning position-absolute edit-position text-black`}
+              onClick={() => handleFollow()}
+            >
+              + UnFollow
+            </button>
+          )} */}
         </div>
-    );
+      )}
+    </div>
+  );
 };
 
 export default ProfileBanner;
