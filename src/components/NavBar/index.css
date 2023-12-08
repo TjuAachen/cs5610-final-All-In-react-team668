@@ -45,3 +45,7 @@
   .header_menuItems a:active {
     color: #5AC53B;
   }
+
+  span.header_menuItems {
+    color: #5AC53B;
+  }

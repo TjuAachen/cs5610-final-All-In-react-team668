@@ -11,14 +11,13 @@ const addedStocksSlice = createSlice({
 
     deleteAddedStock(state, action) {
       // delete the stock from addedStocks
-      const ticker = action.payload;
+      const {ticker} = action.payload;
       state.addedStocks = state.addedStocks.filter(
         (stock) => stock.ticker !== ticker
       );
     },
 
     addStock(state, action) {
-      const { _id, ticker } = action.payload;
       state.addedStocks = [...state.addedStocks, action.payload];
     },
   },

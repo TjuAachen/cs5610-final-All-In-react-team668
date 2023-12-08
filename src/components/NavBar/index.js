@@ -24,9 +24,15 @@ function NavBar() {
       <div className="header_logo">
         <img src={Logo} width={45} />
         <div className="header_menuItems">
+        <Link to="/">
           <a href="/">Home</a>
-          <a href="/">Search</a>
-          <a href="/">About</a>
+        </Link>
+        <Link to="/search">
+          <a href="/search">Search</a>
+        </Link>
+        <Link to="/about">
+          <a href="/about">About</a>
+        </Link>
         </div>
       </div>
 
@@ -57,12 +63,19 @@ function NavBar() {
           {currentUser && (
             <h5 className="text-success fw-bold text-nowrap m-0 pt-2">
               Hi
-              <span
+              <span className="header_menuItems"
               onClick={() => {
                 navigate(`/profile/${currentUser._id}`);
               }}
             >
               {currentUser.userName}
+            </span>
+            <span className="header_menuItems"
+              onClick={() => {
+                navigate(`/portfolio/${currentUser._id}`);
+              }}
+            >
+              Portfolio
             </span>
             </h5>
           )}

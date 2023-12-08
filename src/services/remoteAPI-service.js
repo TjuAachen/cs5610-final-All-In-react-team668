@@ -47,25 +47,40 @@ export const getHistoricalStockData = async (ticker) => {
     return response.data;
 }
 
-export const getStockRecentData = async (ticker) => {
+export const getStockHighlights = async (ticker) => {
     const param = ticker || 'APPL';
-    const response = await axios.get(`${API_BASE}/api/remoteApi/recent/${param}`);
+    const response = await axios.get(`${API_BASE}/api/remoteApi/highlights/${param}`);
 
     return response.data;
 }
 
 export const getCloudStock = async (keyword) => {
-    const response = []
+    const results = []
     await axios.get(`${API_BASE}/api/remoteApi/cloud-stock/${keyword}`).then((response) => {
         const data = response.data;
         data.forEach(async (stock) => {
             if (stock.assetType === 'stock') {
                 const stockResult = await getStockSummary(stock.ticker);
-                response.push(stockResult)   
+                results.push(stockResult)   
             }
         })
     });
 
 
-    return response;
+    return results;
+}
+
+export const getLatestChartData = async (ticker) => {
+    let results;
+    await axios.get(`${API_BASE}/api/remoteApi/summary/chart/${ticker}`).then((response) => {
+        results = response.data;
+    })
+
+    return results;
+}
+
+export const updatePortfolioPriceByUser = async (uid) => {
+    await axios.get(`${API_BASE}/api/remoteApi/portfolio/${uid}`).then((response) => {
+        return response;
+    })
 }

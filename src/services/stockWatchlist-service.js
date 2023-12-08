@@ -41,3 +41,4 @@ export const updateStockWatchlist = async (obj) => {
   const response = await axios.put(`${STOCK_WATCHLIST_API}`, obj);
   return response.data;
 };
+

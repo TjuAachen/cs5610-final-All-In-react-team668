@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { AiFillStar } from "react-icons/ai";
-import WatchlistDetailItem from "../../components/watchlistDetailItem";
+import WatchlistDetailItem from "../../../components/watchlistDetailItem/index.js";
 import CommentPanel from "./CommentPanel";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { deleteAddedStock, addStock } from "../../reducers/added-stock-count-reducer.js";
+import { deleteAddedStock, addStock } from "../../../reducers/added-stock-count-reducer.js";
 
 import {
   deleteStockWatchlist,
@@ -12,11 +12,12 @@ import {
   findStockNumberByUserId,
   findStocksByWatchlistId,
   updateStockWatchlist,
-} from "../../services/stockWatchlist-service.js";
-import { findWatchlists } from "../../services/watchlist-service.js";
-import "./index.css";
-import { STOCK_LIMITATION_FOR_REGULAR_USER } from "../../constants/Constants.js";
+} from "../../../services/stockWatchlist-service.js";
+import { findWatchlists } from "../../../services/watchlist-service.js";
+import "./watchlistDetail.css";
+import { STOCK_LIMITATION_FOR_REGULAR_USER } from "../../../constants/Constants.js";
 
+// TODO : commentPanel
 const WatchListDetail = ({ watchlist, setWatchlist }) => {
   // addedStocks of current login user
   const { addedStocks } = useSelector((state) => state.addedStock);
@@ -43,22 +44,21 @@ const WatchListDetail = ({ watchlist, setWatchlist }) => {
     if (currentUser._id === watchlist.user) {
       // remove the stock from watchlist in UI
       setStocks((prev) =>
-        prev.filter((s) => s.stockId.ticker !== stock.ticker)
+        prev.filter((s) => s.ticker !== stock.ticker)
       );
     }
 
-    deleteStockWatchlist(currentUser._id, stock._id);
+    deleteStockWatchlist(currentUser._id, stock.ticker);
   };
 
-  const handleAddToWatchlist = async (wid, stockIdObj, setLike) => {
+  const handleAddToWatchlist = async (wid, stock, setLike) => {
     if (!currentUser) return;
-    const { _id } = stockIdObj;
     console.log("stockNumber", addedStocks.length);
     console.log(
       "STOCK_LIMITATION_FOR_REGULAR_USE",
       STOCK_LIMITATION_FOR_REGULAR_USER
     );
-    if (
+    if ( 
       !currentUser.isVip &&
       addedStocks.length >= STOCK_LIMITATION_FOR_REGULAR_USER
     ) {
@@ -68,16 +68,16 @@ const WatchListDetail = ({ watchlist, setWatchlist }) => {
     }
     setLike(true);
     // update state in addedStock reducer
-    dispatch(addStock(stockIdObj));
-    createStockWatchlist(currentUser._id, _id, wid);
+    dispatch(addStock(stock));
+    createStockWatchlist(currentUser._id, ticker, wid);
   };
 
-  const handleMoveWatchlist = async (wid, ticker) => {
+  const handleMoveWatchlist = async (wid, stock) => {
     // remove stock from current watchlist
-    setStocks((prev) => prev.filter((s) => s.ticker !== ticker));
+    setStocks((prev) => prev.filter((s) => s.ticker !== stock.ticker));
     await updateStockWatchlist({
       userId: currentUser._id,
-      ticker: ticker,
+      ticker: stock.ticker,
       watchlistId: wid,
     });
   };
@@ -158,19 +158,18 @@ const WatchListDetail = ({ watchlist, setWatchlist }) => {
                   <h5 className={`fw-fold text-white`}>Ticker</h5>
                 </div>
                 <div
-                  className={`${
-                    currentUser && currentUser._id === watchlist.user
+                  className={`${currentUser && currentUser._id === watchlist.user
                       ? `col-2`
                       : `col-3`
-                  } text-muted ps-0`}
+                    } text-muted ps-0`}
                 >
                   <h5 className={`fw-fold text-white`}>Name</h5>
                 </div>
                 <div className={`col-2 text-muted ps-0 d-none d-xl-flex`}>
-                <h5 className={`fw-fold text-white`}>Close Price</h5>
+                  <h5 className={`fw-fold text-white`}>Close Price</h5>
                 </div>
                 <div className={`col-2 text-muted ps-0 d-none d-xl-flex`}>
-                <h5 className={`fw-fold text-white`}>Date</h5>
+                  <h5 className={`fw-fold text-white`}>Date</h5>
                 </div>
                 <div className={`col`}></div>
               </div>
@@ -225,3 +224,5 @@ const WatchListDetail = ({ watchlist, setWatchlist }) => {
 };
 
 export default WatchListDetail;
+
+export {handleAddToWatchlist, handleMoveWatchlist, handleUnLikeClick}

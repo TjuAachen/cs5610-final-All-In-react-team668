@@ -10,9 +10,13 @@ import Premium from "./pages/userPages/Premium";
 import { Routes, Route, useNavigate } from "react-router";
 import Home from "./pages/homePage/Home";
 import Search from "./pages/searchPages/index.js";
+import WatchListDetail from "./pages/detailPages/watchlistDetailPage/watchlistDetail.js";
+import StockDetail from "./pages/detailPages/stockDetailPage/stockDetail.js";
+import PortfolioPage from "./pages/portfolioPage/index.js";
+import About from "./pages/aboutPage/index.js";
 
 function App() {
-  
+
   return (
     <Provider store={store}>
       <div className="app">
@@ -34,6 +38,10 @@ function App() {
             <Route path="/profile/:uid" element={<Profile />} />
             <Route path="/premium" element={<Premium />} />
             <Route path="/search" element={<Search />} />
+            <Route path="/details/watchlist/:wid" element={<WatchListDetail />} />
+            <Route path="/details" element={<StockDetail />} />
+            <Route path="/portfolio/:uid" element={<PortfolioPage />} />
+            <Route path="/about" element={<About />} />
           </Routes>
         </div>
         <div className="app_footer">

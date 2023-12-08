@@ -30,7 +30,7 @@ export const findWatchlistDetails = async (watchlistId) => {
   return response.data;
 };
 
-export const findSongs = async (watchlistId) => {
+export const findStocks = async (watchlistId) => {
   const response = await axios.get(`${WATCHLIST_API}/stocks/${watchlistId}`);
   return response.data;
 };
