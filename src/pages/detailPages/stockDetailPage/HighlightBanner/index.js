@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { getStockHighlights } from '../../../../services/remoteAPI-service';
 import { createPortfolio } from '../../../../services/portfolio-service';
-import { useSelector } from "react-redux";
 import { useSelector, useDispatch } from "react-redux";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { STOCK_LIMITATION_FOR_REGULAR_USER } from "../../../../constants/Constants";
 import { findCurrentUserStocksThunk } from '../../../../services/thunks/add-stock-thunk';
-import { deleteAddedStock, addStock } from "../../../reducers/added-stock-count-reducer.js";
+import { deleteAddedStock, addStock } from "../../../../reducers/added-stock-count-reducer.js";
 import { deleteStockWatchlist } from '../../../../services/stockWatchlist-service';
 import { insertStockIfNotExist } from '../../../../services/stock-service.js';
 import { createStockWatchlist } from '../../../../services/stockWatchlist-service';
+import { findWatchlists } from '../../../../services/watchlist-service.js';
+import { useNavigate } from 'react-router-dom';
+import Dropdown from "react-bootstrap/Dropdown";
 
 const HighlightBanner = ({ ticker, summary }) => {
-
+  const navigate = useNavigate();
   const [like, setLike] = useState(false);
   const iconSize = 25;
   const [show, setShow] = useState(false);
@@ -26,6 +28,7 @@ const HighlightBanner = ({ ticker, summary }) => {
   const [watchlistsOption, setWatchlistsOption] = useState(null);
   const loginId = currentUser ? currentUser._id : null;
   const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false);
 
 
   const fetchHighlightData = async (ticker) => {
@@ -45,6 +48,19 @@ const HighlightBanner = ({ ticker, summary }) => {
       }
     })
   }
+  const openModal = (action, stock) => {
+    // Logic to open modal for buy or sell action
+    console.log(`Opening ${action} modal for stock:`, stock);
+    setShowModal(true);
+    setStock(stock);
+    setQuantity(stock.shares)
+  };
+
+  const closeModal = () => {
+    // Logic to close modal
+    console.log('Closing modal');
+    setShowModal(false);
+  };
 
   const fetchLoginUserWatchlists = async (uid) => {
     let myWatchlists = await findWatchlists(uid);
@@ -230,18 +246,18 @@ const HighlightBanner = ({ ticker, summary }) => {
             </div>
           </span>
           <p className="name text-muted">{highlights.name}</p>
-          <p>{exchangeCode}</p>
-          <button className="btn btn-success" onClick={() => openModal(content)}>Buy</button>
+          <p>{highlights.exchangeCode}</p>
+          <button className="btn btn-success" onClick={() => openModal()}>Buy</button>
 
           {/* Modal */}
-          <div className="modal" id="content" tabIndex="-1" role="dialog">
+          {showModal && (<div className="modal" id="content" tabIndex="-1" role="dialog">
             <div className="modal-header">
               <p className="modal-title" id="modal-basic-title">{highlights.ticker}</p>
               <button
                 type="button"
                 className="close"
                 aria-label="Close"
-                onClick={() => modal.dismiss('Cross click')}
+                onClick={() => closeModal()}
               >
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -290,7 +306,7 @@ const HighlightBanner = ({ ticker, summary }) => {
                 </div>
               </div>
             </div>
-          </div>
+          </div>)}
         </div>
 
         {/* Right panel */}

@@ -1,16 +1,26 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from 'react';
+import { getStockNews } from '../../../../services/remoteAPI-service';
 
 const News = ({ ticker }) => {
     const [showModal, setShowModal] = useState(false);
+    const [news, setNews] = useState(null);
 
-        const openModal = () => {
+    const fetchNews = async (ticker) => {
+        await getStockNews(ticker).then((response) => setNews(response));
+    }
+
+    useEffect(async () => {
+        await fetchNews();
+    }, [ticker]);
+
+    const openModal = () => {
         setShowModal(true);
-      };
-    
-      const closeModal = () => {
+    };
+
+    const closeModal = () => {
         setShowModal(false);
-      };
-    
+    };
+
     return (
         <div className="container">
             <div className="row news-articles">

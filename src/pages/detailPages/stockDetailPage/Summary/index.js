@@ -4,9 +4,9 @@ import Highcharts from 'highcharts/highstock'
 import HighchartsReact from 'highcharts-react-official'
 
 const Summary = ({ summary, company, ticker }) => {
-  if (!summary) {
-    return null; // Or handle the case where 'summary' data is not available
-  }
+ // if (!summary) {
+   // return null; // Or handle the case where 'summary' data is not available
+  //}
   const [results, setResults] = useState(null);
 
   const fetchLatestChartData = async () => {

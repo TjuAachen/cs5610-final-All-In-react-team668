@@ -209,7 +209,7 @@ const PortfolioPage = () => {
                                         type="number"
                                         id="total"
                                         value={quantity}
-                                        onChange={(e) => setTotal(e.target.value)}
+                                        onChange={(e) => setQuantity(e.target.value)}
                                     />
                                 </div>
                                 <div class="col align-left">

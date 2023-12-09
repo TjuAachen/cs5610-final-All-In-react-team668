@@ -29,5 +29,5 @@ const searchSlice = createSlice({
     }
 });
 
-export const {updateSearchKeyword, updateSearchResults, cleanSearchReducer} = searchSlice.actions;
+export const {updateSearchKeyword, updateSearchResults, cleanSearchReducer, updateSearchType} = searchSlice.actions;
 export default searchSlice.reducer;

@@ -1,3 +1,6 @@
+import {createSlice} from "@reduxjs/toolkit";
+import {recommendWatchlistsThunk, recommendUsersThunk} from "../services/thunks/recommend-thunk"
+
 const recommendSlice = createSlice({
     name: "recommend",
     initialState: { watchlists: [], users: [], error: null },

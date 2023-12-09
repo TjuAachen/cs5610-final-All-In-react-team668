@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import HighlightBanner from './HighlightBanner'; // Replace with actual path to Highlight component
 import Summary from './Summary'; // Replace with actual path to Summary component
 import News from './News'; // Replace with actual path to News component
 import Chart from './Charts'; // Replace with actual path to Chart component
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import { Tab, Tabs } from "@mui/material";
 import { useParams } from "react-router";
 import { getStockSummary, getStockDescription } from '../../../services/remoteAPI-service';
 

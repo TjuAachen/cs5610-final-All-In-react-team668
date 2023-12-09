@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AiFillStar } from "react-icons/ai";
 import WatchlistDetailItem from "../../../components/watchlistDetailItem/index.js";
-import CommentPanel from "./CommentPanel";
+//import CommentPanel from "./CommentPanel";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { deleteAddedStock, addStock } from "../../../reducers/added-stock-count-reducer.js";
@@ -69,7 +69,7 @@ const WatchListDetail = ({ watchlist, setWatchlist }) => {
     setLike(true);
     // update state in addedStock reducer
     dispatch(addStock(stock));
-    createStockWatchlist(currentUser._id, ticker, wid);
+    createStockWatchlist(currentUser._id, stock.ticker, wid);
   };
 
   const handleMoveWatchlist = async (wid, stock) => {
@@ -211,10 +211,10 @@ const WatchListDetail = ({ watchlist, setWatchlist }) => {
             <div
               className={`col-4 comment-panel-container me-3 rounded-3 p-0 d-none d-lg-block`}
             >
-              <CommentPanel
+              {/*<CommentPanel
                 pRating={watchlist.rating}
                 setWatchlist={setWatchlist}
-              />
+                    />*/}
             </div>
           </div>
         </div>
@@ -225,4 +225,3 @@ const WatchListDetail = ({ watchlist, setWatchlist }) => {
 
 export default WatchListDetail;
 
-export {handleAddToWatchlist, handleMoveWatchlist, handleUnLikeClick}

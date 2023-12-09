@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ResultCard from "../ResultCard";
-import { findCurrentUserThunk } from "../../../services/users/users-thunks";
+import { findCurrentUserThunk } from "../../services/users/users-thunks.js";
 
 import {useDispatch, useSelector} from "react-redux";
 import "./searchContent.css";
-import {updateSearchResults} from "../../../reducers/search-reducer";
-import PaginationComponent from "../pagination.js";
+import {updateSearchResults} from "../../reducers/search-reducer.js";
+import PaginationComponent from "../Pagination.js";
 
 function SearchContent() {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ function SearchContent() {
   };
 
   useEffect(() => {
-    dispatch(updateSearchResults(response));
+   // dispatch(updateSearchResults(response));
 
     window.addEventListener("resize", handleResize);
     return () => {

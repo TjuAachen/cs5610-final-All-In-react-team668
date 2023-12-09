@@ -5,7 +5,7 @@ import "./Profile_style.css";
 
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { findProfileThunk } from "../../services/trunks/profile-thunk";
+import { findProfileThunk } from "../../services/thunks/profile-thunk";
 import { findCurrentUserThunk } from "../../services/users/users-thunks";
 // import { findCurrentUserSongsThunk } from "../services/thunks/like-thunk";
 
