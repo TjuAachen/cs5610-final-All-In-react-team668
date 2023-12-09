@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginThunk, registerThunk } from "../../services/users/users-thunks";
+import { initFollowThunk } from "../../services/thunks/followee-thunk";
 import "./Register_styles.css";
 import Title from "../../components/Title";
 
@@ -74,6 +75,7 @@ const Register = () => {
       setAdminCode("");
       // check each field before submit
       const isValid = checkInfo();
+      console.log("valid", isValid)
       if (!isValid) {
         return;
       }
@@ -89,6 +91,9 @@ const Register = () => {
         })
       ).then((res) => {
         const user_id = res.payload._id;
+        // add empty followeeList for new user
+        dispatch(initFollowThunk(user_id));
+
         // TODO: add content for newly registered user
       });
       await dispatch(loginThunk({ userName, password })).then((res) => {
@@ -101,7 +106,7 @@ const Register = () => {
   };
 
   return (
-    <>
+    <div>
       <Title />
       <div className={`register-window-div`}>
       <h1 className="text-heading fw-bold">Create a new account</h1>
@@ -196,7 +201,7 @@ const Register = () => {
 
       <div className={`mt-3`}>
         <div className={`row w-100 p-0 m-0 d-flex align-items-center`}>
-          <label className="text-heading">Gender</label>
+          <label className="text-heading">Level</label>
           {typeofinvestorAlert && (
             <p className={`mb-0 text-danger col p-0`}>Please select typeofinvestor</p>
           )}
@@ -295,7 +300,7 @@ const Register = () => {
           </Link>
         </p>
       </div>
-    </>
+    </div>
   );
 };
 

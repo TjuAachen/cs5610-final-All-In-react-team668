@@ -3,8 +3,8 @@ import "./index.css";
 import { useParams, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 // import { updateUserNonAdminThunk } from "../../services/users/users-thunks";
-// import { findFolloweeIds } from "../../services/follow-service";
-// import { updateFolloweeThunk } from "../../services/thunks/follow-thunk";
+import { findFolloweeIds } from "../../services/follow-service";
+import { updateFolloweeThunk } from "../../services/thunks/followee-thunk";
 import { updateProfile } from "../../reducers/profile-reducer";
 import { MdAddAPhoto } from "react-icons/md";
 import profileAvatar from "../../images/profile-avatar.jpeg";
@@ -17,7 +17,8 @@ import profileAvatar from "../../images/profile-avatar.jpeg";
 // } from "firebase/storage";
 // import storage, { removeImageFromFirebase } from "../../services/firebase.js";
 
-const defaultFile = "/images/profile-avatar.jpeg";
+// const defaultFile = "/images/profile-avatar.jpeg";
+
 const ProfileBanner = () => {
   const { uid } = useParams();
   const dispatch = useDispatch();
@@ -36,73 +37,70 @@ const ProfileBanner = () => {
   const [phone, setPhone] = useState(
     currentUser ? currentUser.cellphone : null
   );
-  const [url, setUrl] = useState(
-    currentUser ? currentUser.img : profileAvatar
-  );
-  console.log("get current user", currentUser)
+  const [url, setUrl] = useState(currentUser ? currentUser.img : profileAvatar);
 
   const [avatarFile, setAvatarFile] = useState(null);
 
-  // const checkIsFollow = async (loginUser, targetUser) => {
-  //   const res = await findFolloweeIds(loginUser);
-  //   if (res.length === 0) return;
-  //   const followeeList = res[0].followeeList;
-  //   const index = followeeList.indexOf(targetUser);
-  //   setHasFollow(index === -1 ? false : true);
-  // };
+  const checkIsFollow = async (loginUser, targetUser) => {
+    const res = await findFolloweeIds(loginUser);
+    if (res.length === 0) return;
+    const followeeList = res[0].followeeList;
+    const index = followeeList.indexOf(targetUser);
+    setHasFollow(index === -1 ? false : true);
+  };
 
-  // const handleFollow = () => {
-  //   if (!currentUser) {
-  //     setShow(!show);
-  //     return;
-  //   }
-  //   setHasFollow(!hasFollow);
-  //   dispatch(
-  //     updateFolloweeThunk({
-  //       user: currentUser._id,
-  //       followId: uid,
-  //     })
-  //   );
-  // };
+  const handleFollow = () => {
+    if (!currentUser) {
+      setShow(!show);
+      return;
+    }
+    setHasFollow(!hasFollow);
+    dispatch(
+      updateFolloweeThunk({
+        user: currentUser._id,
+        followId: uid,
+      })
+    );
+  };
 
-  // const handleUploadFirebase = (file) => {
-  //   if (!file) {
-  //     return;
-  //   }
-  //   removeImageFromFirebase(currentProfile.img, defaultFile);
-  //   const storageRef = ref(
-  //     storage,
-  //     `/files/${file.name + currentUser._id + "profile"}`
-  //   );
-  //   // progress can be paused and resumed. It also exposes progress updates.
-  //   // Receives the storage reference and the file to upload.
-  //   const uploadTask = uploadBytesResumable(storageRef, file);
-
-  //   uploadTask.on(
-  //     "state_changed",
-  //     (snapshot) => {
-  //       const percent = Math.round(
-  //         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-  //       );
-  //     },
-  //     (err) => console.log(err),
-  //     () => {
-  //       // download url
-  //       getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-  //         setUrl(url);
-  //         dispatch(
-  //           updateUserNonAdminThunk({
-  //             ...currentUser,
-  //             _id: currentUser._id,
-  //             email: email === "" ? currentUser.email : email,
-  //             cellphone: phone === "" ? currentUser.cellphone : phone,
-  //             img: url,
-  //           })
-  //         );
-  //       });
+  //   const handleUploadFirebase = (file) => {
+  //     if (!file) {
+  //       return;
   //     }
-  //   );
-  // };
+  //     removeImageFromFirebase(currentProfile.img, defaultFile);
+  //     const storageRef = ref(
+  //       storage,
+  //       `/files/${file.name + currentUser._id + "profile"}`
+  //     );
+  //     // progress can be paused and resumed. It also exposes progress updates.
+  //     // Receives the storage reference and the file to upload.
+  //     const uploadTask = uploadBytesResumable(storageRef, file);
+
+  //     uploadTask.on(
+  //       "state_changed",
+  //       (snapshot) => {
+  //         const percent = Math.round(
+  //           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+  //         );
+  //       },
+  //       (err) => console.log(err),
+  //       () => {
+  //         // download url
+  //         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+  //           setUrl(url);
+  //           dispatch(
+  //             updateUserNonAdminThunk({
+  //               ...currentUser,
+  //               _id: currentUser._id,
+  //               email: email === "" ? currentUser.email : email,
+  //               cellphone: phone === "" ? currentUser.cellphone : phone,
+  //               img: url,
+  //             })
+  //           );
+  //         });
+  //       }
+  //     );
+  //   };
 
   const handleSubmit = () => {
     let newEmail = email;
@@ -158,108 +156,105 @@ const ProfileBanner = () => {
 
   useEffect(() => {
     if (!currentUser && !uid) return;
-    // checkIsFollow(
-    //   currentUser ? currentUser._id : null,
-    //   uid ? uid : currentUser._id
-    // );
+    checkIsFollow(
+      currentUser ? currentUser._id : null,
+      uid ? uid : currentUser._id
+    );
   }, [uid]);
 
   return (
     <div className="banner-container">
-    {currentProfile && (
-      <div className="profile-section">
-        {(uid || currentUser) && (
-          <>
-            <img
-              src={profileAvatar}
-              alt="Profile Avatar"
-              className="avatar"
-            />
-            <h5 className="username">
-              {currentProfile.userName}
-            </h5>
-          </>
-        )}
-  
-        {currentUser && !uid && (
-          <>
-            {isEdit ? (
-              <div className="edit-profile">
-                <div className="input-group email-input">
-                  <label htmlFor="profile-email" className="label-email">Email</label>
-                  <input
-                    className="form-control"
-                    id="profile-email"
-                    name="email"
-                    type="text"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <div className="input-group phone-input">
-                  <label htmlFor="profile-phone" className="label-phone">Phone</label>
-                  <input
-                    className="form-control"
-                    id="profile-phone"
-                    name="phone"
-                    type="text"
-                    placeholder="Phone"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                  />
-                </div>
-                <div className="avatar-cover"></div>
-                <MdAddAPhoto
-                  className="avatar-icon"
-                  size={30}
-                  onClick={handleImgClick}
-                />
-                <input
-                  id="upload-banner"
-                  type="file"
-                  ref={hiddenFileInput}
-                  onChange={handleImgChange}
-                  className="file-upload"
-                />
-                <button
-                  className="btn btn-save fw-bold"
-                  onClick={() => handleSubmit()}
-                >
-                  Save
-                </button>
-                <button
-                  className="btn btn-cancel fw-bold"
-                  onClick={() => handleCancel()}
-                >
-                  Cancel
-                </button>
-              </div>
-            ) : (
-              <div className="view-profile">
-                <p className="email-text">
-                  {currentProfile.email}
-                </p>
-                <p className="phone-text">
-                  {currentProfile.cellphone}
-                </p>
-                <button
-                  className="btn btn-edit fw-bold"
-                  onClick={() => setIsEdit(true)}
-                >
-                  Edit Profile
-                </button>
-              </div>
-            )}
-          </>
-        )}
+      {currentProfile && (
+        <div className="profile-section">
+          {(uid || currentUser) && (
+            <>
+              <img
+                src={profileAvatar}
+                alt="Profile Avatar"
+                className="avatar"
+              />
+              <h5 className="username">{currentProfile.userName}</h5>
+            </>
+          )}
 
-  
+          {currentUser && !uid && (
+            <>
+              {isEdit ? (
+                <div className="edit-profile">
+                  <div className="input-group email-input">
+                    <label htmlFor="profile-email" className="label-email">
+                      Email
+                    </label>
+                    <input
+                      className="form-control"
+                      id="profile-email"
+                      name="email"
+                      type="text"
+                      placeholder="Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                  <div className="input-group phone-input">
+                    <label htmlFor="profile-phone" className="label-phone">
+                      Phone
+                    </label>
+                    <input
+                      className="form-control"
+                      id="profile-phone"
+                      name="phone"
+                      type="text"
+                      placeholder="Phone"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    />
+                  </div>
+                  <div className="avatar-cover"></div>
+                  <MdAddAPhoto
+                    className="avatar-icon"
+                    size={30}
+                    onClick={handleImgClick}
+                  />
+                  <input
+                    id="upload-banner"
+                    type="file"
+                    ref={hiddenFileInput}
+                    onChange={handleImgChange}
+                    className="file-upload"
+                  />
+                  <button
+                    className="btn btn-save fw-bold"
+                    onClick={() => handleSubmit()}
+                  >
+                    Save
+                  </button>
+                  <button
+                    className="btn btn-cancel fw-bold"
+                    onClick={() => handleCancel()}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              ) : (
+                <div className="view-profile">
+                  <p className="email-text">{currentProfile.email}</p>
+                  <p className="phone-text">{currentProfile.cellphone}</p>
+                  <button
+                    className="btn btn-edit fw-bold"
+                    onClick={() => setIsEdit(true)}
+                  >
+                    Edit Profile
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+
           {/* {!uid && !currentUser && (
             <div className={``}>
               <FollowUserGuest />
             </div>
-          )}
+          )} */}
 
           {uid && !hasFollow && (
             <div className={``}>
@@ -273,7 +268,7 @@ const ProfileBanner = () => {
                 <div
                   className={`profile-banner-toolkit-div position-absolute rounded-3`}
                 >
-                  <h5 className={`text-black fw-bold m-2`}>Explore friends!</h5>
+                  <h5 className={`fw-bold m-2`}>Explore friends!</h5>
                   <div
                     className={`mt-3 mb-1 d-flex justify-content-center align-items-center`}
                   >
@@ -296,14 +291,16 @@ const ProfileBanner = () => {
           )}
           {uid && hasFollow && (
             <button
-              className={`btn btn-muted border border-warning position-absolute edit-position text-black`}
+              className={`btn btn-muted border border-warning position-absolute edit-position`}
               onClick={() => handleFollow()}
             >
               + UnFollow
             </button>
-          )} */}
+          )}
         </div>
+        // </div>
       )}
+
     </div>
   );
 };
