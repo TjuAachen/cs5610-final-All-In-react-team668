@@ -5,7 +5,7 @@ import Follow from "../Follow";
 const ProfileRight = ({ isSelf }) => {
   return (
     <>
-      {/* <Follow /> */}
+      <Follow />
       {isSelf && <Premium />}
 
     </>
