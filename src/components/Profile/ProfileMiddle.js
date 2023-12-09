@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ProfileBanner from "./ProfileBanner";
-// import PlayList from "../PlayList";
+import WatchList from "../WatchList";
 import Comment from "../Comment";
 // import LikeSongs from "../LikeSongs";
 import { useParams } from "react-router";
@@ -15,26 +15,26 @@ const ProfileMiddle = ({ isSelf, isLogin }) => {
   const [comments, setComments] = useState([]);
   const { currentUser } = useSelector((state) => state.user);
   console.log("currentUser in profileMiddle", currentUser);
-  const findComments = async (id) => {
-    const data = await findCommentService(id);
-    setComments(data);
-  };
+  // const findComments = async (id) => {
+  //   const data = await findCommentService(id);
+  //   setComments(data);
+  // };
 
   useEffect(() => {
     if (!isSelf || !isLogin || !currentUser) return;
-    findComments(currentUser._id);
+    // findComments(currentUser._id);
   }, [uid]);
 
   return (
     <div className="d-flex flex-column">
-      <ProfileBanner />
-      {/* {(isLogin || !isSelf) && (
-        <PlayList isSelf={isSelf} setComments={setComments} />
-      )} */}
-      {/* {(isLogin || !isSelf) && <LikeSongs />} */}
-      {isSelf && isLogin && (
-        <Comment comments={comments} setComments={setComments} />
+      {/* <ProfileBanner /> */}
+      {(isLogin || !isSelf) && (
+        <WatchList isSelf={isSelf} setComments={setComments} />
       )}
+      {/* {(isLogin || !isSelf) && <LikeSongs />} */}
+      {/* {isSelf && isLogin && (
+        <Comment comments={comments} setComments={setComments} />
+      )} */}
     </div>
   );
 };

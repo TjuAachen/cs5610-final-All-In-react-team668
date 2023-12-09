@@ -1,0 +1,67 @@
+.playlist-container {
+    margin-top: 100px;
+    width: 100%;
+}
+.playlist-item-box {
+    width: 100%;
+    margin: 0px;
+}
+.playlist-item-div {
+    width: 180px;
+}
+.remove-icon {
+    right: 5px;
+}
+
+.add-icon {
+    height: 100%;
+    color: gray;
+}
+.add-icon:hover {
+    color: orange;
+}
+.playlist-name {
+    width: 175px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.playlist-name:hover {
+    color: orange;
+}
+.remove-icon {
+color: gray;
+}
+.remove-icon:hover {
+color: red;
+}
+.no-playlist {
+    height: 100px;
+    color: gray;
+    width: 100%;
+}
+
+.upgrade-title {
+    top:-130px;
+    right: 200px;
+    height: 150px;
+    width: 300px;
+    font-size: larger;
+}
+.upgrade-text{
+font-size: medium;
+font-weight: normal;
+
+}
+.not-now-btn {
+    color: rgb(66, 65, 65);
+}
+.login-btn {
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    border: 0;
+    padding:3px;
+    padding-left: 15px;
+    padding-right: 15px;
+    /* border-radius: 20; */
+}
