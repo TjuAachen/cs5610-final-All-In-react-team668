@@ -12,3 +12,75 @@ export const getLatestIndexBySymbol = async (symbol) => {
     return response.data;
 }
 
+/*export const getStockAutocomplete = async (keyword) => {
+    const param = keyword || 'APPL';
+    const response = await axios.get(`${API_BASE}/api/remoteApi/autocomplete/${param}`);
+
+    return response.data;
+}*/
+
+export const getStockNews = async (ticker) => {
+    const param = ticker || 'APPL';
+    const response = await axios.get(`${API_BASE}/api/remoteApi/news/${param}`);
+
+    return response.data;
+}
+
+export const getStockSummary = async (ticker) => {
+    const param = ticker || 'APPL';
+    const response = await axios.get(`${API_BASE}/api/remoteApi/summary/${param}`);
+
+    return response.data;
+}
+
+export const getStockDescription = async (ticker) => {
+    const param = ticker || 'APPL';
+    const response = await axios.get(`${API_BASE}/api/remoteApi/description/${param}`);
+
+    return response.data;
+}
+
+export const getHistoricalStockData = async (ticker) => {
+    const param = ticker || 'APPL';
+    const response = await axios.get(`${API_BASE}/api/remoteApi/historical-chart/${param}`);
+
+    return response.data;
+}
+
+export const getStockHighlights = async (ticker) => {
+    const param = ticker || 'APPL';
+    const response = await axios.get(`${API_BASE}/api/remoteApi/highlights/${param}`);
+
+    return response.data;
+}
+
+export const getCloudStock = async (keyword) => {
+    const results = []
+    await axios.get(`${API_BASE}/api/remoteApi/cloud-stock/${keyword}`).then((response) => {
+        const data = response.data;
+        data.forEach(async (stock) => {
+            if (stock.assetType === 'stock') {
+                const stockResult = await getStockSummary(stock.ticker);
+                results.push(stockResult)   
+            }
+        })
+    });
+
+
+    return results;
+}
+
+export const getLatestChartData = async (ticker) => {
+    let results;
+    await axios.get(`${API_BASE}/api/remoteApi/summary/chart/${ticker}`).then((response) => {
+        results = response.data;
+    })
+
+    return results;
+}
+
+export const updatePortfolioPriceByUser = async (uid) => {
+    await axios.get(`${API_BASE}/api/remoteApi/portfolio/${uid}`).then((response) => {
+        return response;
+    })
+}

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { findProfileThunk } from "../services/trunks/profile-thunk";
+import { findProfileThunk } from "../services/thunks/profile-thunk";
 
 const profileSlice = createSlice({
   name: "profile",

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginThunk, registerThunk } from "../../services/users/users-thunks";
 import "./Register_styles.css";
+import Title from "../../components/Title";
 
 const Register = () => {
   const ADMINCODE = "allinAdmin";
@@ -11,7 +12,7 @@ const Register = () => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [gender, setGender] = useState("");
+  const [typeofinvestor, setTypeOfInvestor] = useState("");
   const [cellphone, setCellphone] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [adminCode, setAdminCode] = useState("");
@@ -20,7 +21,7 @@ const Register = () => {
   const [passwordAlert, setPasswordAlert] = useState(false);
   const [phoneAlert, setPhoneAlert] = useState(false);
   const [emailAlert, setEmailAlert] = useState(false);
-  const [genderAlert, setGenderAlert] = useState(false);
+  const [typeofinvestorAlert, setTypeOfInvestorAlert] = useState(false);
 
   //   const addPlaylist = async (userId) => {
   //     const newPlaylist = {
@@ -39,7 +40,7 @@ const Register = () => {
     setPasswordAlert(false);
     setPhoneAlert(false);
     setEmailAlert(false);
-    setGenderAlert(false);
+    setTypeOfInvestorAlert(false);
     if (userName === "") {
       setUserNameAlert(true);
       return false;
@@ -56,8 +57,8 @@ const Register = () => {
       setPasswordAlert(true);
       return false;
     }
-    if (gender === "") {
-      setGenderAlert(true);
+    if (typeofinvestor === "") {
+      setTypeOfInvestorAlert(true);
       return false;
     }
     return true;
@@ -83,7 +84,7 @@ const Register = () => {
           password,
           email,
           cellphone,
-          gender,
+          typeofinvestor,
           isAdmin,
         })
       ).then((res) => {
@@ -100,7 +101,8 @@ const Register = () => {
   };
 
   return (
-    <div>
+    <>
+      <Title />
       <div className={`register-window-div`}>
       <h1 className="text-heading fw-bold">Create a new account</h1>
         <div className={`row w-100 p-0 m-0 d-flex align-items-center`}>
@@ -195,8 +197,8 @@ const Register = () => {
       <div className={`mt-3`}>
         <div className={`row w-100 p-0 m-0 d-flex align-items-center`}>
           <label className="text-heading">Gender</label>
-          {genderAlert && (
-            <p className={`mb-0 text-danger col p-0`}>Please select gender</p>
+          {typeofinvestorAlert && (
+            <p className={`mb-0 text-danger col p-0`}>Please select typeofinvestor</p>
           )}
         </div>
 
@@ -204,35 +206,24 @@ const Register = () => {
           <label className={`text-muted`}>
             <input
               type="radio"
-              name="gender"
-              value="male"
+              name="typeofinvestor"
+              value="newbie"
               onChange={(e) => {
-                setGender(e.target.value);
+                setTypeOfInvestor(e.target.value);
               }}
             />
-            Male
+            Newbie {"(less than 3 year exp.)"}
           </label>
           <label className={`ms-3 text-muted`}>
             <input
               type="radio"
-              name="gender"
-              value="female"
+              name="typeofinvestor"
+              value="experienced"
               onChange={(e) => {
-                setGender(e.target.value);
+                setTypeOfInvestor(e.target.value);
               }}
             />
-            Female
-          </label>
-          <label className={`ms-3 text-muted`}>
-            <input
-              type="radio"
-              name="gender"
-              value="non-binary"
-              onChange={(e) => {
-                setGender(e.target.value);
-              }}
-            />
-            Non-binary
+            Experienced {"(No less than 3 year exp.)"}
           </label>
         </div>
       </div>
@@ -304,7 +295,7 @@ const Register = () => {
           </Link>
         </p>
       </div>
-    </div>
+    </>
   );
 };
 

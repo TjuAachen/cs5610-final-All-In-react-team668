@@ -5,7 +5,7 @@ function IndexDashboard() {
     const symbols = ['IXIC', "DJI", "GSPC"];
 
     return (
-        <div className="row indexDashboard_container">
+        <div className="row justify-content-center indexDashboard_container">
             {symbols.map((symbol) => <IndexCell key={symbol} symbol={symbol} />)}
         </div>
     );
