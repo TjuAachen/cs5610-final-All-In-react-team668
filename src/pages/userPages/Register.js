@@ -275,7 +275,7 @@ const Register = () => {
                 onChange={(e) => {
                   setAdminCode(e.target.value);
                 }}
-                className={`form-control admin-control-input text-white ms-1`}
+                className={`form-control admin-control-input ms-1`}
               />
             </label>
           )}

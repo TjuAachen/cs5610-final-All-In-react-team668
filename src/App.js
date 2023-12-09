@@ -9,6 +9,7 @@ import Profile from "./pages/userPages/Profile";
 import Premium from "./pages/userPages/Premium";
 import { Routes, Route, useNavigate } from "react-router";
 import Home from "./pages/homePage/Home";
+import Admin from "./pages/userPages/Admin";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/:uid" element={<Profile />} />
             <Route path="/premium" element={<Premium />} />
+            <Route path="/admin/*" element={<Admin />} />
           </Routes>
         </div>
         <div className="app_footer">
