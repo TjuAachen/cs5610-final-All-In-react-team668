@@ -120,26 +120,24 @@ const WatchList = ({ isSelf, setComments }) => {
   let indexOfFirstWatchlist = indexOfLastWatchlist - watchlistPerPage;
 
   return (
-    <div className={`watchlist-container me-0 position-relative`}>
-      <h4 className={`col`}>Watchlists</h4>
+    <div className="watchlist-container">
+      <h4 className="watchlist-title">Watchlists</h4>
       {show && (
         <>
-          <div
-            className={`col position-absolute upgrade-title p-3 rounded-3 bg-primary fw-bold`}
-          >
+            <div className="upgrade-box">
             Enjoy your Premium Journey!
-            <div className={`upgrade-text`}>
+            <div className="upgrade-text">
               Upgrade your account to create more watchlists.
             </div>
-            <div className={`mt-2`}>
+            <div className="action-buttons">
               <button
-                className={`btn not-now-btn float-end`}
+                className="btn-custom not-now-btn"
                 onClick={() => setShow(false)}
               >
                 Not now
               </button>
               <button
-                className={` login-btn rounded-pill float-end`}
+                className="btn-custom not-now-btn"
                 onClick={() => {
                   setShow(false);
                   navigate("/premium");
@@ -153,7 +151,7 @@ const WatchList = ({ isSelf, setComments }) => {
       )}
 
       {(uid || currentUser) && watchlists && (
-        <div className={`mt-3 watchlist-item-box`}>
+        <div className="watchlist-item-box">
           <Stack
             direction="row"
             sx={{ gap: { xl: "10px", lg: "20px", xs: "5px" } }}
@@ -162,7 +160,7 @@ const WatchList = ({ isSelf, setComments }) => {
             className={`ms-0 me-0`}
           >
             {!uid && (
-              <div className={` d-flex align-items-start mt-5 add-icon`}>
+              <div className="add-icon">
                 <BiAddToQueue
                   size={50}
                   className={`p-0`}
@@ -184,7 +182,7 @@ const WatchList = ({ isSelf, setComments }) => {
                 ))}
             {watchlists.length === 0 && (
               <div
-                className={`no-watchlist d-flex justify-content-center align-items-center`}
+                className="no-watchlist"
               >
                 <h5>No Watchlist yet...</h5>
               </div>
