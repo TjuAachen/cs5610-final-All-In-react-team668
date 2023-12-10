@@ -155,7 +155,7 @@ const WatchList = ({ isSelf, setComments }) => {
           <Stack
             direction="row"
             sx={{ gap: { xl: "10px", lg: "20px", xs: "5px" } }}
-            flexWrap="wrap"
+            // flexWrap="wrap"
             justifyContent="start"
             className={`ms-0 me-0`}
           >

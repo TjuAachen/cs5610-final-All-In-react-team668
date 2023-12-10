@@ -259,7 +259,7 @@ const ProfileBanner = () => {
           {uid && !hasFollow && (
             <div className={``}>
               <button
-                className={`btn btn-muted border border-warning position-absolute edit-position text-black`}
+                className="btn btn-follow"
                 onClick={() => handleFollow()}
               >
                 + Follow
@@ -291,7 +291,7 @@ const ProfileBanner = () => {
           )}
           {uid && hasFollow && (
             <button
-              className={`btn btn-muted border border-warning position-absolute edit-position`}
+              className="btn btn-unfollow"
               onClick={() => handleFollow()}
             >
               + UnFollow

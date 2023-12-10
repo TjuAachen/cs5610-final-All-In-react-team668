@@ -12,14 +12,14 @@
   
   .watchlist-item-box {
     margin: 0px;
-    display: flex;
+    /* display: flex; */
     flex-wrap: wrap;
     justify-content: start;
     gap: 10px;
   }
   
   .watchlist-item-div {
-    position: relative;
+    /* position: relative; */
     width: 180px; /* Fixed width */
     margin: 5px;
   }

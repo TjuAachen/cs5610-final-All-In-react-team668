@@ -25,6 +25,7 @@ const Follow = () => {
 
   useEffect(() => {
     if (!uid && !currentUser) return;
+    console.log("in follow, uid", uid);
     dispatch(
       checkFolloweeThunk({
         loginUser: currentUser ? currentUser._id : null,
