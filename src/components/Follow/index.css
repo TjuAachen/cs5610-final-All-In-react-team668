@@ -1,0 +1,31 @@
+.follow-container {
+    height: 500px;
+    background-color: #f5f5f5;
+    /* margin-right: 20px; */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.empty-followeeList-div {
+    height: 500px;
+}
+.name-hint {
+    height: 30px;
+    bottom: 60px;
+    left: 80px;
+    color: gray
+}
+.toolkit-div {
+    height: 100px;
+    width: 165px;
+    right: -10px;
+    top: 40px;
+    background-color: orange;
+    z-index: 2
+}
+.not-now:hover {
+    cursor:pointer
+}
+
+.short-button {
+    width: 100px; 
+  }

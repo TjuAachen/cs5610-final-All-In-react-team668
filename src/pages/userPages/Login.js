@@ -62,7 +62,7 @@ const Login = () => {
           <div className="mt-0">
             <label
               htmlFor="login-userName"
-              className="mt-2 text-heading fw-bold mb-2"
+              className="mt-4 text-heading fw-bold mb-2"
             >
               UserName
             </label>
