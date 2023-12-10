@@ -6,6 +6,7 @@ const WATCHLISTDEFAULT_API = process.env.REACT_APP_API_BASE + "/api/watchlistsde
 export const createWatchlist = async (obj) => {
   const response = await axios.post(WATCHLIST_API, obj.watchlist);
   // increase watchlistCount in user table
+  console.log("create watchlist", response);
   updateUserNonAdmin({ _id: obj.watchlist.user, watchlistsCount: obj.cnt });
   return response.data;
 };
@@ -17,6 +18,7 @@ export const findWatchlists = async (userId) => {
 };
 
 export const deleteWatchlist = async (watchlistObj) => {
+  console.log("in delete watchlist")
   const response = await axios.delete(`${WATCHLIST_API}`, {
     data: {
       watchlistObj,
@@ -44,3 +46,4 @@ export const findDefaultWatchlistByUser = async (userId) => {
   const response = await axios.get(`${WATCHLISTDEFAULT_API}/${userId}`);
   return response.data;
 };
+

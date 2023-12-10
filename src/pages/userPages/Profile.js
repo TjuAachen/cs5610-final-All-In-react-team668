@@ -11,7 +11,6 @@ import { findCurrentUserThunk } from "../../services/users/users-thunks";
 
 const Profile = () => {
   const { uid } = useParams();
-  console.log("uid", uid);
   const { currentUser } = useSelector((state) => state.user);
   console.log("currentUser", currentUser);
   const loginUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -50,7 +49,7 @@ const Profile = () => {
             isLogin={loginUser ? true : false}
           />)}
           <ProfileRight 
-          className="profile-right"
+          className=""
           isSelf={uid ? false : true} />
       </div>
     </div>

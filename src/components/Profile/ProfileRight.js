@@ -1,13 +1,14 @@
 import React from "react";
 import Premium from "./Premium";
-// import Follow from "../Follow";
+import Follow from "../Follow";
 
 const ProfileRight = ({ isSelf }) => {
   return (
-    <div>
+    <>
+      <Follow />
       {isSelf && <Premium />}
-      {/* <Follow /> */}
-    </div>
+
+    </>
   );
 };
 

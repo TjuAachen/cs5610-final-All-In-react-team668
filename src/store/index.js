@@ -4,6 +4,7 @@ import profileReducer from "../reducers/profile-reducer.js";
 import recommendReducer from "../reducers/recommend-reducer.js";
 import searchReducer from "../reducers/search-reducer.js";
 import addedStockCountReducer from "../reducers/added-stock-count-reducer.js";
+import followReducer from "../reducers/follow-reducer.js";
 
 const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ const store = configureStore({
     profile: profileReducer,
     recommend: recommendReducer,
     search: searchReducer,
-    addStock: addedStockCountReducer
+    addStock: addedStockCountReducer,
+    follow: followReducer
   },
 });
 

@@ -62,7 +62,7 @@ const WatchListDetail = ({ watchlist, setWatchlist }) => {
       !currentUser.isVip &&
       addedStocks.length >= STOCK_LIMITATION_FOR_REGULAR_USER
     ) {
-      console.log("here");
+      // console.log("here");
       setShowUpgrade(true);
       return;
     }

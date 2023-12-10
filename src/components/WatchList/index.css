@@ -1,0 +1,111 @@
+.watchlist-container {
+    margin-top: 100px;
+    width: 100%;
+    position: relative;
+    margin-right: 0;
+  }
+  
+  .watchlist-title {
+    color: #5AC53B; /* Primary text color */
+    margin-bottom: 20px;
+  }
+  
+  .watchlist-item-box {
+    margin: 0px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    gap: 10px;
+  }
+  
+  .watchlist-item-div {
+    position: relative;
+    width: 180px; /* Fixed width */
+    margin: 5px;
+  }
+  
+  .remove-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: gray;
+    cursor: pointer;
+  }
+  
+  .remove-icon:hover {
+    color: red;
+  }
+  
+  .add-icon {
+    height: 100%;
+    color: gray;
+    cursor: pointer;
+  }
+  
+  .add-icon:hover {
+    color: #5AC53B;
+  }
+  
+  .watchlist-name {
+    width: 175px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 10px;
+    white-space: nowrap;
+  }
+  
+  .watchlist-name:hover {
+    color: #5AC53B;
+  }
+  
+  .no-watchlist {
+    color: gray;
+    flex-grow: 1; /* Take up remaining space */
+    display: flex;
+    justify-content: center; /* Center the text horizontally */
+    align-items: center; /* Center the text vertically */
+  }
+  
+  .upgrade-box {
+    position: absolute;
+    top: -130px;
+    right: 200px;
+    background-color: #5AC53B; /* Bootstrap primary */
+    padding: 15px;
+    border-radius: 10px;
+    color: white;
+    width: 300px;
+    font-size: larger;
+  }
+  
+  .upgrade-text {
+    font-size: medium;
+    font-weight: normal;
+    margin-top: 10px;
+  }
+  
+  .action-buttons {
+    margin-top: 15px;
+    text-align: right;
+  }
+  
+  .btn-custom, .not-now-btn, .login-btn {
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    border: 0;
+    padding: 3px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .btn-custom:hover, .login-btn:hover {
+    background-color: #5AC53B;
+    color: white;
+  }
+  
+  .not-now-btn {
+    color: rgb(66, 65, 65);
+    background-color: transparent;
+  }
+  
