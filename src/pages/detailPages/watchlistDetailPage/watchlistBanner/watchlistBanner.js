@@ -1,41 +1,76 @@
 import React, { useState } from "react";
-import "./index.css";
+import "./watchlistBanner.css";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { updateWatchlist as updateWatchlistService } from "../../services/watchlist-service.js";
 import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { useNavigate } from "react-router";
-import coverImg from "../../../images/stock-cover.jpg";
+import coverImg from "../../../../images/stock-cover.jpg";
+import { updateWatchlist } from "../../../../services/watchlist-service";
 
-const defaultFile = "/images/watchlist-cover.jpeg";
-const WatchlistBanner = ({ watchlistUser, watchlist, setWatchlist }) => {
+const WatchlistBanner = ({ watchlistUser, watchlist }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const [watchlistName, setWatchlistName] = useState(watchlist.watchlistName);
   const [watchlistDesc, setWatchlistDesc] = useState(watchlist.description);
+ // const [watchlistUser, setWatchlistUser] = useState(watchlistUser)
   const [edit, setEdit] = useState(false);
-  const [url, setUrl] = useState(watchlist.img);
-  const [avatarFile, setAvatarFile] = useState(null);
 
   const dispatch = useDispatch();
 
-
+  const handleNameChange = (e) => {
+    setWatchlistName(e.target.value);
+  };
+  const handleDescChange = (e) => {
+    setWatchlistDesc(e.target.value);
+  };
+  const handleEdit = () => {
+    setEdit(true);
+  };
   const handleBackClick = () => {
     navigate(-1); // Navigate back on arrow click
   };
+  const handleConfirm = (e) => {
+    let newName = watchlistName;
+    if (watchlistName === "") {
+      newName = watchlist.watchListName;
+      setWatchlistName(watchlist.watchListName);
+    }
+    const newWatchlist = {
+      ...watchlist,
+      watchListName: newName,
+      description: watchlistDesc,
+    };
+
+
+    watchlist.watchListName = newName;
+
+    if (watchlistName === "") {
+      setWatchlistName(watchlist.watchListName);
+    }
+
+    updateWatchlist(newWatchlist);
+    setEdit(false);
+  };
+
+  const handleCancel = () => {
+    setWatchlistName(watchlist.watchListName);
+    setWatchlistDesc(
+      watchlist.description === undefined ? "" : watchlist.description
+    );
+    setEdit(false);
+  };
   return (
-    <div className={`position-relative`}>
+    <div className={`position-relative`} style={{width:"100%"}}>
       <BsFillArrowLeftCircleFill
         onClick={handleBackClick}
         size={30}
         className={`position-absolute text-warning arrow-back-icon`}
       />
-      <img
-        src={coverImg}
-        height={`250px`}
-        width={`100%`}
-      />
+<div
+  style={{ backgroundColor: "rgb(229, 228, 226)", height: "250px", width: "100%" }}
+/>
+
       <img
         src={coverImg}
         className={`rounded-3 position-absolute watchlist-cover-pos`}
@@ -54,13 +89,13 @@ const WatchlistBanner = ({ watchlistUser, watchlist, setWatchlist }) => {
           )
         }
       >
-        {watchlistUser.name}
+        {watchlistUser?watchlistUser.name:"Loading..."}
       </h5>
 
       {!edit && (
         <>
           <h1
-            className={`text-white position-absolute watchlist-cover-text-pos-non-edit d-none d-md-block`}
+            className={`position-absolute watchlist-cover-text-pos-non-edit d-none d-md-block`}
           >
             {watchlistName}
           </h1>

@@ -19,7 +19,7 @@ export const deleteComment = async (commentObj) => {
   });
   return response.data;
 };
-export const findCommentsByPlaylist = async (pid) => {
-  const response = await axios.get(`${COMMENT_API}/playlist/${pid}`);
+export const findCommentsByWatchlist = async (wid) => {
+  const response = await axios.get(`${COMMENT_API}/watchlist/${wid}`);
   return response.data;
 };

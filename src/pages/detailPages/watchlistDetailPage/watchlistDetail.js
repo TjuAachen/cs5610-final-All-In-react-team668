@@ -18,13 +18,15 @@ import {
 import { findWatchlists } from "../../../services/watchlist-service.js";
 import "./watchlistDetail.css";
 import { STOCK_LIMITATION_FOR_REGULAR_USER } from "../../../constants/Constants.js";
+import { findUser } from "../../../services/user-service.js";
+import WatchlistBanner from "./watchlistBanner/watchlistBanner.js";
 
 // TODO : commentPanel
 const WatchListDetail = () => {
   // addedStocks of current login user
   const {wid} = useParams();
   console.log(localStorage.getItem(wid), "debug watchlist detail")
-  const watchlist = JSON.parse(localStorage.getItem(wid));
+  const [watchlist, setWatchlist] = useState(JSON.parse(localStorage.getItem(wid)));
   
   const { addedStocks } = useSelector((state) => state.addStock);
   const [stocks, setStocks] = useState(null);
@@ -32,6 +34,7 @@ const WatchListDetail = () => {
   const loginId = currentUser ? currentUser._id : null;
   const [watchlistsOption, setWatchlistsOption] = useState(null);
   const [stocksNumber, setStocksNumber] = useState(null);
+  const [watchlistAuthor, setWatchlistAuthor] = useState(null);
   const [showUpgrade, setShowUpgrade] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -98,6 +101,11 @@ const WatchListDetail = () => {
     setStocksNumber(stockNumbersOfLoginUser);
   };
 
+  const fetchUserInfo = async (uid) => {
+    let author = await findUser(uid);
+    setWatchlistAuthor(author)
+  }
+
   const fetchStocksInWatchlist = async (wid) => {
     let tempStocks = await findStocksByWatchlistId(wid);
     console.log(tempStocks, "debug watchlist detail")
@@ -106,6 +114,7 @@ const WatchListDetail = () => {
   useEffect(() => {
     // fetch all stocks in current watchlist
     fetchStocksInWatchlist(watchlist._id);
+    fetchUserInfo(watchlist.user)
   }, [watchlist._id]);
 
   useEffect(() => {
@@ -115,8 +124,9 @@ const WatchListDetail = () => {
   }, [loginId]);
   return (
     <>
+      <WatchlistBanner watchlistUser={watchlistAuthor} watchlist={watchlist}/>
       {stocks && (
-        <div className={`mt-3 ms-3 me-3 position-relative`}>
+        <div className={`mt-3 ms-3 me-3 position-relative`} style={{width: "100%"}}>
           <h4
             className={` position-absolute watchlist-rating d-none d-xl-flex`}
           >
@@ -219,10 +229,10 @@ const WatchListDetail = () => {
             <div
               className={`col-4 comment-panel-container me-3 rounded-3 p-0 d-none `}
             >
-              <CommentPanel
+              {/*<CommentPanel
                 pRating={watchlist.rating}
                 setWatchlist={setWatchlist}
-                    />
+                    />*/}
             </div>
           </div>
         </div>

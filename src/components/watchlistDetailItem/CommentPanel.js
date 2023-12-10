@@ -5,10 +5,10 @@ import { createComment } from "../../services/comment-service.js";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import HistoryPanelItem from "./HistoryPanelItem.js";
-import { findCommentsByPlaylist } from "../../services/comment-service.js";
+import { findCommentsByWatchlist } from "../../services/comment-service.js";
 import { AiFillCheckCircle, AiOutlineClear } from "react-icons/ai";
 
-const CommentPanel = ({ pRating, setPlaylist }) => {
+const CommentPanel = ({ pRating, setWatchlist }) => {
   const [rating, setRating] = useState(0);
   const [content, setContent] = useState("");
   const [comments, setComments] = useState([]);
@@ -41,13 +41,13 @@ const CommentPanel = ({ pRating, setPlaylist }) => {
     setTimeout(() => {
       setSubmit(false);
     }, 2000);
-    setPlaylist((p) => ({
+    setWatchlist((p) => ({
       ...p,
       rating: newAvgRating,
     }));
 
     const newComment = {
-      playlist: id,
+      watchlist: id,
       user: currentUser._id,
       content: content,
       rating: rating,
@@ -67,7 +67,7 @@ const CommentPanel = ({ pRating, setPlaylist }) => {
   };
 
   const fetchComments = async (pid) => {
-    const data = await findCommentsByPlaylist(pid);
+    const data = await findCommentsByWatchlist(pid);
     setComments(data);
   };
   useEffect(() => {

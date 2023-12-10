@@ -35,11 +35,11 @@ const WatchlistDetailItem = ({
                         {stock.ticker ? stock.ticker : "Unknown"}
                     </h5>
                 </div>
-                <div className={`col text-muted d-flex align-items-center p-0`}>
+                <div className={`col-2 text-muted d-flex align-items-center p-0`}>
                     <h5
                         className={` fw-fold d-inline overflow-hidden-format watchlist-detail-artist text-nowrap mb-0`}
                     >
-                        {stock.stockName ? stock.stockName : "Unknown"}
+                        {stock.stockName ? stock.stockName : stock.ticker}
                     </h5>
                 </div>
 
