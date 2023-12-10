@@ -30,11 +30,11 @@ export const createImageFromInitials = (size, name, color, showFullName) => {
     if (!showFullName) {
         name=getInitials(name)
     }
-
+    const length = name.length;
     const canvas=document.createElement('canvas')
     const context=canvas.getContext('2d')
-    canvas.width=canvas.height=size
-
+    canvas.height=size
+    canvas.width=size
     context.fillStyle="#ffffff"
     context.fillRect(0,0,size,size)
 
@@ -44,7 +44,7 @@ export const createImageFromInitials = (size, name, color, showFullName) => {
     context.fillStyle=color;
     context.textBaseline='middle'
     context.textAlign='center'
-    context.font =`${size/2}px Roboto`
+    context.font =`${size/length}px Roboto`
     context.fillText(name,(size/2),(size/2))
 
     return canvas.toDataURL()

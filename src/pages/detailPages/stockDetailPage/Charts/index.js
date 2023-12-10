@@ -2,8 +2,15 @@ import React, { useEffect, useState } from 'react';
 import Highcharts from 'highcharts/highstock'
 import HighchartsReact from 'highcharts-react-official'
 import { getHistoricalStockData } from '../../../../services/remoteAPI-service';
+import vbp from 'highcharts/indicators/volume-by-price';
+import indicators from 'highcharts/indicators/indicators';
+import "./index.css"
+indicators(Highcharts);
+vbp(Highcharts);
+
 
 const Chart = ({ ticker }) => {
+    // Initialize the series-label module
 
     const [ohlc, setOhlc] = useState([]);
     const [volume, setVolume] = useState([]);
@@ -12,7 +19,13 @@ const Chart = ({ ticker }) => {
        // const data = await response.json();
         const tempOhlc = []
         const tempVolume = []
-        data.forEach((item) => {
+        data.Volume.forEach((item) => {
+            tempVolume.push([
+                item[0], // the date
+                item[1], // the volume
+            ]);
+        });
+        data.historicalData.forEach((item) => {
             tempOhlc.push([
                 item[0], // the date
                 item[1], // open
@@ -20,27 +33,21 @@ const Chart = ({ ticker }) => {
                 item[3], // low
                 item[4], // close
             ]);
-
-            tempVolume.push([
-                item[0], // the date
-                item[5], // the volume
-            ]);
-        });
+        })
         setOhlc(tempOhlc)
         setVolume(tempVolume)
     }
     useEffect(() => {
         fetchChartData();
-    }, []
+    }, [ticker]
     );
-
     const chartOptions = {
         rangeSelector: {
             selected: 2,
         },
 
         title: {
-            text: `${ticker.toUppercase()} Historical`,
+            text: `${ticker.toUpperCase()} Historical`,
         },
 
         subtitle: {
@@ -103,8 +110,8 @@ const Chart = ({ ticker }) => {
         series: [
             {
                 type: 'candlestick',
-                name: `${ticker.toUppercase()}`,
-                id: `${ticker.toUppercase()}`,
+                name: `${ticker.toUpperCase()}`,
+                id: `${ticker.toUpperCase()}`,
                 zIndex: 2,
                 data: ohlc
                 // data: [
@@ -143,7 +150,29 @@ const Chart = ({ ticker }) => {
         ],
     };
 
-
+    /*Highcharts.setOptions({
+        plotOptions: {
+          vbp: {
+            params: {
+                volumeSeriesID: 'volume',
+            },
+            dataLabels: {
+                enabled: false,
+            },
+            zoneLines: {
+                enabled: false,
+            },
+            linkedTo: { ticker }
+          },
+           sma: {
+            zIndex: 1,
+            marker: {
+                enabled: false,
+            },
+            linkedTo: { ticker }
+           }
+        }
+      });*/
     return <div className="chart-container">
         <HighchartsReact options={chartOptions} constructorType={"stockChart"} highcharts={Highcharts}>
         </HighchartsReact>

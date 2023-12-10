@@ -11,7 +11,9 @@ import { insertStockIfNotExist } from '../../../../services/stock-service.js';
 import { createStockWatchlist } from '../../../../services/stockWatchlist-service';
 import { findWatchlists } from '../../../../services/watchlist-service.js';
 import { useNavigate } from 'react-router-dom';
+import "./index.css"
 import Dropdown from "react-bootstrap/Dropdown";
+
 
 const HighlightBanner = ({ ticker, summary }) => {
   const navigate = useNavigate();
@@ -22,7 +24,7 @@ const HighlightBanner = ({ ticker, summary }) => {
   const [stock, setStock] = useState({})
   const [quantity, setQuantity] = useState(0);
   const [showUpgrade, setShowUpgrade] = useState(false);
-  const { addedStocks } = useSelector((state) => state.addedStocks);
+  const { addedStocks } = useSelector((state) => state.addStock);
   const { currentUser } = useSelector((state) => state.user);
   const currentDate = new Date().toISOString().split('T')[0];
   const [watchlistsOption, setWatchlistsOption] = useState(null);
@@ -32,8 +34,9 @@ const HighlightBanner = ({ ticker, summary }) => {
 
 
   const fetchHighlightData = async (ticker) => {
-    const data = await getStockHighlights(ticker);
-    setHighlights(data);
+    const response = await getStockHighlights(ticker);
+    // console.log(data, "debug")
+    setHighlights(response);
   }
 
   const buyStock = async () => {
@@ -67,28 +70,34 @@ const HighlightBanner = ({ ticker, summary }) => {
     setWatchlistsOption(myWatchlists);
   };
 
-  useEffect(async () => {
-    await fetchHighlightData(ticker);
-    setStock({
-      ticker: ticker,
-      stockName: highlights.name,
-      openPrice: summary.open,
-      closePrice: summary.close,
-      lowPrice: summary.low,
-      highPrice: summary.high,
-      date: currentDate,
-      volume: summary.volume
-    })
-
-  }, ticker);
-
-  useEffect(async () => {
-    if (currentUser) {
-      dispatch(findCurrentUserStocksThunk());
-      await fetchLoginUserWatchlists(currentUser._id);
-      isAddedByUser();
+  useEffect(() => {
+    let fecthDataBefore = async () => {
+      await fetchHighlightData(ticker);
+      setStock({
+        ticker: ticker,
+        stockName: highlights.name,
+        openPrice: summary.open,
+        closePrice: summary.close,
+        lowPrice: summary.low,
+        highPrice: summary.high,
+        date: currentDate,
+        volume: summary.volume
+      })
     }
-  }, loginId);
+    fecthDataBefore();
+
+  }, [ticker]);
+
+  useEffect(() => {
+    if (currentUser) {
+      const fetchData = async () => {
+        dispatch(findCurrentUserStocksThunk());
+        await fetchLoginUserWatchlists(currentUser._id);
+        isAddedByUser();
+      }
+      fetchData();
+    }
+  }, [loginId]);
 
   const stockDetailHandleUnLikeClick = async (stock) => {
     if (!currentUser) return;
@@ -126,222 +135,232 @@ const HighlightBanner = ({ ticker, summary }) => {
 
 
   return (
-    <div className="container highlights">
-      <div className="row">
-        {/* Left panel */}
-        <div className="col-6 align-left">
-          {showUpgrade && (
-            <>
-              <div
-                className={`col text-white position-absolute upgrade-in-watchlist-div p-3 rounded-3 bg-primary fw-bold`}
-              >
-                Enjoy your Premium Journey!
-                <div className={`text-white upgrade-text`}>
-                  Upgrade your account to add more stocks.
-                </div>
-                <div
-                  className={`mt-2 d-flex align-items-center justify-content-end`}
-                >
-                  <button
-                    className={`btn not-now-btn`}
-                    onClick={() => setShowUpgrade(false)}
+    <>
+      
+        < div className="row highlights" >
+          
+            {/* Left panel */}
+            < div className="col-6 align-left" >
+              {showUpgrade && (
+                <>
+                  <div
+                    className={`col text-white position-absolute upgrade-in-watchlist-div p-3 rounded-3 bg-primary fw-bold`}
                   >
-                    Not now
-                  </button>
-                  <button
-                    className={` login-btn rounded-pill`}
-                    onClick={() => {
-                      setShowUpgrade(false);
-                      navigate("/premium");
-                    }}
+                    Enjoy your Premium Journey!
+                    <div className={`text-white upgrade-text`}>
+                      Upgrade your account to add more stocks.
+                    </div>
+                    <div
+                      className={`mt-2 d-flex align-items-center justify-content-end`}
+                    >
+                      <button
+                        className={`btn not-now-btn`}
+                        onClick={() => setShowUpgrade(false)}
+                      >
+                        Not now
+                      </button>
+                      <button
+                        className={` login-btn rounded-pill`}
+                        onClick={() => {
+                          setShowUpgrade(false);
+                          navigate("/premium");
+                        }}
+                      >
+                        Upgrade
+                      </button>
+                    </div>
+                  </div>
+
+                </>
+              )
+              }
+              <span>
+                <div className="ticker">
+                  {ticker}
+                  <div
+                    className={`col-1`}
                   >
-                    Upgrade
-                  </button>
-                </div>
-              </div>
-            </>
-          )}
-          <span>
-            <div className="ticker">
-              {ticker}
-              <div
-                className={`col-1`}
-              >
-                {like && (
-                  <AiFillHeart
-                    size={iconSize}
-                    className={`text-danger`}
-                    onClick={() => {
-                      setLike(false);
-                      stockDetailHandleUnLikeClick(stock);
-                    }}
-                  />
-                )}
-                {!like && (
-                  <>
-                    {!watchlistsOption && (
+                    {like && (
+                      <AiFillHeart
+                        size={iconSize}
+                        className={`text-danger`}
+                        onClick={() => {
+                          setLike(false);
+                          stockDetailHandleUnLikeClick(stock);
+                        }}
+                      />
+                    )}
+                    {!like && (
                       <>
-                        <div className={`position-relative`}>
-                          <div onClick={() => setShow(!show)}>
-                            <AiOutlineHeart
-                              size={iconSize}
-                              className={`text-muted`}
-                            />
-                          </div>
-                          {show && (
-                            <div className={`like-toolkit-div position-absolute rounded-3`}>
-                              <h5 className={`text-white fw-bold m-2`}>
-                                Enjoy your Investment!
-                              </h5>
-                              <div
-                                className={`mt-3 mb-1 d-flex justify-content-center align-items-center`}
-                              >
-                                <button
-                                  className={`btn btn-light p-1`}
-                                  onClick={() => navigate("/login")}
-                                >
-                                  Log in
-                                </button>
-                                <p
-                                  className={`text-muted mb-0 ms-3 not-now`}
-                                  onClick={() => setShow(false)}
-                                >
-                                  Not Now
-                                </p>
+                        {!watchlistsOption && (
+                          <>
+                            <div className={`position-relative`}>
+                              <div onClick={() => setShow(!show)}>
+                                <AiOutlineHeart
+                                  size={iconSize}
+                                  className={`text-muted`}
+                                />
                               </div>
+                              {show && (
+                                <div className={`like-toolkit-div position-absolute rounded-3`}>
+                                  <h5 className={`text-white fw-bold m-2`}>
+                                    Enjoy your Investment!
+                                  </h5>
+                                  <div
+                                    className={`mt-3 mb-1 d-flex justify-content-center align-items-center`}
+                                  >
+                                    <button
+                                      className={`btn btn-light p-1`}
+                                      onClick={() => navigate("/login")}
+                                    >
+                                      Log in
+                                    </button>
+                                    <p
+                                      className={`text-muted mb-0 ms-3 not-now`}
+                                      onClick={() => setShow(false)}
+                                    >
+                                      Not Now
+                                    </p>
+                                  </div>
+                                </div>
+                              )}
                             </div>
-                          )}
-                        </div>
+                          </>
+                        )}
+
+                        {watchlistsOption && (
+                          <div className={`d-flex align-items-center`}>
+                            <Dropdown id="watchlists">
+                              <Dropdown.Toggle
+                                variant="secondary"
+                                id="dropdown-basic"
+                                className={`bg-muted`}
+                              >
+                                <AiFillHeart size={iconSize} />
+                              </Dropdown.Toggle>
+                              <Dropdown.Menu>
+                                {watchlistsOption.map((p) => (
+                                  <Dropdown.Item
+                                    onClick={() => {
+                                      // setLike(true);
+                                      stockDetailHandleAddToWatchlist(p._id, stock, setLike);
+                                    }}
+                                  >
+                                    Add to {p.watchListName}
+                                  </Dropdown.Item>
+                                ))}
+                              </Dropdown.Menu>
+                            </Dropdown>
+                          </div>
+                        )}
                       </>
                     )}
-
-                    {watchlistsOption && (
-                      <div className={`d-flex align-items-center`}>
-                        <Dropdown id="watchlists">
-                          <Dropdown.Toggle
-                            variant="secondary"
-                            id="dropdown-basic"
-                            className={`bg-muted`}
-                          >
-                            <AiFillHeart size={iconSize} />
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu>
-                            {watchlistsOption.map((p) => (
-                              <Dropdown.Item
-                                onClick={() => {
-                                  // setLike(true);
-                                  stockDetailHandleAddToWatchlist(p._id, stock, setLike);
-                                }}
-                              >
-                                Add to {p.watchListName}
-                              </Dropdown.Item>
-                            ))}
-                          </Dropdown.Menu>
-                        </Dropdown>
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
-            </div>
-          </span>
-          <p className="name text-muted">{highlights.name}</p>
-          <p>{highlights.exchangeCode}</p>
-          <button className="btn btn-success" onClick={() => openModal()}>Buy</button>
-
-          {/* Modal */}
-          {showModal && (<div className="modal" id="content" tabIndex="-1" role="dialog">
-            <div className="modal-header">
-              <p className="modal-title" id="modal-basic-title">{highlights.ticker}</p>
-              <button
-                type="button"
-                className="close"
-                aria-label="Close"
-                onClick={() => closeModal()}
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div className="modal-body modal-content">
-              <div className="container">
-                <div className="row">
-                  <div className="col">
-                    <label>Current Price: {highlights.last}</label>
                   </div>
                 </div>
-                <div className="row">
-                  <div className="col-md-6 col-sm-12 quantity-label">
-                    <label htmlFor="quantity">Quantity: </label>
-                  </div>
-                  <div className="col-md-6 col-sm-12">
-                    <input
-                      type="number"
-                      className="form-control"
-                      required
-                      id="quantity"
-                      name="quantity"
-                      value={quantity}
-                      onChange={(e) => setQuantity(e.target.value)}
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="modal-footer">
-              <div className="container">
-                <div className="row justify-content-space-between">
-                  <div className="col">
-                    <label>Total : {highlights.last * quantity}</label>
-                  </div>
-                  <div className="col align-right">
+              </span>
+              <p className="name text-muted">{highlights.name}</p>
+              <p>{highlights.exchangeCode}</p>
+              <button className="btn btn-success" onClick={() => openModal()}>Buy</button>
+
+              {/* Modal */}
+              {
+                showModal && (<div className="modal" id="content" tabIndex="-1" role="dialog">
+                  <div className="modal-header">
+                    <p className="modal-title" id="modal-basic-title">{highlights.ticker}</p>
                     <button
                       type="button"
-                      className="btn btn-success"
-                      disabled={quantity < 1}
-                      onClick={buyStock}
+                      className="close"
+                      aria-label="Close"
+                      onClick={() => closeModal()}
                     >
-                      Buy
+                      <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                </div>
+                  <div className="modal-body modal-content">
+                    <div className="container">
+                      <div className="row">
+                        <div className="col">
+                          <label>Current Price: {highlights.last}</label>
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-md-6 col-sm-12 quantity-label">
+                          <label htmlFor="quantity">Quantity: </label>
+                        </div>
+                        <div className="col-md-6 col-sm-12">
+                          <input
+                            type="number"
+                            className="form-control"
+                            required
+                            id="quantity"
+                            name="quantity"
+                            value={quantity}
+                            onChange={(e) => setQuantity(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="modal-footer">
+                    <div className="container">
+                      <div className="row justify-content-space-between">
+                        <div className="col">
+                          <label>Total : {highlights.last * quantity}</label>
+                        </div>
+                        <div className="col align-right">
+                          <button
+                            type="button"
+                            className="btn btn-success"
+                            disabled={quantity < 1}
+                            onClick={buyStock}
+                          >
+                            Buy
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>)
+              }
+            </div >
+
+            {/* Right panel */}
+            < div className="col-6 align-right" >
+              <p className={highlights.change > 0 ? 'high' : highlights.change < 0 ? 'low' : 'last'}>{highlights.last}</p>
+
+              <div className={highlights.change > 0 ? 'high' : highlights.change < 0 ? 'low' : 'change'}>
+                {highlights.change < 0 ? (
+                  <svg width="1rem" height="1rem" viewBox="0 0 16 16" fill="red" xmlns="http://www.w3.org/2000/svg">
+                    {/* SVG path for downward arrow */}
+                  </svg>
+                ) : (
+                  <svg width="1em" height="1em" viewBox="0 0 16 16" fill="green" xmlns="http://www.w3.org/2000/svg">
+                    {/* SVG path for upward arrow */}
+                  </svg>
+                )}
+                {highlights.change ? highlights.change.toFixed(2) : "NA"} <span>({highlights.changePercent ? highlights.changePercent.toFixed(2) : "NA"}%)</span>
               </div>
-            </div>
-          </div>)}
-        </div>
+              <p className='text-muted mt-2'>{highlights.currentTimestamp}</p>
+            </div >
+          </div >
 
-        {/* Right panel */}
-        <div className="col-6 align-right">
-          <p className={highlights.change > 0 ? 'high' : highlights.change < 0 ? 'low' : 'last'}>{highlights.last}</p>
+          {/* Market status */}
+          < div >
+            {
+              highlights.marketStatus ? (
+                <p className='m_open market'>
+                  Market is Open
+                </p>
+              ) : (
+                <p className='m_close market'>
+                  Market Closed on {highlights.lastTimestamp}
+                </p>
+              )
+            }
+          </div >
 
-          <div className={highlights.change > 0 ? 'high' : highlights.change < 0 ? 'low' : 'change'}>
-            {highlights.change < 0 ? (
-              <svg width="1rem" height="1rem" viewBox="0 0 16 16" fill="red" xmlns="http://www.w3.org/2000/svg">
-                {/* SVG path for downward arrow */}
-              </svg>
-            ) : (
-              <svg width="1em" height="1em" viewBox="0 0 16 16" fill="green" xmlns="http://www.w3.org/2000/svg">
-                {/* SVG path for upward arrow */}
-              </svg>
-            )}
-            {highlights.change.toFixed(2)} <span>({highlights.changePercent.toFixed(2)}%)</span>
-          </div>
-          <p className='text-muted mt-2'>{highlights.currentTimestamp}</p>
-        </div>
-      </div>
-
-      {/* Market status */}
-      <div>
-        {highlights.marketStatus ? (
-          <p className='m_open market'>
-            Market is Open
-          </p>
-        ) : (
-          <p className='m_close market'>
-            Market Closed on {highlights.lastTimestamp}
-          </p>
-        )}
-      </div>
-    </div>
+   
+    </>
   );
 };
 

@@ -24,7 +24,7 @@ function App() {
         <div className="app_header">
           <NavBar />
         </div>
-        <div className="app_body">
+        <div className="app_body page-min-height">
           {/*<div className="app_container">
             <p className="title">All-In</p>
             <p className="subtitle">
@@ -39,9 +39,9 @@ function App() {
             <Route path="/profile/:uid" element={<Profile />} />
             <Route path="/premium" element={<Premium />} />
             <Route path="/admin/*" element={<Admin />} />
-            <Route path="/search" element={<Search />} />
+            <Route path="/search/*" element={<Search />} />
             <Route path="/details/watchlist/:wid" element={<WatchListDetail />} />
-            <Route path="/details" element={<StockDetail />} />
+            <Route path="/details/:ticker" element={<StockDetail />} />
             <Route path="/portfolio/:uid" element={<PortfolioPage />} />
             <Route path="/about" element={<About />} />
           </Routes>

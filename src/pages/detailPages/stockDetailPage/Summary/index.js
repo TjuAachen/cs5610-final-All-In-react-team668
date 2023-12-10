@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { getLatestChartData } from '../../../../services/remoteAPI-service';
 import Highcharts from 'highcharts/highstock'
 import HighchartsReact from 'highcharts-react-official'
+import "./index.css"
+
 
 const Summary = ({ summary, company, ticker }) => {
- // if (!summary) {
-   // return null; // Or handle the case where 'summary' data is not available
+  // if (!summary) {
+  // return null; // Or handle the case where 'summary' data is not available
   //}
-  const [results, setResults] = useState(null);
+
+  const [results, setResults] = useState({});
 
   const fetchLatestChartData = async () => {
     await getLatestChartData(ticker).then((data) => {
@@ -18,7 +21,7 @@ const Summary = ({ summary, company, ticker }) => {
 
   useEffect(() => {
     fetchLatestChartData();
-  }, ticker)
+  }, [ticker])
 
   const chartOptions = {
     title: {
@@ -50,14 +53,14 @@ const Summary = ({ summary, company, ticker }) => {
     '<span style="color:' +
     color +
     '">●</span> ' +
-    this.ticker.toUpperCase() +
+    ticker.toUpperCase() +
     ': <b>{point.y}</b><br/>';
-
+  //console.log(summary, "debug summary")
   return (
     <div className="container">
       <div className="row">
         <div className="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-          <div className="container">
+          
             <div className="row margin-tb">
               <div className="col-6">
                 <table>
@@ -75,7 +78,7 @@ const Summary = ({ summary, company, ticker }) => {
                       <td className="right">{summary.open}</td>
                     </tr>
                     <tr>
-                      <td>Previous Close:</td>
+                      <td>Prev. Close:</td>
                       <td className="right">{summary.close}</td>
                     </tr>
                     <tr>
@@ -84,11 +87,11 @@ const Summary = ({ summary, company, ticker }) => {
                     </tr>
                   </tbody>
                 </table>
-              </div>
+                              </div>
               <div className="col-6">
                 <table>
                   <tbody>
-                    {summary.marketStatus && (
+                    {summary.marketStatus? (
                       <>
                         <tr>
                           <td>Mid Price:</td>
@@ -111,12 +114,13 @@ const Summary = ({ summary, company, ticker }) => {
                           <td className="right">{summary.bidSize}</td>
                         </tr>
                       </>
-                    )}
+                    ) : null}
                   </tbody>
                 </table>
               </div>
             </div>
-          </div>
+          
+          <div className="row">
           {company && (
             <div className="container">
               <div className="row justify-content-center">
@@ -130,20 +134,21 @@ const Summary = ({ summary, company, ticker }) => {
               </div>
             </div>
           )}
+          </div>
         </div>
         <div className="col-xs-12 col-sm-12 col-md-12 col-lg-6 margin-tb">
           {chartOptions && (
             <HighchartsReact
-              Highcharts={Highcharts}
+              highcharts={Highcharts}
               constructorType={"stockChart"}
               options={chartOptions}
-              style={{ width: '100%', height: '500px', display: 'block' }}
+              style="width: 100%; height: 500px; display: block;"
             />
           )}
+</div>
         </div>
       </div>
-    </div>
-  );
+      );
 };
 
 export default Summary;

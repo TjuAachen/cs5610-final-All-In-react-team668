@@ -18,13 +18,20 @@ body {
 
 .app_body {
   background-color: white;
-  margin: 0;
+  margin-left: 5rem;
+  margin-right: 5rem;
   display: grid;
   place-items: center;
   z-index: -1;
 }
 
 .app_footer {
+  margin-left: 5rem;
+  margin-right: 5rem;
   padding-left: 12px;
   padding-right: 12px;
+}
+
+.page-min-height {
+  min-height: 100vh;
 }

@@ -1,5 +1,7 @@
 .highlights {
+  margin-top: 20px;
     text-align: center;
+    width: 80%;
   }
   p {
     margin-bottom: 0.5rem !important;

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { logoutThunk } from "../../services/users/users-thunks";
+import { cleanSearchReducer } from "../../reducers/search-reducer";
 
 function NavBar() {
   const loginUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -27,7 +28,7 @@ function NavBar() {
         <Link to="/">
           <a href="/">Home</a>
         </Link>
-        <Link to="/search">
+        <Link to="/search" onClick={() => dispatch(cleanSearchReducer)}>
           <a href="/search">Search</a>
         </Link>
         <Link to="/about">

@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { getStockNews } from '../../../../services/remoteAPI-service';
+import "./index.css";
 
 const News = ({ ticker }) => {
     const [showModal, setShowModal] = useState(false);
-    const [news, setNews] = useState(null);
+    const [news, setNews] = useState([]);
 
     const fetchNews = async (ticker) => {
         await getStockNews(ticker).then((response) => setNews(response));
+      //  console.log(ticker, news, "debugNews")
+       // console.log(response, "debugNewsResponse")
     }
 
-    useEffect(async () => {
-        await fetchNews();
+    useEffect(() => {
+        fetchNews(ticker);
     }, [ticker]);
 
     const openModal = () => {
@@ -26,10 +29,10 @@ const News = ({ ticker }) => {
             <div className="row news-articles">
                 {news.map((newsItem, index) => (
                     <div key={index} className="news-cols col-lg-6 col-md-12 col-sm-12 col-xs-12">
-                        <div className="card container" onClick={() => openModal()}>
+                        <div className="card card-news container" onClick={() => openModal()}>
                             <div className="row">
                                 <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                                    <img className='news-image' src={newsItem.urlToImage} alt="" />
+                                    <img className='news-image img-fluid' src={newsItem.urlToImage} alt="" />
                                 </div>
                                 <div className="col-lg-8 col-md-8 col-sm-8 col-xs-12">
                                     {newsItem.title}

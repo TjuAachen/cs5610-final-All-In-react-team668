@@ -16,6 +16,7 @@ function SearchBox() {
     const {searchKeyword} = useSelector(state => state.search);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [inputValue, setInputValue] = useState("");
 
     const toggleActive = () => {
         setIsActive(!isActive);
@@ -59,14 +60,12 @@ function SearchBox() {
 
     const search = async (event) => {
         event.preventDefault();
-        if (event.key !== "Enter") {
-            return;
-        }
         let response = [];
-
+        dispatch(updateSearchKeyword(inputValue))
         switch (selectedOption) {
             case 'cloud-stock':
                 response = await getCloudStock(searchKeyword)
+                console.log(response, "debug")
                 dispatch(updateSearchResults(response));
                 break;
             case 'local-watchlist':
@@ -87,8 +86,8 @@ function SearchBox() {
             <form onSubmit={search}>
                 <div className="input_box">
                     <input type="text" placeholder="Search..." 
-                    value = {searchKeyword}
-                    onChange={(e) => dispatch(updateSearchKeyword(e.target.value))}
+                    value = {inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
                     />
                     <div className="selection" onClick={toggleActive}>
                         <p>{selectedOption}</p><span></span>

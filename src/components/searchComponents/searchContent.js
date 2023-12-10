@@ -17,7 +17,7 @@ function SearchContent() {
   const handleResize = () => {
     setWindowWidth(window.innerWidth);
   };
-
+  console.log(searchResults, "debug Search content")
   useEffect(() => {
    // dispatch(updateSearchResults(response));
 
@@ -29,6 +29,7 @@ function SearchContent() {
 
   useEffect(() => {
     dispatch(findCurrentUserThunk());
+   
   }, []);
 
   const indexOfLastResult = currentPage * resultsPerPage;
@@ -37,7 +38,7 @@ function SearchContent() {
 
 
   let num = Math.floor(windowWidth / 250);
-
+  console.log(currentResults, "debug current results")
   return (
       <div className={`search-content-container`}>
         <div style={{ display: "flex", flexWrap: "wrap" }}>

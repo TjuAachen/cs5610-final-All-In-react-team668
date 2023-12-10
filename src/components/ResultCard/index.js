@@ -12,7 +12,7 @@ const ResultCard = ({ item, type }) => {
   const dispatch = useDispatch();
   const currentDate = new Date().toISOString().split('T')[0];
   let name = "";
-  let cardSize = 200;
+  let cardSize = 250;
   let showFullName = true;
   // const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   // change to read currentUser from redux since the info of currentUser may be updated
@@ -25,7 +25,7 @@ const ResultCard = ({ item, type }) => {
       navigate("/profile/" + item._id);
       name = item.userName
       showFullName = false;
-    } else if (type === "stock") {
+    } else if (type === "cloud-stock") {
       navigate("/details/" + item.ticker);
       name = item.ticker;
     }
@@ -43,7 +43,7 @@ const ResultCard = ({ item, type }) => {
         <Card.Img
           variant="top"
           className={"wd-card-img-custom "}
-          src={() => LetterPicture(cardSize, name, getRandomColor(), showFullName)}
+          src={LetterPicture(cardSize, item.ticker, getRandomColor(), showFullName)}
         />
         <Card.Body>
           {type === "watchlist" && (<>
@@ -95,7 +95,7 @@ const ResultCard = ({ item, type }) => {
 
           )}
 
-          {type === "stock" && (
+          {type === "cloud-stock" && (
             <>
               <Card.Title className={"wd-card"}>
                 {item.ticker ? item.ticker : "Unknown"}
@@ -104,10 +104,10 @@ const ResultCard = ({ item, type }) => {
                 {item.stockName || item.name}
               </Card.Text>
               <Card.Text className={"wd-card"}>
-                {'$' + item.closePrice ? item.closePrice : "Unknown"}
+                {'$' + (item.last ? item.last : "Unknown") + ' (' + (item.changePercent).toFixed(2) + '%)'}
               </Card.Text>
               <Card.Title className={"wd-card"}>
-                Date: {item.date || currentDate}
+                {item.exchangeCode}
               </Card.Title>
             </>
           )}
