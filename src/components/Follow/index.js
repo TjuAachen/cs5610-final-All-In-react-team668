@@ -36,8 +36,9 @@ const Follow = () => {
 
   return (
     <div className="d-flex flex-column">
-      <h4 className="">Follows</h4>
       <div className={`follow-container rounded-3`}>
+      <h4 className="">Follows</h4>
+
         {followeeList.length === 0 && (
           <div
             className={`empty-followeeList-div text-muted d-flex justify-content-center align-items-center`}
