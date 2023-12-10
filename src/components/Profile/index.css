@@ -54,6 +54,7 @@
   display: flex; /* Enables Flexbox */
   align-items: center; /* Vertically aligns items in the middle */
   gap: 10px; /* Adds space between the icon and the text */
+  margin-top: 80px;
 }
 
 /* Base Styles */

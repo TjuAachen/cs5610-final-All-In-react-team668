@@ -3,7 +3,7 @@ import FollowItem from "./FollowItem";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { findFolloweeIds } from "../../services/follow-service";
-// import "./index.css";
+import "./index.css";
 import {
   findFolloweeThunk,
   updateFolloweeThunk,
@@ -35,9 +35,10 @@ const Follow = () => {
   }, [uid]);
 
   return (
-    <div className={`mt-5 pe-3 `}>
-      <h4 className={`text-white`}>Follows</h4>
+    <div className="d-flex flex-column">
       <div className={`follow-container rounded-3`}>
+      <h4 className="">Follows</h4>
+
         {followeeList.length === 0 && (
           <div
             className={`empty-followeeList-div text-muted d-flex justify-content-center align-items-center`}

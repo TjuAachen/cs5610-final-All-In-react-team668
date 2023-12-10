@@ -6,6 +6,7 @@ import Tooltip from "react-bootstrap/Tooltip";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { MdRemoveCircle, MdAddCircle } from "react-icons/md";
 import Overlay from "react-bootstrap/Overlay";
+import profileAvatar from "../../images/profile-avatar.jpeg";
 
 const FollowItem = ({ follow, isFollow, handleFollow, isSelf, isLogin }) => {
   const navigate = useNavigate();
@@ -27,12 +28,13 @@ const FollowItem = ({ follow, isFollow, handleFollow, isSelf, isLogin }) => {
   };
 
   return (
-    <div className={`mt-2 row p-3`}>
+    <div className={`d-flex flex-row mt-2 pe-2`}>
       <div
-        className={`col-lg-7 col-xl-2 col-2 ms-3 d-flex align-items-center justify-content-center position-relative`}
+        className={`ms-3 d-flex align-items-center justify-content-center position-relative`}
       >
         <img
-          src={follow.img}
+          src={profileAvatar}
+          alt="Profile Avatar"
           width={`70px`}
           height={`70px`}
           className={`rounded-pill`}
@@ -45,18 +47,20 @@ const FollowItem = ({ follow, isFollow, handleFollow, isSelf, isLogin }) => {
         )}
       </div>
       <div
-        className={`col-4 ms-3 ps-3 d-none d-xl-flex d-flex align-items-center`}
+        className={`ms-2 d-none d-xl-flex d-flex align-items-center`}
       >
         <div className={``}>
-          <div className={`fw-bold text-white`}>{follow.userName}</div>
-          <div className={`text-muted`}>{follow.watchlistsCount} watchlists</div>
+          <div className={`fw-bold`}>{follow.userName}</div>
+          <div className={`text-muted`}>
+            {follow.watchlistsCount} watchlists
+          </div>
         </div>
       </div>
-      <div className={`col d-flex align-items-center justify-content-end`}>
+      <div className={`d-flex ms-4 align-items-center justify-content-end`}>
         {isLogin && (isSelf || isFollow_) ? (
           <>
             <button
-              className={`btn btn-danger fw-bold d-none d-xl-block`}                        
+              className={`btn btn-danger fw-bold d-none d-xl-block`}
               onClick={() => handleFollowWithStateChange()}
             >
               Unfollow

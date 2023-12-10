@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { AiFillStar } from "react-icons/ai";
 import WatchlistDetailItem from "../../../components/watchlistDetailItem/index.js";
+import CommentPanel from "../../../components/watchlistDetailItem/CommentPanel.js";
 //import CommentPanel from "./CommentPanel";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router";
@@ -218,10 +219,10 @@ const WatchListDetail = () => {
             <div
               className={`col-4 comment-panel-container me-3 rounded-3 p-0 d-none `}
             >
-              {/*<CommentPanel
+              <CommentPanel
                 pRating={watchlist.rating}
                 setWatchlist={setWatchlist}
-                    />*/}
+                    />
             </div>
           </div>
         </div>

@@ -49,7 +49,7 @@ const Profile = () => {
             isLogin={loginUser ? true : false}
           />)}
           <ProfileRight 
-          className=""
+          className="profile-right"
           isSelf={uid ? false : true} />
       </div>
     </div>

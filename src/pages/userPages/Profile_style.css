@@ -15,7 +15,7 @@
     display: flex;
     flex-direction: row; /* This puts ProfileMiddle and ProfileRight in a row */
     justify-content: center; /* Centers the components in the row */
-    align-items: center; /* Aligns items to the start of the cross axis */
+    /* align-items: center; Aligns items to the start of the cross axis */
     width: 100%; /* Adjust the width as needed */
     gap: 20px; 
   }
@@ -24,10 +24,9 @@
     flex-grow: 1; 
   }
   
-  /* .profile-right { */
-    /* flex-shrink: 0;  */
-    /* Prevents the component from shrinking */
-    /* margin-left: auto;  */
-    /* Pushes the component to the right */
+  .profile-right { 
+    flex-grow: 1; 
+    /* flex-shrink: 0;   */
+    margin-left: auto; 
 
-  /* } */
+  }
