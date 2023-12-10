@@ -3,8 +3,9 @@ import { AiFillStar } from "react-icons/ai";
 import WatchlistDetailItem from "../../../components/watchlistDetailItem/index.js";
 //import CommentPanel from "./CommentPanel";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { deleteAddedStock, addStock } from "../../../reducers/added-stock-count-reducer.js";
+import "./watchlistDetail.css";
 
 import {
   deleteStockWatchlist,
@@ -18,9 +19,13 @@ import "./watchlistDetail.css";
 import { STOCK_LIMITATION_FOR_REGULAR_USER } from "../../../constants/Constants.js";
 
 // TODO : commentPanel
-const WatchListDetail = ({ watchlist, setWatchlist }) => {
+const WatchListDetail = () => {
   // addedStocks of current login user
-  const { addedStocks } = useSelector((state) => state.addedStock);
+  const {wid} = useParams();
+  console.log(localStorage.getItem(wid), "debug watchlist detail")
+  const watchlist = JSON.parse(localStorage.getItem(wid));
+  
+  const { addedStocks } = useSelector((state) => state.addStock);
   const [stocks, setStocks] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
   const loginId = currentUser ? currentUser._id : null;
@@ -36,6 +41,7 @@ const WatchListDetail = ({ watchlist, setWatchlist }) => {
   } else {
     showDelete = true;
   }
+
 
   const handleUnLikeClick = async (stock) => {
     if (!currentUser) return;
@@ -92,12 +98,13 @@ const WatchListDetail = ({ watchlist, setWatchlist }) => {
   };
 
   const fetchStocksInWatchlist = async (wid) => {
-    const stocks = await findStocksByWatchlistId(wid);
-    setStocks(stocks);
+    let tempStocks = await findStocksByWatchlistId(wid);
+    console.log(tempStocks, "debug watchlist detail")
+    setStocks(tempStocks);
   };
   useEffect(() => {
     // fetch all stocks in current watchlist
-    fetchStocksInWatchlist([watchlist._id]);
+    fetchStocksInWatchlist(watchlist._id);
   }, [watchlist._id]);
 
   useEffect(() => {
@@ -110,23 +117,23 @@ const WatchListDetail = ({ watchlist, setWatchlist }) => {
       {stocks && (
         <div className={`mt-3 ms-3 me-3 position-relative`}>
           <h4
-            className={`text-white position-absolute watchlist-rating d-none d-xl-flex`}
+            className={` position-absolute watchlist-rating d-none d-xl-flex`}
           >
             {Math.round(watchlist.rating * 10) / 10}{" "}
             <AiFillStar size={30} className={`text-warning`} />
           </h4>
           <h4
-            className={`text-white position-absolute stock-num-pos d-none d-xl-flex`}
+            className={` position-absolute stock-num-pos d-none d-xl-flex`}
           >
             {stocks.length} stocks
           </h4>
           {showUpgrade && (
             <>
               <div
-                className={`col text-white position-absolute upgrade-in-watchlist-div p-3 rounded-3 bg-primary fw-bold`}
+                className={`col  position-absolute upgrade-in-watchlist-div p-3 rounded-3 bg-primary fw-bold`}
               >
                 Enjoy your Premium Journey!
-                <div className={`text-white upgrade-text`}>
+                <div className={` upgrade-text`}>
                   Upgrade your account to add more stocks.
                 </div>
                 <div
@@ -155,7 +162,7 @@ const WatchListDetail = ({ watchlist, setWatchlist }) => {
             <div className={`col`}>
               <div className={`row`}>
                 <div className={`col-2`}>
-                  <h5 className={`fw-fold text-white`}>Ticker</h5>
+                  <h5 className={`fw-fold `}>Ticker</h5>
                 </div>
                 <div
                   className={`${currentUser && currentUser._id === watchlist.user
@@ -163,13 +170,13 @@ const WatchListDetail = ({ watchlist, setWatchlist }) => {
                       : `col-3`
                     } text-muted ps-0`}
                 >
-                  <h5 className={`fw-fold text-white`}>Name</h5>
+                  <h5 className={`fw-fold `}>Name</h5>
                 </div>
                 <div className={`col-2 text-muted ps-0 d-none d-xl-flex`}>
-                  <h5 className={`fw-fold text-white`}>Close Price</h5>
+                  <h5 className={`fw-fold `}>Close Price</h5>
                 </div>
                 <div className={`col-2 text-muted ps-0 d-none d-xl-flex`}>
-                  <h5 className={`fw-fold text-white`}>Date</h5>
+                  <h5 className={`fw-fold `}>Date</h5>
                 </div>
                 <div className={`col`}></div>
               </div>
@@ -193,7 +200,7 @@ const WatchListDetail = ({ watchlist, setWatchlist }) => {
                   stocks.map((item, idx) => (
                     <WatchlistDetailItem
                       key={item._id + watchlist._id}
-                      stock={item}
+                      stock={item.stockId}
                       isLike={
                         addedStocks.filter(
                           (val, id) => val.ticker === item.ticker
@@ -209,7 +216,7 @@ const WatchListDetail = ({ watchlist, setWatchlist }) => {
               </div>
             </div>
             <div
-              className={`col-4 comment-panel-container me-3 rounded-3 p-0 d-none d-lg-block`}
+              className={`col-4 comment-panel-container me-3 rounded-3 p-0 d-none `}
             >
               {/*<CommentPanel
                 pRating={watchlist.rating}

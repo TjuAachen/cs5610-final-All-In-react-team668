@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { logoutThunk } from "../../services/users/users-thunks";
 import { cleanSearchReducer } from "../../reducers/search-reducer";
+import { findCurrentUserThunk } from "../../services/users/users-thunks";
 
 function NavBar() {
   const loginUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -16,10 +17,16 @@ function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+
+
+  useEffect(() => {
+    dispatch(findCurrentUserThunk());
+  }, [])
+
   useEffect(() => {
     setLogin(loginUser ? true : false);
   }, [loginUser]);
-
+  console.log(currentUser, "debug currentUser in NavBar")
   return (
     <div className="header_wrapper">
       <div className="header_logo">
@@ -28,7 +35,7 @@ function NavBar() {
         <Link to="/">
           <a href="/">Home</a>
         </Link>
-        <Link to="/search" onClick={() => dispatch(cleanSearchReducer)}>
+        <Link to="/search" onClick={() => dispatch(cleanSearchReducer())}>
           <a href="/search">Search</a>
         </Link>
         <Link to="/about">
@@ -85,6 +92,7 @@ function NavBar() {
             <span
               onClick={() => {
                 dispatch(logoutThunk());
+                dispatch(cleanSearchReducer());
                 navigate("/login");
               }}
             >

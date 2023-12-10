@@ -1,0 +1,93 @@
+.watchlist-bg {
+    background-color: gray;
+    height: 400px;
+    width: 100%;
+}
+
+.watchlist-cover-pos {
+    left: 120px;
+    top: 30px;
+}
+
+.watchlist-cover-edit-pos {
+    left: 310px;
+    top: 285px;
+}
+.watchlist-cover-text-pos {
+    left: 350px;
+    top: 20px;
+}
+.watchlist-cover-text-pos-non-edit {
+    left: 350px;
+    top: 50px;
+    font-size: 60px;
+}
+.wd-albumName {
+    left: 30px;
+    top: 200px;
+    font-size: 60px;
+}
+.watchlist-edit-pos {
+    right: 30px;
+    top: 20px;
+}
+.watchlist-num-pos {
+    right: 70px;
+    bottom: 30px;
+}
+.watchlist-confirm-pos {
+    right: 120px;
+    top: 20px;
+}
+.watchlist-cancel-pos {
+    right: 30px;
+    top: 20px;
+}
+.watchlist-desc-pos {
+    left: 350px;
+    top: 150px;
+}
+.watchlist-desc-pos-non-edit {
+    left: 350px;
+    top: 170px;
+}
+.watchlist-name-input {
+    font-size: 60px;
+    width: 500px;
+}
+
+.watchlist-desc-input {
+    width: 500px;
+}
+
+input[type="text"], textarea {
+  background-color : lightgrey; 
+}
+
+.watchlist-cover-cover {
+    width: 200px;
+    height:200px;
+    background-color: grey;
+    opacity:0.7;
+}
+
+.cover-icon {
+    left: 205px;
+    top: 115px;
+}
+.arrow-back-icon {
+    left: 10px;
+    top: 10px;
+}
+.arrow-back-icon:hover {
+    cursor:pointer
+}
+.watchlist-cover-name-pos {
+    right: 20px;
+    bottom: 10px;
+    color: white;
+}
+.watchlist-cover-name-pos:hover {
+    color: orange;
+    cursor: pointer;
+}

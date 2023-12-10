@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";  
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsFillFolderSymlinkFill } from "react-icons/bs";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useNavigate } from "react-router";
@@ -21,7 +21,8 @@ const WatchlistDetailItem = ({
     const iconSize = 25;
     const [show, setShow] = useState(false);
     const navigate = useNavigate();
-
+    const currentDate = stock.date ? stock.date.split('T')[0] : new Date().toISOString().split('T')[0];
+    console.log(like, stock, stock.ticker, "debug watchlist detail item")
     return (
         <div className={`mt-3`}>
             <div className={`row w-100 p-0 m-0`}>
@@ -29,14 +30,14 @@ const WatchlistDetailItem = ({
                     className={`p-0 d-flex align-items-center col-2`}
                 >
                     <h5
-                        className={`ms-1 text-white fw-fold d-inline mb-0 watchlist-detail-stockname text-nowrap`}
+                        className={`ms-1  fw-fold d-inline mb-0 watchlist-detail-stockname text-nowrap`}
                     >
                         {stock.ticker ? stock.ticker : "Unknown"}
                     </h5>
                 </div>
                 <div className={`col text-muted d-flex align-items-center p-0`}>
                     <h5
-                        className={`text-white fw-fold d-inline overflow-hidden-format watchlist-detail-artist text-nowrap mb-0`}
+                        className={` fw-fold d-inline overflow-hidden-format watchlist-detail-artist text-nowrap mb-0`}
                     >
                         {stock.stockName ? stock.stockName : "Unknown"}
                     </h5>
@@ -53,11 +54,11 @@ const WatchlistDetailItem = ({
                     className={`text-muted p-0 d-none d-xl-flex col-2 d-flex align-items-center`}
                 >
                     <h5 className={`text-muted fw-fold m-0`}>
-                        {stock.date ? stock.date : "unknown"}
+                        {currentDate}
                     </h5>
                 </div>
                 <div
-                    className={`${isSelf? `col-1` : `col-2`
+                    className={`${isSelf ? `col-1` : `col-2`
                         } d-flex align-items-center justify-content-start p-0`}
                 >
                     {like && (
@@ -83,7 +84,7 @@ const WatchlistDetailItem = ({
                                         </div>
                                         {show && (
                                             <div className={`like-toolkit-div position-absolute rounded-3`}>
-                                                <h5 className={`text-white fw-bold m-2`}>
+                                                <h5 className={` fw-bold m-2`}>
                                                     Enjoy your Investment!
                                                 </h5>
                                                 <div
@@ -136,7 +137,7 @@ const WatchlistDetailItem = ({
                         </>
                     )}
                 </div>
-                {isSelf && watchlistsOption && like (
+                {isSelf && watchlistsOption && like && (
                     <div className={`col-2 d-flex align-items-center p-0`}>
                         <Dropdown id="watchlists">
                             <Dropdown.Toggle

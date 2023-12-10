@@ -56,6 +56,7 @@ export const getStockHighlights = async (ticker) => {
 
 export const getCloudStock = async (keyword) => {
     try {
+        console.log(keyword, "debug getCloudStock")
         const response = await axios.get(`${API_BASE}/api/remoteApi/cloud-stock/${keyword}`);
         const data = response.data;
         const results = [];

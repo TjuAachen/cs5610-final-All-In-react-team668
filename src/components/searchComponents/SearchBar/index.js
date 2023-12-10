@@ -3,6 +3,7 @@ import './index.css'; // Import your CSS file here
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import {
+    cleanSearchReducer,
     updateSearchKeyword,
     updateSearchResults, updateSearchType,
 } from "../../../reducers/search-reducer";
@@ -23,7 +24,9 @@ function SearchBox() {
     };
 
     const handleOptionClick = (option) => {
+        console.log(option, "debug searchbar watchlist")
         dispatch(updateSearchType(option));
+        dispatch(cleanSearchReducer());
         setSelectedOption(option);
         setIsActive(false);
     };
@@ -64,16 +67,16 @@ function SearchBox() {
         dispatch(updateSearchKeyword(inputValue))
         switch (selectedOption) {
             case 'cloud-stock':
-                response = await getCloudStock(searchKeyword)
-                console.log(response, "debug")
+                response = await getCloudStock(inputValue)
+               // console.log(response, "debug searchKeyword")
                 dispatch(updateSearchResults(response));
                 break;
-            case 'local-watchlist':
-                response = await searchLocalWatchlists(searchKeyword)
+            case 'watchlist':
+                response = await searchLocalWatchlists(inputValue)
                 dispatch(updateSearchResults(response));
                 break;           
             case 'local-stock':
-                response = await searchLocalStocks(searchKeyword)
+                response = await searchLocalStocks(inputValue)
                 dispatch(updateSearchResults(response));
                 break;
         }
@@ -94,9 +97,9 @@ function SearchBox() {
                     </div>
 
                     <div className={`categories ${isActive ? 'active' : ''}`}>
-                        <p className="option" onClick={() => handleOptionClick('cloud-stock')}>Cloud Stock</p>
-                        <p className="option" onClick={() => handleOptionClick('local-stock')}>Local Stock</p>
-                        <p className="option" onClick={() => handleOptionClick('local-watchlist')}>Local Watchlist</p>
+                        <p className="option" onClick={() => handleOptionClick('cloud-stock')}>cloud stock</p>
+                        <p className="option" onClick={() => handleOptionClick('local-stock')}>local stock</p>
+                        <p className="option" onClick={() => handleOptionClick('watchlist')}>watchlist</p>
                     </div>
                 </div>
             </form>

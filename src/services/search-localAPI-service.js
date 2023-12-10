@@ -8,7 +8,7 @@ const API_BASE = process.env.REACT_APP_API_BASE;
   
   export const searchLocalWatchlists = async (name) => {
     const response = await api.post(`${API_BASE}/api/local-watchlists`, {
-      name: name,
+      watchlistName: name,
     });
     return response.data;
   };

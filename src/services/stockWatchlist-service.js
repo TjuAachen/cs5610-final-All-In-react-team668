@@ -18,8 +18,9 @@ export const findStockNumberByUserId = async (userId) => {
   return response.data;
 };
 
-export const createStockWatchlist = async (userId, ticker, watchlistId) => {
+export const createStockWatchlist = async (userId, ticker, stockId, watchlistId) => {
   const response = await axios.post(STOCK_WATCHLIST_API, {
+    stockId: stockId,
     userId: userId,
     ticker: ticker,
     watchlistId: watchlistId,

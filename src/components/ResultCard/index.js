@@ -1,11 +1,11 @@
 import Card from "react-bootstrap/Card";
-import { AiFillPlayCircle, AiFillPauseCircle } from "react-icons/ai";
 import "./index.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
-import { createImageFromInitials as LetterPicture, getRandomColor } from "../LetterPicture/index";
+//import { createImageFromInitials as LetterPicture, getRandomColor } from "../LetterPicture/index";
+import stockCoverImage from "../../images/stock-cover.jpg"
 
 const ResultCard = ({ item, type }) => {
   const navigate = useNavigate();
@@ -20,6 +20,7 @@ const ResultCard = ({ item, type }) => {
   const handleClick = (e) => {
     if (type === "watchlist") {
       name = item.watchlistName;
+      localStorage.setItem(item._id, JSON.stringify(item));
       navigate("/details/watchlist/" + item._id);
     } else if (type === "user") {
       navigate("/profile/" + item._id);
@@ -30,20 +31,20 @@ const ResultCard = ({ item, type }) => {
       name = item.ticker;
     }
   };
-
+  console.log(type, "debug resultcard watchlist")
   return (
     <div className={"m-2"}>
       <Card
         className="wd-card-container wd-card-content"
         style={{
-          width: "10rem",
+          width: "18rem",
         }}
         onClick={handleClick}
       >
         <Card.Img
           variant="top"
           className={"wd-card-img-custom "}
-          src={LetterPicture(cardSize, item.ticker, getRandomColor(), showFullName)}
+          src={stockCoverImage}
         />
         <Card.Body>
           {type === "watchlist" && (<>
@@ -52,7 +53,7 @@ const ResultCard = ({ item, type }) => {
               <Link
                 className={"wd-link"}
                 to={
-                  currentUser !== null && item.user._id === currentUser._id
+                  currentUser !== null && item.user === currentUser._id
                     ? `/profile`
                     : `/profile/${item.user._id}`
                 }
@@ -61,7 +62,7 @@ const ResultCard = ({ item, type }) => {
               </Link>
             </Card.Text>
             <Card.Text className={"wd-card"}>
-              {item.description ? item.description : "None"}
+              {item.description ? item.description : "None Description"}
             </Card.Text>
             <Card.Title className={"wd-card"}>
               Rating: {item.rating.toFixed(2)}
@@ -104,7 +105,7 @@ const ResultCard = ({ item, type }) => {
                 {item.stockName || item.name}
               </Card.Text>
               <Card.Text className={"wd-card"}>
-                {'$' + (item.last ? item.last : "Unknown") + ' (' + (item.changePercent).toFixed(2) + '%)'}
+                {'$' + (item.last ? item.last : "Unknown") + ' (' + (item.changePercent || 0).toFixed(2) + '%)'}
               </Card.Text>
               <Card.Title className={"wd-card"}>
                 {item.exchangeCode}

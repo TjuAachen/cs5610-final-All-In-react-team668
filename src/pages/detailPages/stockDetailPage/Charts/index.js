@@ -1,22 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import Highcharts from 'highcharts/highstock'
 import HighchartsReact from 'highcharts-react-official'
+import dataModule from 'highcharts/modules/data';
+import exportingModule from 'highcharts/modules/exporting';
 import { getHistoricalStockData } from '../../../../services/remoteAPI-service';
 import vbp from 'highcharts/indicators/volume-by-price';
 import indicators from 'highcharts/indicators/indicators';
 import "./index.css"
+dataModule(Highcharts);
+exportingModule(Highcharts);
 indicators(Highcharts);
 vbp(Highcharts);
 
-
 const Chart = ({ ticker }) => {
     // Initialize the series-label module
+    
+    console.log(Highcharts, "debug high charts")
 
     const [ohlc, setOhlc] = useState([]);
     const [volume, setVolume] = useState([]);
     const fetchChartData = async () => {
         const data = await getHistoricalStockData(ticker);
-       // const data = await response.json();
+        // const data = await response.json();
         const tempOhlc = []
         const tempVolume = []
         data.Volume.forEach((item) => {
@@ -137,7 +142,7 @@ const Chart = ({ ticker }) => {
                 zoneLines: {
                     enabled: false,
                 },
-                linkedTo: { ticker }
+                linkedTo: ticker
             },
             {
                 type: 'sma',
@@ -145,7 +150,7 @@ const Chart = ({ ticker }) => {
                 marker: {
                     enabled: false,
                 },
-                linkedTo: { ticker }
+                linkedTo: ticker
             },
         ],
     };
@@ -173,10 +178,10 @@ const Chart = ({ ticker }) => {
            }
         }
       });*/
-    return <div className="chart-container">
-        <HighchartsReact options={chartOptions} constructorType={"stockChart"} highcharts={Highcharts}>
+    return <>
+        <HighchartsReact options={chartOptions} constructorType={"stockChart"} highcharts={Highcharts} style="width: 100%; height: 600px; display: block;">
         </HighchartsReact>
-    </div>
+    </>
 };
 
 export default Chart;

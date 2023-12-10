@@ -51,12 +51,16 @@ const HighlightBanner = ({ ticker, summary }) => {
       }
     })
   }
-  const openModal = (action, stock) => {
+  const openModal = () => {
     // Logic to open modal for buy or sell action
-    console.log(`Opening ${action} modal for stock:`, stock);
+   // console.log(`Opening ${action} modal for stock:`, stock);
+   if (currentUser) {
     setShowModal(true);
-    setStock(stock);
-    setQuantity(stock.shares)
+   }else {
+    setShow(true);
+   }
+   // setStock(stock);
+    //setQuantity(stock.shares)
   };
 
   const closeModal = () => {
@@ -129,7 +133,7 @@ const HighlightBanner = ({ ticker, summary }) => {
     if (insertedStock.length > 0) {
       dispatch(addStock(insertedStock[0]));
       // insert the song-playlist pair into db
-      createStockWatchlist(currentUser._id, insertedStock[0].ticker, wid);
+      createStockWatchlist(currentUser._id, insertedStock[0].ticker, insertedStock[0]._id, wid);
     }
   };
 
@@ -203,24 +207,26 @@ const HighlightBanner = ({ ticker, summary }) => {
                               </div>
                               {show && (
                                 <div className={`like-toolkit-div position-absolute rounded-3`}>
-                                  <h5 className={`text-white fw-bold m-2`}>
+                                  <h5 className={`text-white fw-bold mt-2 p-1`}>
                                     Enjoy your Investment!
                                   </h5>
                                   <div
-                                    className={`mt-3 mb-1 d-flex justify-content-center align-items-center`}
+                                    className={`mt-2 mb-1 d-flex justify-content-center align-items-center`}
                                   >
                                     <button
                                       className={`btn btn-light p-1`}
+                                      style={{marginRight: "5px"}}
                                       onClick={() => navigate("/login")}
                                     >
                                       Log in
                                     </button>
-                                    <p
-                                      className={`text-muted mb-0 ms-3 not-now`}
+                                    <button
+                                      className={`btn btn-light p-1`}
+                                      style={{marginLeft: "5px"}}
                                       onClick={() => setShow(false)}
                                     >
                                       Not Now
-                                    </p>
+                                    </button>
                                   </div>
                                 </div>
                               )}
