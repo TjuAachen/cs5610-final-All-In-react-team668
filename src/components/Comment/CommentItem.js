@@ -3,19 +3,20 @@ import React, { useState } from "react";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { RiDeleteBinFill } from "react-icons/ri";
 import StarRatings from "react-star-ratings";
+import profileAvatar from "../../images/profile-avatar.jpeg";
 
-const CommentItem = ({comment, handleDelete, visitPlaylist }) => {
+const CommentItem = ({ comment, handleDelete, visitPlaylist }) => {
   const [showMore, toggleShowMore] = useState(false);
   return (
     <div className={`mt-2 border-width position-relative p-0`}>
       <div className={`row me-5`}>
         <div className={`col-1 d-flex justify-content-center ms-3`}>
-          <img src={comment.userImg} width={`50px`} height={`50px`} />
+          <img src={profileAvatar} width={`50px`} height={`50px`} />
         </div>
 
         <div className={`text-white col`}>
           <div className={`row w-100 d-flex align-items-center`}>
-            <div className={`text-white d-inline col-6`}>
+            <div className={`text-black d-inline col-6`}>
               <div
                 className={`fw-bold visit-playlist text-nowrap`}
                 onClick={() => visitPlaylist(comment.playlist)}
@@ -50,7 +51,7 @@ const CommentItem = ({comment, handleDelete, visitPlaylist }) => {
           )}
           {!showMore && (
             <>
-              <p className={`description mb-1`}>{comment.content}</p>
+              <p className={`description text-black mb-1`}>{comment.content}</p>
               <div
                 className={`float-end text-warning mb-2`}
                 onClick={() => toggleShowMore(true)}
@@ -63,11 +64,11 @@ const CommentItem = ({comment, handleDelete, visitPlaylist }) => {
         </div>
         <hr className={"text-muted"} />
       </div>
-      <RiDeleteBinFill
+      {/* <RiDeleteBinFill
         size={25}
-        className={`position-absolute comment-delete-icon p-0`}
+        className={`d-inline position-absolute comment-delete-icon p-0`}
         onClick={() => handleDelete(comment)}
-      />
+      /> */}
     </div>
   );
 };

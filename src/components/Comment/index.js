@@ -23,8 +23,8 @@ const Comment = ({ comments, setComments }) => {
   };
 
   return (
-    <div className={`comment-container`}>
-      <h4 className={`text-white`}>Commented Watchlist</h4>
+    <div className={`comment-container mt-5`}>
+      <h4 className={`text-black fw-bold`}>Commented Watchlist</h4>
       <div className={`comment-inner-container rounded-3 p-2 pt-3`}>
         {comments.length === 0 && (
           <div

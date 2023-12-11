@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { AiFillStar } from "react-icons/ai";
 import { useSelector } from "react-redux";
+import profileAvatar from "../../images/profile-avatar.jpeg";
 
 const HistoryPanelItem = ({ comment }) => {
   const navigate = useNavigate();
@@ -23,24 +24,24 @@ const HistoryPanelItem = ({ comment }) => {
       >
         <div className={`d-flex justify-content-start`}>
           <img
-            src={comment.user.img}
+            src={profileAvatar}
             width={40}
             height={40}
             className={`rounded-circle`}
           />
         </div>
         <div className={`d-flex justify-content-center`}>
-          <p className={`mb-0 comment-user-name-div text-nowarp`}>
+          <p className={`mb-0 ms-2 comment-user-name-div text-nowarp`}>
             {comment.user.userName}
           </p>
         </div>
       </div>
-      <div className={`col p-0 ms-2 me-0`} onClick={() => setShowAll(!showAll)}>
-        {showAll && <div className={``}>{comment.content}</div>}
+      <div className={`col p-0 ms-2 me-0`}>
+        {showAll && <div>{comment.content}</div>}
         {!showAll && (
           <div
             className={`comment-content ${
-              comment.user.isVip ? `text-warning` : `text-white`
+              comment.user.isVip ? `text-warning` : `text-black`
             }`}
           >
             {comment.content}

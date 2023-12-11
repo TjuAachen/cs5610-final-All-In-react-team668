@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import HistoryPanelItem from "./HistoryPanelItem.js";
 import { findCommentsByWatchlist, createComment } from "../../services/comment-service.js";
 import { AiFillCheckCircle, AiOutlineClear } from "react-icons/ai";
+import profileAvatar from "../../images/profile-avatar.jpeg";
 
 const CommentPanel = ({ pRating, setWatchlist }) => {
   const [rating, setRating] = useState(0);
@@ -79,7 +80,7 @@ const CommentPanel = ({ pRating, setWatchlist }) => {
         <div className={`row w-100 m-0 mt-2`}>
           <div className="col-2">
             <img
-              src={currentUser.img}
+              src={profileAvatar}
               width={50}
               height={50}
               className={`rounded-circle`}
@@ -87,9 +88,10 @@ const CommentPanel = ({ pRating, setWatchlist }) => {
           </div>
           <div className={`col mt-2 d-flex align-items-center`}>
             <h5 className={` d-inline me-3 mb-0`}>Rating</h5>
-            <StarRatings
+            <StarRatings className="bg-warning"
               rating={rating}
               starRatedColor="yellow"
+              starEmptyColor="white" 
               starHoverColor="yellow"
               changeRating={(newRating) => setRating(newRating)}
               starDimension="20px"
@@ -105,7 +107,7 @@ const CommentPanel = ({ pRating, setWatchlist }) => {
         <div className="col p-2">
           {currentUser ? (
             <div>
-              <label htmlFor="comment" className={`text-warning`}>
+              <label htmlFor="comment" className={`text-black`}>
                 Comment
               </label>
               <textarea
@@ -138,12 +140,12 @@ const CommentPanel = ({ pRating, setWatchlist }) => {
           {currentUser && (
             <div className={`mt-1 row w-100`}>
               {RatingError && (
-                <p className={`mb-0 text-warning`}>
+                <p className={`mb-0 text-primary`}>
                   Please rate this WatchList before submit!
                 </p>
               )}
               {contentEmptyHint && (
-                <p className={`mb-0 text-warning`}>
+                <p className={`mb-0 text-primary`}>
                   Please input your comment before submit!
                 </p>
               )}
@@ -153,10 +155,10 @@ const CommentPanel = ({ pRating, setWatchlist }) => {
                 {submit && (
                   <>
                     <BsFillCheckCircleFill
-                      size={30}
-                      className={`text-warning`}
+                      size={25}
+                      className={`text-primary`}
                     />
-                    <h5 className={`fw-bold text-warning ms-1 p-0 mb-0`}>
+                    <h5 className={`fw-bold text-primary ms-1 p-0 mb-0`}>
                       Submitted
                     </h5>
                   </>
