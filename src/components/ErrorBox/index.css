@@ -1,0 +1,15 @@
+.error-box {
+    background-color: #ffcccc; /* Red background color */
+    color: #cc0000; /* Text color */
+    padding: 10px;
+    border: 1px solid #cc0000; /* Red border */
+    border-radius: 5px;
+    display: none; /* Initially hidden */
+    text-align: center;
+    width: 40vw;
+    margin-top: 0;
+}
+
+.error-box.show {
+    display: block; /* Display the error box */
+}
