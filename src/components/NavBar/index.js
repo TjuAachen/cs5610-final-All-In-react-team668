@@ -77,11 +77,11 @@ function NavBar() {
                     Hi {loginUser.userName}
                   </a>
                 </Link>
-                <Link to={`/portfolio/${loginUser._id}`}>
+                {loginUser.isVip && (<Link to={`/portfolio/${loginUser._id}`}>
                   <a href={`/portfolio/${loginUser._id}`}>
                     Portfolio
                   </a>
-                </Link>
+                </Link>)}
                 <Link to="/login" className="text-muted pt-2 navbar-text mx-3" onClick={() => {
                   dispatch(logoutThunk());
                   dispatch(cleanSearchReducer());

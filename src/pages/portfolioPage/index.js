@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import { deletePortfolioByUserStock, findPortfolioByUser } from '../../services/portfolio-service';
-import { useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
+import { deletePortfolioByPortfolioId, findPortfolioByUser } from '../../services/portfolio-service';
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, useParams } from 'react-router-dom';
 import { updatePortfolioPriceByUser } from '../../services/remoteAPI-service';
 import { updatePortfolio } from '../../services/portfolio-service';
+import { findCurrentUserThunk } from '../../services/users/users-thunks';
 
 const PortfolioPage = () => {
+    const {uid} = useParams();
     const [loaded, setLoaded] = useState(false);
     const { currentUser } = useSelector((state) => state.user);
     const [portfolio, setPortfolio] = useState([]);
@@ -21,13 +23,17 @@ const PortfolioPage = () => {
         const fetchData = async () => {
             try {
                 // Simulated API call or data loading process
-                await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate 2 seconds loading
+                await new Promise((resolve) => setTimeout(resolve, 2500)); // Simulate 2 seconds loading
                 // Set loaded to true and update portfolio with data
                 setLoaded(true);
                 // update stocks in portfolio
-                await updatePortfolioPriceByUser(currentUser._id);
+                await updatePortfolioPriceByUser(uid);
                 // Example portfolio data structure, modify as needed
-                await findPortfolioByUser(currentUser._id).then((data) => setPortfolio(data));
+                await findPortfolioByUser().then((data) => {
+                    setPortfolio(data)
+                    console.log("debug portfolio page", data)
+                });
+                
             } catch (error) {
                 console.error('Error loading data:', error);
             }
@@ -59,12 +65,15 @@ const PortfolioPage = () => {
         // Logic for buying or selling stock
         //console.log(`Action: Buy - Ticker: ${ticker}, Quantity: ${quantity}, Name: ${name}, Last Price: ${last}`);
         // Implement your buy or sell functionality here
-        setPortfolio(portfolio.map(async (stock) => {
-            if (stock.ticker === selectedStock.ticker) {
+        setPortfolio(portfolio.map((stock) => {
+            if (stock._id === selectedStock._id) {
                 stock.buyPrice = (stock.buyPrice * stock.shares + stock.currentPrice * quantity) / (stock.shares + quantity);
+                console.log(stock.shares, quantity, "debug handle buy string")
                 stock.shares += quantity;
-                await updatePortfolio(stock);
+                setSelectedStock(stock)
+                updatePortfolio(stock);
             }
+            return stock;
         }))
         
 
@@ -80,8 +89,8 @@ const PortfolioPage = () => {
             return; // Exit the function early if input quantity is invalid
         }
         if (quantity == selectedStock.shares) {
-            deletePortfolioByUserStock(selectedStock.user, selectedStock.ticker)
-            setPortfolio(portfolio.filter((stock) => stock.ticker !== selectedStock.ticker));
+            deletePortfolioByPortfolioId(selectedStock._id)
+            setPortfolio(portfolio.filter((stock) => stock._id !== selectedStock._id));
             return;
         }
         // update return and shares
@@ -114,10 +123,9 @@ const PortfolioPage = () => {
                             Currently you don't have any stock
                         </div>
                     ) : (
-                        portfolio.map((stock, index) => (
+                        portfolio.map((stock, index) => (stock && (
                             <div key={index} className="card text-center">
                                 <div className="card-header" onClick={() => showDetails(stock)}>
-                                    <span className="ticker-name">{stock.ticker} </span>
                                     <span className="name text-muted">{stock.name}</span>
                                 </div>
                                 <div className="card-body">
@@ -130,7 +138,7 @@ const PortfolioPage = () => {
                                                     <td className="right">{stock.shares}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td className="left">Avg. Cost/Share:</td>
+                                                    <td className="left">Avg. Cost:</td>
                                                     <td className="right">{(stock.buyPrice).toFixed(2)}</td>
                                                 </tr>
                                                 <tr>
@@ -168,61 +176,92 @@ const PortfolioPage = () => {
                                     </div>
                                 </div>
                             </div>
-                        ))
+                        )))
                     )}
                 </div>
             )}
 
             {/* Modal for buy or sell */}
-            {showModal && (
-                <>
-                    <div class="modal-header">
-                        <p class="modal-title" id="modal-basic-title">{selectedStock.name}</p>
-                        <button type="button" class="close" aria-label="Close" onClick={closeModal}>
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+            {
+            showModal && (<div className={`modal ${showModal ? 'portfolio-buy-window' : ''}`} id="content" tabIndex="-1" role="dialog">
+
+              <div className="modal-body modal-content">
+                
+                  <div className="row">
+                    <div className="d-flex justify-content-between">
+
+                    <p className="modal-title" id="modal-basic-title" >{selectedStock.name}</p>
+                    <button
+                      type="button"
+                      className="btn btn-close"
+                      onClick={() => closeModal()}
+                      style={{marginLeft: "10px"}}
+                    >
+                    </button>
                     </div>
-                    <div class="modal-body modal-content">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <label>Current Price: {selectedStock.currentPrice}</label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12 quantity-label">
-                                    <label for="quantity">Quantity: </label>
-                                </div>
-                                <div class="col-md-6 col-sm-12">
-                                    <input type='number' class="form-control" id="quantity" name="quantity"
-                                        value={selectedStock.shares} />
-                                </div>
-                            </div>
-                        </div>
+                  </div>
+                  <div className="row" style={{width: "100%"}}>
+                    <div className="col-6 d-flex justify-content-end align-items-center">
+                    Current Price:
                     </div>
-                    <div class="modal-footer">
-                        <div class="container">
-                            <div class="row justify-content-space-between">
-                                <div class="col">
-                                    <label htmlFor="total">Total :</label>
-                                    <input
-                                        type="number"
-                                        id="total"
-                                        value={quantity}
-                                        onChange={(e) => setQuantity(e.target.value)}
-                                    />
-                                </div>
-                                <div class="col align-left">
-                                    <button type="button" class="btn btn-danger" onClick={handleSell}>Sell</button>
-                                </div>
-                                <div class="col align-right">
-                                    <button type="button" class="btn btn-success" onClick={handleBuy}>Buy</button>
-                                </div>
-                            </div>
-                        </div>
+                    <div className="col-6 d-flex justify-content-start align-items-center">
+                      {selectedStock.currentPrice}
                     </div>
-                </>
-            )}
+                  </div>
+                  <div className="row" style={{width: "100%"}}>
+                    <div className="col-6  d-flex justify-content-end align-items-center">
+                    Quantity:
+                    </div>
+                    <div className="col-6 d-flex justify-content-start align-items-center">
+                      <input
+                        type="number"
+                        className="form-control"
+                        required
+                        id="quantity"
+                        name="quantity"
+                        value={quantity}
+                        onChange={(e) => setQuantity(parseInt(e.target.value))}
+                      />
+                    </div>
+                  </div>
+                  <div className="row" style={{width: "100%"}}>
+                    <div className="col-6 d-flex justify-content-end align-items-center">
+                    Total:
+                    </div>
+                    <div className="col-6 d-flex justify-content-start align-items-center">
+                      {selectedStock.currentPrice * quantity}
+                    </div>
+                  </div>
+                  <div className="row">
+
+                    <div className="col align-left">
+                      <button
+                        type="button"
+                        className="btn btn-success"
+                        disabled={quantity < 1}
+                        onClick={handleBuy}
+                      >
+                        Buy
+                      </button>
+                    </div>
+                    <div className="col align-right">
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        disabled={quantity < 1}
+                        onClick={handleSell}
+                      >
+                        Sell
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+             
+              )
+          }
         </>
     );
 };

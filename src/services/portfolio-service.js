@@ -9,19 +9,28 @@ export const createPortfolio = async (newPortfolio) => {
 
 
   export const deletePortfolioByUserStock = async (uid, ticker) => {
+    console.log("debug delete portfolio before")
     const response = await axios.delete(PORTFOLIO_API, {
       params: {
         user: uid,
         ticker: ticker
       },
     });
-
+    console.log("debug delete portfolio after")
     return response.data;
   };
 
-  export const findPortfolioByUser = async (userId) => {
-    const response = await axios.get(PORTFOLIO_API, userId);
+  export const deletePortfolioByPortfolioId = async (pid) => {
+    console.log("debug delete portfolio before")
+    const response = await axios.delete(PORTFOLIO_API +`/${pid}`);
+    console.log("debug delete portfolio after")
+    return response.data;
+  };
 
+  export const findPortfolioByUser = async () => {
+    console.log("debug find portfolio by user before")
+    const response = await axios.get(PORTFOLIO_API);
+    console.log("debug find portfolio by user", response)
     return response.data;
   }
 

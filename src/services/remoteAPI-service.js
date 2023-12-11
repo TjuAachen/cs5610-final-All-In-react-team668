@@ -88,7 +88,9 @@ export const getLatestChartData = async (ticker) => {
 }
 
 export const updatePortfolioPriceByUser = async (uid) => {
-    await axios.get(`${API_BASE}/api/remoteApi/portfolio/${uid}`).then((response) => {
+    console.log("debug update portfolio price by user before")
+    await axios.put(`${API_BASE}/api/remoteApi/portfolio/${uid}`).then((response) => {
+        console.log("debug update portfolio price by user", response)
         return response;
     })
 }
