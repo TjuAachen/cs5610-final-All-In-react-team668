@@ -115,7 +115,11 @@ const WatchListDetail = () => {
   useEffect(() => {
     // fetch all stocks in current watchlist
     fetchStocksInWatchlist(watchlist._id);
-    fetchUserInfo(watchlist.user._id)
+    if (watchlist.user._id) {
+    fetchUserInfo(watchlist.user._id)}
+    else {
+      fetchUserInfo(watchlist.user)
+    }
   }, [watchlist._id]);
 
   useEffect(() => {
