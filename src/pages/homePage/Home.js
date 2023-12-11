@@ -6,13 +6,15 @@ import RecommendUsers from "./ReommendedUsers";
 import RecoomendWatchlists from "./ReommendedWatchlists";
 import { findCurrentUserThunk } from "../../services/users/users-thunks";
 import Title from "../../components/Title";
+import { findCurrentUserStocksThunk } from '../../services/thunks/add-stock-thunk';
 
 function Home() {
     const dispatch = useDispatch();
     const { currentUser } = useSelector((state) => state.user);
     useEffect(() => {
         dispatch(findCurrentUserThunk());
-    }, []);
+        dispatch(findCurrentUserStocksThunk());
+    }, [currentUser._id]);
 
 
     return (
@@ -20,7 +22,7 @@ function Home() {
             <Title />
             <IndexDashboard />
             <RecoomendWatchlists />
-            {currentUser && (currentUser.isVip) && (<RecommendUsers />)}
+            {/* {currentUser && (currentUser.isVip) && (<RecommendUsers />)} */}
         </>
     )
 }
