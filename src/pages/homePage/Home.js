@@ -20,7 +20,7 @@ function Home() {
             <Title />
             <IndexDashboard />
             <RecoomendWatchlists />
-            {currentUser && (currentUser.isVip || currentUser.isAdmin) && (<RecommendUsers />)}
+            {currentUser && (currentUser.isVip) && (<RecommendUsers />)}
         </>
     )
 }

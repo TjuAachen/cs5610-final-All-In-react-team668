@@ -103,18 +103,19 @@ const WatchListDetail = () => {
 
   const fetchUserInfo = async (uid) => {
     let author = await findUser(uid);
+    console.log(author, "debug author in watchlist detail")
     setWatchlistAuthor(author)
   }
 
   const fetchStocksInWatchlist = async (wid) => {
     let tempStocks = await findStocksByWatchlistId(wid);
-    console.log(tempStocks, "debug watchlist detail")
+   // console.log(tempStocks, "debug watchlist detail")
     setStocks(tempStocks);
   };
   useEffect(() => {
     // fetch all stocks in current watchlist
     fetchStocksInWatchlist(watchlist._id);
-    fetchUserInfo(watchlist.user)
+    fetchUserInfo(watchlist.user._id)
   }, [watchlist._id]);
 
   useEffect(() => {
@@ -169,19 +170,16 @@ const WatchListDetail = () => {
               </div>
             </>
           )}
-          <div className={`row`}>
-            <div className={`col`}>
+          <div className={`row`} style={{width: "100%"}}>
+            <div className={`col-7`}>
               <div className={`row`}>
                 <div className={`col-2`}>
                   <h5 className={`fw-fold `}>Ticker</h5>
                 </div>
                 <div
-                  className={`${currentUser && currentUser._id === watchlist.user
-                      ? `col-2`
-                      : `col-3`
-                    } text-muted ps-0`}
+                  className={`col-2 text-muted ps-0`}
                 >
-                  <h5 className={`fw-fold `}>Name</h5>
+                  <h5 className={`fw-fold  `}>Name</h5>
                 </div>
                 <div className={`col-2 text-muted ps-0 d-none d-xl-flex`}>
                   <h5 className={`fw-fold `}>Close Price</h5>
@@ -189,7 +187,7 @@ const WatchListDetail = () => {
                 <div className={`col-2 text-muted ps-0 d-none d-xl-flex`}>
                   <h5 className={`fw-fold `}>Date</h5>
                 </div>
-                <div className={`col`}></div>
+               
               </div>
 
               <div className={`stock-container`}>
@@ -227,12 +225,12 @@ const WatchListDetail = () => {
               </div>
             </div>
             <div
-              className={`col-4 comment-panel-container me-3 rounded-3 p-0 d-none `}
+              className={`col comment-panel-container me-3 rounded-3 p-0 `}
             >
-              {/*<CommentPanel
+              <CommentPanel
                 pRating={watchlist.rating}
                 setWatchlist={setWatchlist}
-                    />*/}
+                    />
             </div>
           </div>
         </div>

@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import StarRatings from "react-star-ratings";
-import { createComment } from "../../services/comment-service.js";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import HistoryPanelItem from "./HistoryPanelItem.js";
-import { findCommentsByWatchlist } from "../../services/comment-service.js";
+import { findCommentsByWatchlist, createComment } from "../../services/comment-service.js";
 import { AiFillCheckCircle, AiOutlineClear } from "react-icons/ai";
 
 const CommentPanel = ({ pRating, setWatchlist }) => {
@@ -16,7 +15,7 @@ const CommentPanel = ({ pRating, setWatchlist }) => {
   const [submit, setSubmit] = useState(false);
   const [RatingError, setRatingError] = useState(false);
   const [contentEmptyHint, setContentEmptyHint] = useState(false);
-  const { id } = useParams();
+  const { wid } = useParams();
   const navigate = useNavigate();
   const handleClear = () => {
     setContent("");
@@ -47,7 +46,7 @@ const CommentPanel = ({ pRating, setWatchlist }) => {
     }));
 
     const newComment = {
-      watchlist: id,
+      watchlist: wid,
       user: currentUser._id,
       content: content,
       rating: rating,
@@ -66,13 +65,13 @@ const CommentPanel = ({ pRating, setWatchlist }) => {
     setComments([newCommentDetails, ...comments]);
   };
 
-  const fetchComments = async (pid) => {
-    const data = await findCommentsByWatchlist(pid);
+  const fetchComments = async (wid) => {
+    const data = await findCommentsByWatchlist(wid);
     setComments(data);
   };
   useEffect(() => {
-    fetchComments(id);
-  }, [id]);
+    fetchComments(wid);
+  }, [wid]);
 
   return (
     <div className={`m-0 p-0`}>
@@ -87,7 +86,7 @@ const CommentPanel = ({ pRating, setWatchlist }) => {
             />
           </div>
           <div className={`col mt-2 d-flex align-items-center`}>
-            <h5 className={`text-white d-inline me-3 mb-0`}>Rating</h5>
+            <h5 className={` d-inline me-3 mb-0`}>Rating</h5>
             <StarRatings
               rating={rating}
               starRatedColor="yellow"
@@ -122,7 +121,7 @@ const CommentPanel = ({ pRating, setWatchlist }) => {
             </div>
           ) : (
             <div>
-              <label htmlFor="comment" className={`text-warning`}>
+              <label htmlFor="comment" className={`h4`}>
                 Comment
               </label>
               <textarea
@@ -131,7 +130,7 @@ const CommentPanel = ({ pRating, setWatchlist }) => {
                 readOnly
                 rows={2}
                 placeholder="Login in to edit your comments..."
-                className="form-control border-0 comment-panel-div"
+                className="form-control comment-panel-div"
               ></textarea>
             </div>
           )}
@@ -207,12 +206,12 @@ const CommentPanel = ({ pRating, setWatchlist }) => {
         </div>
       </div>
 
-      <div className={`row w-100 text-white m-0 p-0 mt-2`}>
-        <div className={`text-warning history-commen-title ps-1`}>
+      <div className={`row w-100  m-0 p-0 mt-2`}>
+        <div className={`h4 history-commen-title ps-1`}>
           History comments
         </div>
 
-        <div className={`history-comment bg-dark pt-2 ps-1`}>
+        <div className={`history-comment bg-white pt-2 ps-1`}>
           {comments.map((item, idx) => (
             <HistoryPanelItem key={item._id} comment={item} />
           ))}

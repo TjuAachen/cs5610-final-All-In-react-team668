@@ -10,7 +10,8 @@ height: 300px;
 }
 .comment-panel-container {
     height:600px;
-    background-color:  #1f1f1f;
+    background-color:  lightgrey;
+    border: 3px solid lightgrey
 }
 .react-rater {
   display: inline-flex;
@@ -96,6 +97,7 @@ color:gray;
 }
 .comment-panel-div {
     background-color: white !important;
+    border: 3px solid #555;
 }
 textarea[type="text"]:focus{
     border: 3px solid #555;

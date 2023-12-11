@@ -11,7 +11,7 @@ const WatchlistBanner = ({ watchlistUser, watchlist }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
-  const [watchlistName, setWatchlistName] = useState(watchlist.watchlistName);
+  const [watchlistName, setWatchlistName] = useState(watchlist.watchListName);
   const [watchlistDesc, setWatchlistDesc] = useState(watchlist.description);
  // const [watchlistUser, setWatchlistUser] = useState(watchlistUser)
   const [edit, setEdit] = useState(false);
@@ -89,7 +89,7 @@ const WatchlistBanner = ({ watchlistUser, watchlist }) => {
           )
         }
       >
-        {watchlistUser?watchlistUser.name:"Loading..."}
+        {watchlistUser?watchlistUser.userName:"Loading..."}
       </h5>
 
       {!edit && (

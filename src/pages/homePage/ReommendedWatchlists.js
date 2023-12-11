@@ -20,6 +20,8 @@ const RecommendWatchlists = () => {
         setWindowWidth(window.innerWidth);
     };
 
+    const cardSize = 320;
+
     useEffect(() => {
         window.addEventListener("resize", handleResize);
 
@@ -28,11 +30,8 @@ const RecommendWatchlists = () => {
             window.removeEventListener("resize", handleResize);
         };
     }, []);
-    let itemsCount = Math.floor(windowWidth / 250);
-   /* useEffect(() => {
-        dispatch(findCurrentUserThunk());
-        dispatch(findCurrentUserSongsThunk());
-    }, []);*/
+    let itemsCount = Math.floor(windowWidth / cardSize);
+    console.log(watchlists, "debug recommend watchlists")
     return (
         <div className={"m-2"}>
             <div

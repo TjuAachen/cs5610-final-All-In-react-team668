@@ -83,7 +83,7 @@
 .watchlist-cover-name-pos {
     right: 20px;
     bottom: 10px;
-    color: white;
+    color: black;
 }
 .watchlist-cover-name-pos:hover {
     color: orange;
