@@ -38,20 +38,21 @@ const WatchListDetail = () => {
   const [showUpgrade, setShowUpgrade] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  console.log(stocks,addedStocks, "debug watchlist addedStocks beginning")
   let showDelete;
-  if (!currentUser || currentUser._id !== watchlist.user) {
+  if (!currentUser || currentUser._id !== (watchlist? watchlist.user : "Unknown")) {
     showDelete = false;
   } else {
     showDelete = true;
   }
 
+  //console.log(stocks, addedStocks, "debug watchlist addedStocks")
 
   const handleUnLikeClick = async (stock) => {
     if (!currentUser) return;
     // update state in addedStock reducer
     dispatch(deleteAddedStock(stock.ticker));
-    if (currentUser._id === watchlist.user) {
+    if (currentUser._id === (watchlist? watchlist.user : "Unknown")) {
       // remove the stock from watchlist in UI
       setStocks((prev) =>
         prev.filter((s) => s.ticker !== stock.ticker)
@@ -63,7 +64,7 @@ const WatchListDetail = () => {
 
   const handleAddToWatchlist = async (wid, stock, setLike) => {
     if (!currentUser) return;
-    console.log("stockNumber", addedStocks.length);
+   // console.log("stockNumber", addedStocks.length);
     console.log(
       "STOCK_LIMITATION_FOR_REGULAR_USE",
       STOCK_LIMITATION_FOR_REGULAR_USER
@@ -84,7 +85,9 @@ const WatchListDetail = () => {
 
   const handleMoveWatchlist = async (wid, stock) => {
     // remove stock from current watchlist
+    console.log(stocks, stock,addedStocks, "debug watchlist addedStocks before")
     setStocks((prev) => prev.filter((s) => s.ticker !== stock.ticker));
+    //console.log(stocks, stock,addedStocks, "debug watchlist addedStocks after")
     await updateStockWatchlist({
       userId: currentUser._id,
       ticker: stock.ticker,
@@ -94,7 +97,7 @@ const WatchListDetail = () => {
 
   const fetchLoginUserWatchlists = async (uid) => {
     let myWatchlists = await findWatchlists(uid);
-    myWatchlists = myWatchlists.filter((p) => p._id !== watchlist._id);
+    myWatchlists = myWatchlists.filter((p) => p._id !== (watchlist? watchlist._id : "Unknown"));
     setWatchlistsOption(myWatchlists);
     // find how many stocks current user likes
     const stockNumbersOfLoginUser = await findStockNumberByUserId(uid);
@@ -103,7 +106,7 @@ const WatchListDetail = () => {
 
   const fetchUserInfo = async (uid) => {
     let author = await findUser(uid);
-    console.log(author, "debug author in watchlist detail")
+   // console.log(author, "debug author in watchlist detail")
     setWatchlistAuthor(author)
   }
 
@@ -114,13 +117,16 @@ const WatchListDetail = () => {
   };
   useEffect(() => {
     // fetch all stocks in current watchlist
-    fetchStocksInWatchlist(watchlist._id);
+    fetchStocksInWatchlist(wid);
+    if (!watchlist) {
+      return
+    }
     if (watchlist.user._id) {
     fetchUserInfo(watchlist.user._id)}
-    else {
+    else if (watchlist){
       fetchUserInfo(watchlist.user)
     }
-  }, [watchlist._id]);
+  }, [wid]);
 
   useEffect(() => {
     if (currentUser) {
@@ -135,7 +141,7 @@ const WatchListDetail = () => {
           <h4
             className={` position-absolute watchlist-rating d-none d-xl-flex`}
           >
-            {Math.round(watchlist.rating * 10) / 10}{" "}
+            {Math.round(watchlist? watchlist.rating * 10 : 0) / 10}{" "}
             <AiFillStar size={30} className={`text-warning`} />
           </h4>
           <h4
@@ -181,7 +187,7 @@ const WatchListDetail = () => {
                   <h5 className={`fw-fold `}>Ticker</h5>
                 </div>
                 <div
-                  className={`col-2 text-muted ps-0`}
+                  className={`col-2 text-muted ps-0 d-none d-xl-flex`}
                 >
                   <h5 className={`fw-fold  `}>Name</h5>
                 </div>
@@ -212,14 +218,14 @@ const WatchListDetail = () => {
                   ((currentUser && stocksNumber !== null) || !currentUser) &&
                   stocks.map((item, idx) => (
                     <WatchlistDetailItem
-                      key={item._id + watchlist._id}
+                      key={item._id + wid}
                       stock={item.stockId}
                       isLike={
                         addedStocks.filter(
-                          (val, id) => val.ticker === item.ticker
+                          (val, id) => val === item.ticker
                         ).length > 0
                       }
-                      isSelf={currentUser && currentUser._id === watchlist.user}
+                      isSelf={currentUser && currentUser._id === watchlist? watchlist.user : "unknown"}
                       watchlistsOption={watchlistsOption}
                       handleUnLikeClick={handleUnLikeClick}
                       handleAddToWatchlist={handleAddToWatchlist}
@@ -232,7 +238,7 @@ const WatchListDetail = () => {
               className={`col comment-panel-container me-3 rounded-3 p-0 `}
             >
               <CommentPanel
-                pRating={watchlist.rating}
+                pRating={watchlist? watchlist.rating : 0}
                 setWatchlist={setWatchlist}
                     />
             </div>
