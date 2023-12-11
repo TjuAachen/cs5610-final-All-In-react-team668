@@ -19,7 +19,7 @@ const AdminUsers = () => {
   const [formData, setFormData] = useState({
     userName: "",
     email: "",
-    gender: "",
+    typeOfInvestor: "",
     isAdmin: false,
     isVip: false,
     isDeleted: false,
@@ -71,7 +71,7 @@ const AdminUsers = () => {
         name === "isAdmin" || name === "isVip" ? Boolean(newValue) : newValue,
     });
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("on submit", formData);
@@ -86,7 +86,7 @@ const AdminUsers = () => {
       setFormData({
         userName: "",
         email: "",
-        gender: "",
+        typeOfInvestor: "",
         isAdmin: false,
         isVip: false,
         isDeleted: false,
@@ -101,7 +101,7 @@ const AdminUsers = () => {
     setFormData({
       userName: user.userName,
       email: user.email,
-      gender: user.gender,
+      typeOfInvestor: user.typeOfInvestor,
       isAdmin: user.isAdmin,
       isVip: user.isVip,
       isDeleted: user.isDeleted,
@@ -128,7 +128,7 @@ const AdminUsers = () => {
     setFormData({
       userName: "",
       email: "",
-      gender: "",
+      typeOfInvestor: "",
       isAdmin: false,
       isVip: false,
       isDeleted: false,
@@ -143,7 +143,7 @@ const AdminUsers = () => {
             <th className="d-none d-lg-table-cell">ID</th>
             <th>userName</th>
             <th className="d-none d-lg-table-cell">email</th>
-            <th className="d-none d-md-table-cell">gender</th>
+            <th className="d-none d-md-table-cell">typeOfInvestor</th>
             <th>isAdmin</th>
             <th>isVip</th>
             <th>isDeleted</th>
@@ -155,7 +155,7 @@ const AdminUsers = () => {
               <td className="d-none d-lg-table-cell">{user._id}</td>
               <td>{user.userName}</td>
               <td className="d-none d-lg-table-cell">{user.email}</td>
-              <td className="d-none d-md-table-cell">{user.gender}</td>
+              <td className="d-none d-md-table-cell">{user.typeOfInvestor}</td>
               <td>{user.isAdmin ? "Yes" : "No"}</td>
               <td>{user.isVip ? "Yes" : "No"}</td>
               <td>{user.isDeleted ? "Yes" : "No"}</td>
@@ -205,24 +205,19 @@ const AdminUsers = () => {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="gender">Gender:</label>
+                <label htmlFor="typeOfInvestor">Experience:</label>
                 <select
-                  name="gender"
-                  id="gender"
+                  name="typeOfInvestor"
+                  id="typeOfInvestor"
                   className="form-control"
-                  value={formData.gender}
+                  value={formData.typeOfInvestor}
                   onChange={handleChange}
                 >
-                  <option value="">Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="non-binary">Non-Binary</option>
+                  <option value="">Select experience</option>
+                  <option value="newbie">newbie</option>
+                  <option value="experienced">experienced</option>
                 </select>
               </div> 
-              <div className="form-group">
-                 <label htmlFor="gender">gender:</label>
-                 <input type="text" name="gender" id="gender" className="form-control" value={formData.gender} onChange={handleChange} />
-              </div>
                 <div className="form-group">
                 <label htmlFor="isAdmin">isAdmin:</label>
                 <input

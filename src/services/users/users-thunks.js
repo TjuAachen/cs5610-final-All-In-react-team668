@@ -35,8 +35,8 @@ export const updateUserThunk = createAsyncThunk(
 export const updateUserNonAdminThunk = createAsyncThunk(
   "users/update",
   async (user) => {
-    await updateUserNonAdmin(user);
-    return user;
+    const newUser = await updateUserNonAdmin(user);
+    return newUser;
   }
 );
 

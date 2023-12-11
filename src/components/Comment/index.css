@@ -1,0 +1,11 @@
+.comment-delete-icon {
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    cursor: pointer; /* Change cursor to indicate clickable */
+  }
+
+  .mt-2.border-width {
+    position: relative; /* Add this */
+    padding: 20px; /* Add padding to prevent overlap with the icon */
+  }

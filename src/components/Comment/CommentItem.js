@@ -64,11 +64,11 @@ const CommentItem = ({ comment, handleDelete, visitPlaylist }) => {
         </div>
         <hr className={"text-muted"} />
       </div>
-      {/* <RiDeleteBinFill
+      <RiDeleteBinFill
         size={25}
-        className={`d-inline position-absolute comment-delete-icon p-0`}
+        className="comment-delete-icon"
         onClick={() => handleDelete(comment)}
-      /> */}
+      />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import "./index.css";
+import "./index.css";
 import CommentItem from "./CommentItem";
 import { useNavigate, useParams } from "react-router";
 import {

@@ -17,6 +17,7 @@ export const findCurrentUser = async () => {
 
 export const updateUserNonAdmin = async (user) => {
   const response = await axios.put(`${USER_API}/${user._id}`, user);
+  console.log(" in updateUserNonAdmin", response.data);
   return response.data;
 };
 

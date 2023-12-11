@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import "./index.css";
 import { useParams, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-// import { updateUserNonAdminThunk } from "../../services/users/users-thunks";
+import { updateUserNonAdminThunk } from "../../services/users/users-thunks";
 import { findFolloweeIds } from "../../services/follow-service";
 import { updateFolloweeThunk } from "../../services/thunks/followee-thunk";
 import { updateProfile } from "../../reducers/profile-reducer";
-import { MdAddAPhoto } from "react-icons/md";
 import profileAvatar from "../../images/profile-avatar.jpeg";
+import PremiumUserAvatar from "../../images/user-crown.png"
 // import FollowUserGuest from "./FollowUserGuest";
 // import {
 //   ref,
@@ -28,7 +28,6 @@ const ProfileBanner = () => {
   const [show, setShow] = useState(false);
   const target = useRef(null);
   let { currentProfile } = useSelector((state) => state.profile);
-  console.log("currentProfile", currentProfile);
   const { currentUser } = useSelector((state) => state.user);
   if (!currentProfile) {
     currentProfile = { email: null, img: null };
@@ -39,7 +38,6 @@ const ProfileBanner = () => {
   );
   const [url, setUrl] = useState(currentUser ? currentUser.img : profileAvatar);
 
-  const [avatarFile, setAvatarFile] = useState(null);
 
   const checkIsFollow = async (loginUser, targetUser) => {
     const res = await findFolloweeIds(loginUser);
@@ -63,45 +61,6 @@ const ProfileBanner = () => {
     );
   };
 
-  //   const handleUploadFirebase = (file) => {
-  //     if (!file) {
-  //       return;
-  //     }
-  //     removeImageFromFirebase(currentProfile.img, defaultFile);
-  //     const storageRef = ref(
-  //       storage,
-  //       `/files/${file.name + currentUser._id + "profile"}`
-  //     );
-  //     // progress can be paused and resumed. It also exposes progress updates.
-  //     // Receives the storage reference and the file to upload.
-  //     const uploadTask = uploadBytesResumable(storageRef, file);
-
-  //     uploadTask.on(
-  //       "state_changed",
-  //       (snapshot) => {
-  //         const percent = Math.round(
-  //           (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-  //         );
-  //       },
-  //       (err) => console.log(err),
-  //       () => {
-  //         // download url
-  //         getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-  //           setUrl(url);
-  //           dispatch(
-  //             updateUserNonAdminThunk({
-  //               ...currentUser,
-  //               _id: currentUser._id,
-  //               email: email === "" ? currentUser.email : email,
-  //               cellphone: phone === "" ? currentUser.cellphone : phone,
-  //               img: url,
-  //             })
-  //           );
-  //         });
-  //       }
-  //     );
-  //   };
-
   const handleSubmit = () => {
     let newEmail = email;
     let newPhone = phone;
@@ -121,30 +80,11 @@ const ProfileBanner = () => {
       img: url,
     };
     dispatch(updateProfile(newProfile));
-    // update profile into firebase
-    // if (url !== currentProfile.img) {
-    //   handleUploadFirebase(avatarFile);
-    // } else {
-    //   dispatch(updateUserNonAdminThunk(newProfile));
+
+    dispatch(updateUserNonAdminThunk(newProfile));
     // }
 
     setIsEdit(false);
-  };
-
-  const hiddenFileInput = React.useRef(null);
-
-  const handleImgClick = (event) => {
-    hiddenFileInput.current.click();
-  };
-
-  const handleImgChange = (event) => {
-    event.preventDefault();
-    if (event.target.files.length === 0) {
-      return;
-    }
-    const newUrl = URL.createObjectURL(event.target.files[0]);
-    setUrl(newUrl);
-    setAvatarFile(event.target.files[0]);
   };
 
   const handleCancel = () => {
@@ -166,7 +106,17 @@ const ProfileBanner = () => {
     <div className="banner-container">
       {currentProfile && (
         <div className="profile-section">
-          {(uid || currentUser) && (
+          {(uid || currentUser) && currentUser.isVip && (
+            <>
+              <img
+                src={PremiumUserAvatar}
+                alt="Profile Avatar"
+                className="avatar"
+              />
+              <h5 className="username">{currentProfile.userName}</h5>
+            </>
+          )}
+            {(uid || currentUser) && (!currentUser.isVip) && (
             <>
               <img
                 src={profileAvatar}
@@ -209,19 +159,6 @@ const ProfileBanner = () => {
                       onChange={(e) => setPhone(e.target.value)}
                     />
                   </div>
-                  <div className="avatar-cover"></div>
-                  <MdAddAPhoto
-                    className="avatar-icon"
-                    size={30}
-                    onClick={handleImgClick}
-                  />
-                  <input
-                    id="upload-banner"
-                    type="file"
-                    ref={hiddenFileInput}
-                    onChange={handleImgChange}
-                    className="file-upload"
-                  />
                   <button
                     className="btn btn-save fw-bold"
                     onClick={() => handleSubmit()}
