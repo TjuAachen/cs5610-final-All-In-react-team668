@@ -3,7 +3,7 @@
     padding-bottom: 6px;
   }
 
-  @media (max-width: 850px) {
+  @media (max-width: 1010px) {
     .btn {
       padding-left: 6px;
       padding-right: 6px;
@@ -14,7 +14,7 @@
     }
   }
   
-  @media (min-width: 851px)  {
+  @media (min-width: 1011px)  {
     .btn {
       padding-left: 48px;
       padding-right: 48px;

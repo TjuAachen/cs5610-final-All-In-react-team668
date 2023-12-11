@@ -99,7 +99,7 @@ const PortfolioPage = () => {
 
     return (
         <>
-            <div className='heading'>
+            <div className='h1'>
                 My Portfolio
             </div>
             {!loaded ? (

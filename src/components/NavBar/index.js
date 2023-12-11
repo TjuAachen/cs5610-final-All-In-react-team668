@@ -32,15 +32,15 @@ function NavBar() {
       <div className="header_logo">
         <img src={Logo} width={45} />
         <div className="header_menuItems">
-        <Link to="/">
-          <a href="/">Home</a>
-        </Link>
-        <Link to="/search" onClick={() => dispatch(cleanSearchReducer())}>
-          <a href="/search">Search</a>
-        </Link>
-        <Link to="/about">
-          <a href="/about">About</a>
-        </Link>
+          <Link to="/">
+            <a href="/">Home</a>
+          </Link>
+          <Link to="/search" onClick={() => dispatch(cleanSearchReducer())}>
+            <a href="/search">Search</a>
+          </Link>
+          <Link to="/about">
+            <a href="/about">About</a>
+          </Link>
         </div>
       </div>
 
@@ -68,37 +68,37 @@ function NavBar() {
 
       {login && (
         <div className="d-flex">
-          {currentUser && (
-            <h5 className="text-success fw-bold text-nowrap m-0 pt-2">
-              Hi
-              <span className="header_menuItems"
-              onClick={() => {
-                navigate(`/profile`);
-              }}
-            >
-              {currentUser.userName}
-            </span>
-            <span className="header_menuItems"
-              onClick={() => {
-                navigate(`/portfolio/${currentUser._id}`);
-              }}
-            >
-              Portfolio
-            </span>
-            </h5>
+          {loginUser && (
+            <div className="header_wrapper">
+              <div className="header_menuItems">
+
+                <Link to="/profile">
+                  <a href="/profile">
+                    Hi {loginUser.userName}
+                  </a>
+                </Link>
+                <Link to={`/portfolio/${loginUser._id}`}>
+                  <a href={`/portfolio/${loginUser._id}`}>
+                    Portfolio
+                  </a>
+                </Link>
+                <Link to="/login" className="text-muted pt-2 navbar-text mx-3" onClick={() => {
+                  dispatch(logoutThunk());
+                  dispatch(cleanSearchReducer());
+                  navigate("/login");
+                }}>
+                  <PilledButton
+                    buttonText="Log out"
+                    textColor="text-white"
+                    backgroundColor="btn-danger"
+                  />
+
+                </Link>
+              </div>
+            </div>
           )}
 
-          <Link to="/login" className="text-muted pt-2 navbar-text mx-3">
-            <span
-              onClick={() => {
-                dispatch(logoutThunk());
-                dispatch(cleanSearchReducer());
-                navigate("/login");
-              }}
-            >
-              Logout
-            </span>
-          </Link>
+
         </div>
       )}
     </div>

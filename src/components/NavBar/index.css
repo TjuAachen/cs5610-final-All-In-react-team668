@@ -14,13 +14,13 @@
   }
 
 
-  @media (max-width: 850px){
+  @media (max-width: 1010px){
   .header_menuItems {
     margin-right: 48px;
   }
 }
 
-@media (max-width: 850px){
+@media (max-width: 1011px){
   .header_menuItems {
     margin-right: 0px;
   }
@@ -33,12 +33,15 @@
   }
 }
 
-@media (min-width: 851px){
+@media (min-width: 1011px){
   .header_menuItems a {
     font-weight: bold;
     color: black;
     text-decoration: none;
     padding: 0 20px;
+  }
+  span.header_menuItems {
+    margin-right: 10px;
   }
 }
   .header_menuItems a:hover,

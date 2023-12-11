@@ -53,12 +53,13 @@ const HighlightBanner = ({ ticker, summary }) => {
   }
   const openModal = () => {
     // Logic to open modal for buy or sell action
-   // console.log(`Opening ${action} modal for stock:`, stock);
+   
    if (currentUser) {
     setShowModal(true);
    }else {
     setShow(true);
    }
+   console.log(`Opening  modal for stock buy`, showModal);
    // setStock(stock);
     //setQuantity(stock.shares)
   };
@@ -87,15 +88,19 @@ const HighlightBanner = ({ ticker, summary }) => {
         date: currentDate,
         volume: summary.volume
       })
+      console.log(stock, "debug portfolio stock")
     }
     fecthDataBefore();
 
   }, [ticker]);
 
   useEffect(() => {
+    dispatch(findCurrentUserStocksThunk());
+  })
+
+  useEffect(() => {
     if (currentUser) {
       const fetchData = async () => {
-        dispatch(findCurrentUserStocksThunk());
         await fetchLoginUserWatchlists(currentUser._id);
         isAddedByUser();
       }
@@ -270,7 +275,7 @@ const HighlightBanner = ({ ticker, summary }) => {
 
               {/* Modal */}
               {
-                showModal && (<div className="modal" id="content" tabIndex="-1" role="dialog">
+                showModal && (<div className={`modal ${showModal ? 'd-block' : ''}`} id="content" tabIndex="-1" role="dialog">
                   <div className="modal-header">
                     <p className="modal-title" id="modal-basic-title">{highlights.ticker}</p>
                     <button
