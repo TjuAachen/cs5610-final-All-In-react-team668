@@ -23,19 +23,20 @@ const PortfolioPage = () => {
         const fetchData = async () => {
             try {
                 // Simulated API call or data loading process
-                await new Promise((resolve) => setTimeout(resolve, 2500)); // Simulate 2 seconds loading
+              //  await new Promise((resolve) => setTimeout(resolve, 2500)); // Simulate 2 seconds loading
                 // Set loaded to true and update portfolio with data
-                setLoaded(true);
+                
                 // update stocks in portfolio
                 await updatePortfolioPriceByUser(uid);
                 // Example portfolio data structure, modify as needed
                 await findPortfolioByUser().then((data) => {
                     setPortfolio(data)
-                    console.log("debug portfolio page", data)
+                //   console.log("debug portfolio page", data)
                 });
-                
+                setLoaded(true);
             } catch (error) {
                 console.error('Error loading data:', error);
+                setLoaded(true);
             }
         };
 

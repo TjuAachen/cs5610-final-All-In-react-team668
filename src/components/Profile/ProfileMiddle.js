@@ -14,7 +14,7 @@ const ProfileMiddle = ({ isSelf, isLogin }) => {
   const { uid } = useParams();
   const [comments, setComments] = useState([]);
   const { currentUser } = useSelector((state) => state.user);
-  console.log("currentUser in profileMiddle", currentUser);
+  //console.log("debug comments in profile", comments);
   const findComments = async (id) => {
     const data = await findCommentService(id);
     setComments(data);
