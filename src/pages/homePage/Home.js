@@ -14,7 +14,7 @@ function Home() {
     useEffect(() => {
         dispatch(findCurrentUserThunk());
         dispatch(findCurrentUserStocksThunk());
-    }, [currentUser._id]);
+    }, []);
 
 
     return (
