@@ -13,6 +13,13 @@ export const createWatchlist = async (obj) => {
 
 export const findWatchlists = async (userId) => {
   const response = await axios.get(`${WATCHLIST_API}/${userId}`);
+  // console.log("see watchlist response", response.data[0]);
+  for (var i = 0; i <= response.data.length; i++) {
+    let watchlistData = response.data[i];
+    if (watchlistData) {
+      localStorage.setItem(watchlistData._id, JSON.stringify(watchlistData));
+    }
+  }
   const watchlists = response.data;
   return watchlists;
 };
