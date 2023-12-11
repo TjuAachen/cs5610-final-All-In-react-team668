@@ -111,3 +111,10 @@
     max-width: 450px;
     height: fit-content;
   }
+
+  .upgrade-in-watchlist-div {
+    left:30px !important;
+    z-index: 2 !important;
+    top:200px !important;
+    max-width: 300px;
+}

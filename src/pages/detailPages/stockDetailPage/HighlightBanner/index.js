@@ -129,7 +129,7 @@ const HighlightBanner = ({ ticker, summary }) => {
       !currentUser.isVip &&
       addedStocks.length >= STOCK_LIMITATION_FOR_REGULAR_USER
     ) {
-      setShowUpgrade(true);
+          setShowUpgrade(true);
       return;
     }
     setLike(true);
@@ -155,10 +155,10 @@ const HighlightBanner = ({ ticker, summary }) => {
           {showUpgrade && (
             <>
               <div
-                className={`col text-white position-absolute upgrade-in-watchlist-div p-3 rounded-3 bg-primary fw-bold`}
+                className={`col  position-absolute upgrade-in-watchlist-div p-3 rounded-3 bg-primary fw-bold`}
               >
                 Enjoy your Premium Journey!
-                <div className={`text-white upgrade-text`}>
+                <div className={` upgrade-text`}>
                   Upgrade your account to add more stocks.
                 </div>
                 <div
@@ -214,7 +214,7 @@ const HighlightBanner = ({ ticker, summary }) => {
                           </div>
                           {show && (
                             <div className={`like-toolkit-div position-absolute rounded-3`}>
-                              <h5 className={`text-white fw-bold mt-2 p-1`}>
+                              <h5 className={` fw-bold mt-2 p-1`}>
                                 Enjoy your Investment!
                               </h5>
                               <div
