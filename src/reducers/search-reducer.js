@@ -6,7 +6,8 @@ const searchSlice = createSlice({
         // refreshing or navigating back to the search screen remembers the result.
         searchKeyword: "",
         searchResults: [],
-        searchType: "cloud-stock"
+        searchType: "cloud-stock",
+        searchError: ""
     },
     reducers: {
         updateSearchKeyword(state, action) {
@@ -15,19 +16,24 @@ const searchSlice = createSlice({
         },
         updateSearchResults(state, action) {
             state.searchResults = action.payload;
+            state.searchError = ""
             localStorage.setItem("searchResults", JSON.stringify(action.payload));
         },
         updateSearchType(state, action) {
             state.searchType = action.payload;
             localStorage.setItem("searchType", action.payload);
         },
+        updateSearchError(state, action) {
+            state.searchError = action.payload;
+        },
         cleanSearchReducer(state, action) {
             state.searchKeyword = "";
+            state.searchError = "";
             state.searchResults = [];
             state.searchType = "cloud-stock";
         },
     }
 });
 
-export const {updateSearchKeyword, updateSearchResults, cleanSearchReducer, updateSearchType} = searchSlice.actions;
+export const {updateSearchKeyword, updateSearchResults, cleanSearchReducer, updateSearchType, updateSearchError} = searchSlice.actions;
 export default searchSlice.reducer;

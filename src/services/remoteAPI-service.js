@@ -72,8 +72,12 @@ export const getCloudStock = async (keyword) => {
         return results;
     } catch (error) {
         // Handle errors here
+        console.log("debug get cloud stock: before", error)
+        if (error.response && error.response.status === 429) {
+            throw new Error("429 Error: Too many requests")
+        }
         console.error('Error in getCloudStock:', error);
-        return [];
+        throw new Error("Internal server error 501");
     }
 };
 

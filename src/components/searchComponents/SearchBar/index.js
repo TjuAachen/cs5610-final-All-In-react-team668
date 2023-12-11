@@ -3,6 +3,7 @@ import './index.css'; // Import your CSS file here
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import {
+    updateSearchError,
     cleanSearchReducer,
     updateSearchKeyword,
     updateSearchResults, updateSearchType,
@@ -64,24 +65,32 @@ function SearchBox() {
     const search = async (event) => {
         event.preventDefault();
         let response = [];
-        dispatch(updateSearchKeyword(inputValue))
+        dispatch(updateSearchKeyword(inputValue));
+
+        try {
         switch (selectedOption) {
             case 'cloud-stock':
-                response = await getCloudStock(inputValue)
-               // console.log(response, "debug searchKeyword")
+                response = await getCloudStock(inputValue);
                 dispatch(updateSearchResults(response));
                 break;
             case 'watchlist':
-                response = await searchLocalWatchlists(inputValue)
+                response = await searchLocalWatchlists(inputValue);
                 dispatch(updateSearchResults(response));
                 break;           
             case 'local-stock':
-                response = await searchLocalStocks(inputValue)
+                response = await searchLocalStocks(inputValue);
                 dispatch(updateSearchResults(response));
                 break;
         }
-        navigate(`/search/${searchKeyword}`)
+        navigate(`/search/${searchKeyword}`);
+    }catch (error) {
+        console.error('Error in searchBar:', error.message);
+        dispatch(updateSearchError(error.message));
+    }
+    
     };
+    
+    
 
 
     return (
