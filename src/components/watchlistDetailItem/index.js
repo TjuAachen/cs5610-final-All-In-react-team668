@@ -35,7 +35,7 @@ const WatchlistDetailItem = ({
                         {stock.ticker ? stock.ticker : "Unknown"}
                     </h5>
                 </div>
-                <div className={`col-2 text-muted d-flex align-items-center p-0`}>
+                <div className={`text-muted p-0 d-none d-xl-flex col-2 d-flex align-items-center`}>
                     <h5
                         className={` fw-fold d-inline overflow-hidden-format watchlist-detail-artist text-nowrap mb-0`}
                     >
@@ -154,7 +154,7 @@ const WatchlistDetailItem = ({
                                 {watchlistsOption.map((p) => (
                                     <Dropdown.Item
                                         onClick={() => {
-                                            handleMoveWatchlist(p._id, stock._id);
+                                            handleMoveWatchlist(p._id, stock);
                                         }}
                                     >
                                         Move to {p.watchListName}

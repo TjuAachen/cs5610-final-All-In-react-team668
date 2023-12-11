@@ -53,11 +53,12 @@ const WatchList = ({ isSelf, setComments }) => {
       img: "/images/watchlist-cover.jpeg",
       rating: 0,
     };
-    console.log("add watch list, waiting createWatchlist")
+    //console.log("add watch list, waiting createWatchlist")
     const response = await createWatchlist({
       watchlist: newWatchlist,
       cnt: curWatchlist + 1,
     });
+    localStorage.setItem(response._id, JSON.stringify(response))
     setWatchlists((prev) => [...prev, response]);
   };
 
@@ -80,6 +81,7 @@ const WatchList = ({ isSelf, setComments }) => {
       })
     );
     // update comments of user
+    console.log("debug commented watchlist", watchlist)
     setComments((prev) => prev.filter((p) => p.watchlist !== watchlist._id));
   };
 
