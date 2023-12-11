@@ -9,6 +9,8 @@ import {
 import { useSelector } from "react-redux";
 
 const Comment = ({ comments, setComments }) => {
+  console.log("comment", comments);
+
   const { uid } = useParams();
   const { currentUser } = useSelector((state) => state.user);
   const loginId = currentUser ? currentUser._id : null;

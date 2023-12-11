@@ -4,8 +4,9 @@ import { AiOutlineEllipsis } from "react-icons/ai";
 import { RiDeleteBinFill } from "react-icons/ri";
 import StarRatings from "react-star-ratings";
 import profileAvatar from "../../images/profile-avatar.jpeg";
+import PremiumUserAvatar from "../../images/user-crown.png"
 
-const CommentItem = ({ comment, handleDelete, visitPlaylist }) => {
+const CommentItem = ({ comment, handleDelete, visitWatchlist }) => {
   const [showMore, toggleShowMore] = useState(false);
   return (
     <div className={`mt-2 border-width position-relative p-0`}>
@@ -19,9 +20,9 @@ const CommentItem = ({ comment, handleDelete, visitPlaylist }) => {
             <div className={`text-black d-inline col-6`}>
               <div
                 className={`fw-bold visit-playlist text-nowrap`}
-                onClick={() => visitPlaylist(comment.playlist)}
+                onClick={() => visitWatchlist(comment.watchlist)}
               >
-                {comment.playListName}
+                {comment.watchListName}
               </div>
               <div className={`text-muted visit-playlist text-nowrap`}>
                 {comment.userName}

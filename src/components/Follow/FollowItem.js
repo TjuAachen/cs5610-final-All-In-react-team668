@@ -7,8 +7,11 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { MdRemoveCircle, MdAddCircle } from "react-icons/md";
 import Overlay from "react-bootstrap/Overlay";
 import profileAvatar from "../../images/profile-avatar.jpeg";
+import PremiumUserAvatar from "../../images/user-crown.png"
+
 
 const FollowItem = ({ follow, isFollow, handleFollow, isSelf, isLogin }) => {
+  console.log("followitem", follow)
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
   const [showName, setShowName] = useState(false);
@@ -32,19 +35,33 @@ const FollowItem = ({ follow, isFollow, handleFollow, isSelf, isLogin }) => {
       <div
         className={`ms-3 d-flex align-items-center justify-content-center position-relative`}
       >
-        <img
+        {follow.isVip ? (
+          <img
+          src={PremiumUserAvatar}
+          alt="Profile Avatar"
+          width={`50px`}
+          height={`50px`}
+          className={`rounded-pill ms-2`}
+          onClick={() => visitOtherProfile()}
+          onMouseOver={() => setShowName(true)}
+          onMouseOut={() => setShowName(false)}
+        />
+        ) : (
+          <img
           src={profileAvatar}
           alt="Profile Avatar"
-          width={`70px`}
-          height={`70px`}
+          width={`60px`}
+          height={`60px`}
           className={`rounded-pill`}
           onClick={() => visitOtherProfile()}
           onMouseOver={() => setShowName(true)}
           onMouseOut={() => setShowName(false)}
         />
-        {showName && (
-          <div className={`position-absolute name-hint`}>{follow.userName}</div>
         )}
+        
+        {/* {showName && (
+          <div className={`position-absolute`}>{follow.userName}</div>
+        )} */}
       </div>
       <div
         className={`ms-2 d-none d-xl-flex d-flex align-items-center`}
