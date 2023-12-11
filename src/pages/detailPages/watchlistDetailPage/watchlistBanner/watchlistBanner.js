@@ -11,8 +11,8 @@ const WatchlistBanner = ({ watchlistUser, watchlist }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
-  const [watchlistName, setWatchlistName] = useState(watchlist.watchListName);
-  const [watchlistDesc, setWatchlistDesc] = useState(watchlist.description);
+  const [watchlistName, setWatchlistName] = useState(watchlist? watchlist.watchListName : "Loading...");
+  const [watchlistDesc, setWatchlistDesc] = useState(watchlist? watchlist.description : "Loading...");
  // const [watchlistUser, setWatchlistUser] = useState(watchlistUser)
   const [edit, setEdit] = useState(false);
 
@@ -82,8 +82,8 @@ const WatchlistBanner = ({ watchlistUser, watchlist }) => {
         onClick={() =>
           navigate(
             `/profile${
-              !currentUser || watchlist.user !== currentUser._id
-                ? `/${watchlist.user}`
+              !currentUser || (watchlist? watchlist.user : "Unknown") !== currentUser._id
+                ? `/${(watchlist? watchlist.user : "Unknown")}`
                 : ``
             }`
           )
@@ -100,7 +100,7 @@ const WatchlistBanner = ({ watchlistUser, watchlist }) => {
             {watchlistName}
           </h1>
 
-          {currentUser && watchlist.user === currentUser._id && (
+          {currentUser && (watchlist? watchlist.user : "Unknown") === currentUser._id && (
             <button
               className={`btn btn-dark border border-warning position-absolute watchlist-edit-pos rounded-pill ps-3 pe-3 d-none d-lg-block`}
               onClick={() => handleEdit()}
