@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { AiFillStar } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import profileAvatar from "../../images/profile-avatar.jpeg";
+import PremiumUserAvatar from "../../images/user-crown.png"
 
 const HistoryPanelItem = ({ comment }) => {
   const navigate = useNavigate();

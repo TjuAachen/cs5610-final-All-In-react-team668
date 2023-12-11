@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 // import "./index.css";
 import { AiOutlineEllipsis } from "react-icons/ai";
 import { RiDeleteBinFill } from "react-icons/ri";
@@ -8,11 +9,13 @@ import PremiumUserAvatar from "../../images/user-crown.png"
 
 const CommentItem = ({ comment, handleDelete, visitWatchlist }) => {
   const [showMore, toggleShowMore] = useState(false);
+  const { currentUser } = useSelector((state) => state.user);
+
   return (
     <div className={`mt-2 border-width position-relative p-0`}>
       <div className={`row me-5`}>
         <div className={`col-1 d-flex justify-content-center ms-3`}>
-          <img src={profileAvatar} width={`50px`} height={`50px`} />
+          <img src={currentUser.isVip ? PremiumUserAvatar : profileAvatar} width={`50px`} height={`50px`} />
         </div>
 
         <div className={`text-white col`}>
