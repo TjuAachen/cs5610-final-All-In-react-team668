@@ -65,13 +65,17 @@ const HighlightBanner = ({ ticker, summary }) => {
   }
   const openModal = () => {
     // Logic to open modal for buy or sell action
+    console.log("debug buy stock in stock detail", currentUser)
 
-    if (currentUser) {
+
+    if (currentUser && currentUser.isVip) {
       setShowModal(true);
-    } else {
+    } else if (currentUser){
+      setShowUpgrade(true);
+    }else {
       setShow(true);
     }
-    console.log(`Opening  modal for stock buy`, showModal);
+  //  console.log(`Opening  modal for stock buy`, show, showModal);
     // setStock(stock);
     //setQuantity(stock.shares)
   };
