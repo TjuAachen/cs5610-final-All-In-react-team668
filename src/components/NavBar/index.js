@@ -41,6 +41,10 @@ function NavBar() {
           <Link to="/about">
             <a href="/about">About</a>
           </Link>
+          {(loginUser && loginUser.isAdmin) &&(
+          <Link to="/admin">
+            <a href="/admin">Admin</a>
+          </Link>)}
         </div>
       </div>
 
