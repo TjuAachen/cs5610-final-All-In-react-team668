@@ -49,10 +49,10 @@ const AdminUsers = () => {
     fetchData();
   }, [currentPage, usersPerPage]);
 
-  // useEffect(() => {
-  //   dispatch(findCurrentUserThunk());
-  //   // dispatch(findCurrentUserSongsThunk());
-  // }, []);
+  useEffect(() => {
+    dispatch(findCurrentUserThunk());
+    // dispatch(findCurrentUserSongsThunk());
+  }, []);
 
   // const handlePageChange = (page) => {
   //   setCurrentPage(page);
