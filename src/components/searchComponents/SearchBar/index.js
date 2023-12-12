@@ -107,7 +107,7 @@ function SearchBox() {
 
                     <div className={`categories ${isActive ? 'active' : ''}`}>
                         <p className="option" onClick={() => handleOptionClick('cloud-stock')}>cloud stock</p>
-                        <p className="option" onClick={() => handleOptionClick('local-stock')}>local stock</p>
+                        {/* <p className="option" onClick={() => handleOptionClick('local-stock')}>local stock</p> */}
                         <p className="option" onClick={() => handleOptionClick('watchlist')}>watchlist</p>
                     </div>
                 </div>

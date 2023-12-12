@@ -20,6 +20,7 @@ import "./watchlistDetail.css";
 import { STOCK_LIMITATION_FOR_REGULAR_USER } from "../../../constants/Constants.js";
 import { findUser } from "../../../services/user-service.js";
 import WatchlistBanner from "./watchlistBanner/watchlistBanner.js";
+import { findCurrentUserStocksThunk } from "../../../services/thunks/add-stock-thunk.js";
 
 // TODO : commentPanel
 const WatchListDetail = () => {
@@ -129,6 +130,10 @@ const WatchListDetail = () => {
   }, [wid]);
 
   useEffect(() => {
+    dispatch(findCurrentUserStocksThunk());
+  }, [])
+
+  useEffect(() => {
     if (currentUser) {
       fetchLoginUserWatchlists(currentUser._id);
     }
@@ -222,7 +227,7 @@ const WatchListDetail = () => {
                       stock={item.stockId}
                       isLike={
                         addedStocks.filter(
-                          (val, id) => val === item.ticker
+                          (val, id) => val === item.stockId.ticker
                         ).length > 0
                       }
                       isSelf={currentUser && currentUser._id === watchlist? watchlist.user : "unknown"}
