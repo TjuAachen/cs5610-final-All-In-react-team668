@@ -38,7 +38,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/:uid" element={<Profile />} />
             <Route path="/premium" element={<Premium />} />
-            <Route path="/admin/*" element={<Admin />} />
+            <Route path="/profile/admin/*" element={<Admin />} />
             <Route path="/search/*" element={<Search />} />
             <Route path="/details/watchlist/:wid" element={<WatchListDetail />} />
             <Route path="/details/:ticker" element={<StockDetail />} />
